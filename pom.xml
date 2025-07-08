@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.5.3</version>
+        <relativePath/>
+    </parent>
+    <groupId>club.hm.matrix</groupId>
+    <artifactId>matrix</artifactId>
+    <version>0.0.1</version>
+    <packaging>pom</packaging>
+    <name>matrix</name>
+    <description>matrix</description>
+    <url/>
+    <licenses>
+        <license/>
+    </licenses>
+    <developers>
+        <developer/>
+    </developers>
+    <modules>
+        <module>matrix-shared</module>
+         <module>matrix-gateway</module>
+        <module>matrix-auth</module>
+        <module>matrix-user</module>
+        <module>matrix-room</module>
+        <module>matrix-message</module>
+        <module>matrix-websocket</module>
+        <module>matrix-federation</module>
+    </modules>
+    <scm>
+        <connection/>
+        <developerConnection/>
+        <tag/>
+        <url/>
+    </scm>
+    <properties>
+        <java.version>21</java.version>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!-- Spring Boot版本 -->
+        <spring-boot.version>3.5.3</spring-boot.version>
+
+        <!-- 第三方依赖版本 -->
+        <lombok.version>1.18.38</lombok.version>
+        <r2dbc-postgresql.version>1.0.7.RELEASE</r2dbc-postgresql.version>
+        <flyway.version>11.10.1</flyway.version>
+    </properties>
+
+    <distributionManagement>
+        <repository>
+            <id>project-releases</id>
+            <url>http://s2.homemart.club:5200/repository/com.gruul.mall/</url>
+        </repository>
+        <snapshotRepository>
+            <id>project-snapshots</id>
+            <url>http://s2.homemart.club:5200/repository/com.gruul.mall/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <!-- 依赖管理 -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-shared</artifactId>
+                <version>0.0.1</version>
+                <type>pom</type>
+            </dependency>
+            <!-- 数据库相关 -->
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>r2dbc-postgresql</artifactId>
+                <version>${r2dbc-postgresql.version}</version>
+            </dependency>
+
+            <!-- 数据库迁移 -->
+            <dependency>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-core</artifactId>
+                <version>${flyway.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-database-postgresql</artifactId>
+                <version>${flyway.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>
