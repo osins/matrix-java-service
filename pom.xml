@@ -2,12 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.3</version>
-        <relativePath/>
-    </parent>
     <groupId>club.hm.matrix</groupId>
     <artifactId>matrix</artifactId>
     <version>0.0.1</version>
@@ -23,7 +17,7 @@
     </developers>
     <modules>
         <module>matrix-shared</module>
-         <module>matrix-gateway</module>
+        <module>matrix-gateway</module>
         <module>matrix-auth</module>
         <module>matrix-user</module>
         <module>matrix-room</module>
@@ -44,13 +38,50 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <!-- Spring Boot版本 -->
-        <spring-boot.version>3.5.3</spring-boot.version>
+        <spring-boot.version>3.5.4</spring-boot.version>
+        <spring-cloud.version>2025.0.0</spring-cloud.version>
+        <spring-cloud-alibaba.version>2023.0.3.3</spring-cloud-alibaba.version>
+
+        <spring-amqp.version>3.2.6</spring-amqp.version>
+        <spring-authorization-server.version>1.5.1</spring-authorization-server.version>
+        <spring-batch.version>5.2.2</spring-batch.version>
+        <spring-data-bom.version>2025.0.2</spring-data-bom.version>
+        <spring-framework.version>6.2.9</spring-framework.version>
+        <spring-graphql.version>1.4.1</spring-graphql.version>
+        <spring-hateoas.version>2.5.1</spring-hateoas.version>
+        <spring-integration.version>6.5.1</spring-integration.version>
+        <spring-kafka.version>3.3.8</spring-kafka.version>
+        <spring-ldap.version>3.3.2</spring-ldap.version>
+        <spring-pulsar.version>1.2.8</spring-pulsar.version>
+        <spring-restdocs.version>3.0.4</spring-restdocs.version>
+        <spring-retry.version>2.0.12</spring-retry.version>
+        <spring-security.version>6.5.2</spring-security.version>
+        <spring-session.version>3.5.1</spring-session.version>
+        <spring-ws.version>4.1.1</spring-ws.version>
 
         <!-- 第三方依赖版本 -->
         <lombok.version>1.18.38</lombok.version>
         <r2dbc-postgresql.version>1.0.7.RELEASE</r2dbc-postgresql.version>
         <flyway.version>11.10.1</flyway.version>
+
+        <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
+        <maven-assembly-plugin.version>3.7.1</maven-assembly-plugin.version>
+        <maven-clean-plugin.version>3.4.1</maven-clean-plugin.version>
+        <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
+        <maven-dependency-plugin.version>3.8.1</maven-dependency-plugin.version>
+        <maven-deploy-plugin.version>3.1.4</maven-deploy-plugin.version>
+        <maven-enforcer-plugin.version>3.5.0</maven-enforcer-plugin.version>
+        <maven-failsafe-plugin.version>3.5.3</maven-failsafe-plugin.version>
+        <maven-help-plugin.version>3.5.1</maven-help-plugin.version>
+        <maven-install-plugin.version>3.1.4</maven-install-plugin.version>
+        <maven-invoker-plugin.version>3.9.1</maven-invoker-plugin.version>
+        <maven-jar-plugin.version>3.4.2</maven-jar-plugin.version>
+        <maven-javadoc-plugin.version>3.11.2</maven-javadoc-plugin.version>
+        <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
+        <maven-shade-plugin.version>3.6.0</maven-shade-plugin.version>
+        <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
+        <maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
+        <maven-war-plugin.version>3.4.0</maven-war-plugin.version>
     </properties>
 
     <distributionManagement>
@@ -67,11 +98,43 @@
     <!-- 依赖管理 -->
     <dependencyManagement>
         <dependencies>
+            <!-- 重要：导入 Spring Boot BOM，管理版本 -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Spring Cloud依赖管理 -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Spring Cloud Alibaba依赖管理 -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-kafka</artifactId>
+                <version>${spring-kafka.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>club.hm.matrix</groupId>
                 <artifactId>matrix-shared</artifactId>
                 <version>0.0.1</version>
-                <type>pom</type>
             </dependency>
             <!-- 数据库相关 -->
             <dependency>
@@ -95,7 +158,35 @@
                 <groupId>org.springframework.kafka</groupId>
                 <artifactId>spring-kafka</artifactId>
             </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.38</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <!-- 插件管理 -->
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${maven-resources-plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 
 </project>

@@ -11,10 +11,14 @@
     </parent>
 
     <artifactId>matrix-user</artifactId>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
     <name>matrix-user</name>
     <description>Matrix协议用户服务</description>
+    <modules>
+        <module>matrix-user-api</module>
+        <module>matrix-user-data</module>
+    </modules>
 
     <dependencies>
         <!-- Spring Boot基础依赖 -->
@@ -45,12 +49,6 @@
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>
-
-        <!-- 共享模块 -->
-        <dependency>
-            <groupId>club.hm.matrix</groupId>
-            <artifactId>matrix-shared</artifactId>
         </dependency>
     </dependencies>
 

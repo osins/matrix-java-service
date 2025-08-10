@@ -8,9 +8,10 @@
         <outputRelativeToContentRoot value="true" />
         <module name="matrix-gateway" />
         <module name="matrix-message" />
-        <module name="matrix-user" />
+        <module name="matrix-user-data" />
         <module name="matrix-room" />
         <module name="matrix-websocket" />
+        <module name="matrix-user-api" />
         <module name="matrix-auth" />
         <module name="matrix-federation" />
       </profile>
@@ -19,7 +20,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-configuration-processor/3.5.3/spring-boot-configuration-processor-3.5.3.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-configuration-processor/3.5.4/spring-boot-configuration-processor-3.5.4.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
         </processorPath>
         <module name="matrix-shared-data" />
@@ -28,14 +29,14 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="matrix-auth" options="-parameters" />
-      <module name="matrix-federation" options="-parameters" />
-      <module name="matrix-gateway" options="-parameters" />
-      <module name="matrix-message" options="-parameters" />
-      <module name="matrix-room" options="-parameters" />
-      <module name="matrix-shared-data" options="-parameters" />
-      <module name="matrix-user" options="-parameters" />
-      <module name="matrix-websocket" options="-parameters" />
+      <module name="matrix-auth" options="" />
+      <module name="matrix-federation" options="" />
+      <module name="matrix-gateway" options="" />
+      <module name="matrix-message" options="" />
+      <module name="matrix-room" options="" />
+      <module name="matrix-shared-data" options="" />
+      <module name="matrix-user" options="" />
+      <module name="matrix-websocket" options="" />
     </option>
   </component>
 </project>

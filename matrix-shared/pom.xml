@@ -11,8 +11,9 @@
     </parent>
 
     <artifactId>matrix-shared</artifactId>
+    <version>0.0.1</version>
+
     <modules>
         <module>matrix-shared-data</module>
     </modules>
-
 </project>

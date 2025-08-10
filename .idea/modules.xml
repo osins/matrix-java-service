@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/matrix-auth/matrix-auth.iml" filepath="$PROJECT_DIR$/matrix-auth/matrix-auth.iml" />
+      <module fileurl="file://$PROJECT_DIR$/matrix-user-data.iml" filepath="$PROJECT_DIR$/matrix-user-data.iml" />
     </modules>
   </component>
 </project>

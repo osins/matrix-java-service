@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>matrix-gateway</artifactId>
+    <version>0.0.1</version>
     <packaging>jar</packaging>
 
     <name>matrix-gateway</name>
@@ -33,12 +34,6 @@
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>
-
-        <!-- 共享模块 -->
-        <dependency>
-            <groupId>club.hm.matrix</groupId>
-            <artifactId>matrix-shared</artifactId>
         </dependency>
     </dependencies>
 
