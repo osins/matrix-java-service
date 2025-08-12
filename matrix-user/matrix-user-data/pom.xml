@@ -10,6 +10,7 @@
     </parent>
 
     <artifactId>matrix-user-data</artifactId>
+    <version>0.0.1</version>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
@@ -19,14 +20,17 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-        <dependency>
             <groupId>club.hm.matrix</groupId>
             <artifactId>matrix-shared-data</artifactId>
             <version>0.0.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>club.hm.matrix</groupId>
+            <artifactId>matrix-shared-test</artifactId>
+            <version>0.0.1</version>
             <type>pom</type>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

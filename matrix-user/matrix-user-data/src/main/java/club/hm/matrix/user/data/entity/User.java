@@ -1,12 +1,20 @@
 package club.hm.matrix.user.data.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 import java.time.LocalDateTime;
 
 @Data
+@Builder
 @Table("matrix_user")
+@Accessors(chain = true)
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
     @Id
     private Long id;

@@ -15,5 +15,8 @@
 
     <modules>
         <module>matrix-shared-data</module>
+        <module>matrix-shared-test</module>
+        <module>matrix-shared-common</module>
+        <module>matrix-shared-grpc</module>
     </modules>
 </project>

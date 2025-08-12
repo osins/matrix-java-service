@@ -1,0 +1,5 @@
+spring:
+  r2dbc:
+    url: r2dbc:postgresql://in-server.homemart.club:30432/matrix_db
+    username: tooljet
+    password: tKqNd7bvDXXpZTC34rL6
