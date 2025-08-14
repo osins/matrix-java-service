@@ -183,6 +183,11 @@
             </dependency>
             <dependency>
                 <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-shared-data</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
                 <artifactId>matrix-user-grpc-provider</artifactId>
                 <version>${project.version}</version>
             </dependency>
