@@ -11,14 +11,17 @@
     </parent>
 
     <artifactId>matrix-user</artifactId>
+    <version>0.0.1</version>
     <packaging>pom</packaging>
 
     <name>matrix-user</name>
     <description>Matrix协议用户服务</description>
+
     <modules>
         <module>matrix-user-api</module>
         <module>matrix-user-data</module>
-        <module>matrix-user-grpc</module>
+        <module>matrix-user-grpc-provider</module>
+        <module>matrix-user-consumer</module>
+        <module>matrix-user-grpc-proto</module>
     </modules>
-
 </project>

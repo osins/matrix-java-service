@@ -1,0 +1,4 @@
+/home/richard/codes/matrix/matrix-shared/matrix-shared-grpc/matrix-shared-grpc-client/src/main/java/club/hm/matrix/shared/grpc/client/discovery/LocalGrpcProperties.java
+/home/richard/codes/matrix/matrix-shared/matrix-shared-grpc/matrix-shared-grpc-client/src/main/java/club/hm/matrix/shared/grpc/client/discovery/LocalReactiveGrpcServiceDiscovery.java
+/home/richard/codes/matrix/matrix-shared/matrix-shared-grpc/matrix-shared-grpc-client/src/main/java/club/hm/matrix/shared/grpc/client/discovery/ReactiveGrpcDiscoveryConfiguration.java
+/home/richard/codes/matrix/matrix-shared/matrix-shared-grpc/matrix-shared-grpc-client/src/main/java/club/hm/matrix/shared/grpc/client/discovery/ReactiveGrpcServiceDiscovery.java

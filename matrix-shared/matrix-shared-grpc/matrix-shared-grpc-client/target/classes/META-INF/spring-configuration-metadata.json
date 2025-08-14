@@ -1,0 +1,20 @@
+{
+  "groups": [
+    {
+      "name": "local.grpc",
+      "type": "club.hm.matrix.shared.grpc.client.discovery.LocalGrpcProperties",
+      "sourceType": "club.hm.matrix.shared.grpc.client.discovery.LocalGrpcProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "local.grpc.service-ports",
+      "type": "java.util.Map<java.lang.String,java.lang.String>",
+      "sourceType": "club.hm.matrix.shared.grpc.client.discovery.LocalGrpcProperties"
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

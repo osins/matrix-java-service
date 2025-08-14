@@ -18,5 +18,9 @@
         <module>matrix-shared-test</module>
         <module>matrix-shared-common</module>
         <module>matrix-shared-grpc</module>
+        <module>matrix-shared-snowflake-id-generator</module>
+        <module>matrix-shared-logging</module>
+        <module>matrix-shared-cloud</module>
+        <module>matrix-shared-webflux</module>
     </modules>
 </project>

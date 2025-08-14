@@ -18,10 +18,9 @@
     <description>Matrix协议API网关服务</description>
 
     <dependencies>
-        <!-- Spring Boot基础依赖 -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <groupId>club.hm.matrix</groupId>
+            <artifactId>matrix-shared-webflux</artifactId>
         </dependency>
 
         <!-- Spring Cloud Gateway -->
@@ -30,10 +29,9 @@
             <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
 
-        <!-- 服务发现 -->
         <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <groupId>club.hm.matrix</groupId>
+            <artifactId>matrix-shared-cloud-discovery-server</artifactId>
         </dependency>
     </dependencies>
 

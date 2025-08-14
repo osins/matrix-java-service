@@ -1,0 +1,56 @@
+spring:
+  application:
+    name: matrix-gateway
+  profiles:
+    active: local
+  main:
+    web-application-type: reactive
+
+---
+spring:
+  profiles: local
+  cloud:
+    kubernetes:
+      discovery:
+        enabled: false
+      config:
+        enabled: false
+
+logging:
+  level:
+    club.hm.matrix.shared.grpc: DEBUG
+    reactor.netty: INFO
+
+---
+spring:
+  profiles: kubernetes
+  cloud:
+    kubernetes:
+      discovery:
+        enabled: true
+        all-namespaces: false
+        wait-cache-ready: true
+        cache-loading-timeout-seconds: 60
+        filter:
+          labels:
+            app.kubernetes.io/part-of: matrix
+      config:
+        enabled: false
+      client:
+        namespace: matrix-system
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,discovery
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      show-details: always
+
+logging:
+  level:
+    org.springframework.cloud.kubernetes: DEBUG
+    club.hm.matrix: DEBUG

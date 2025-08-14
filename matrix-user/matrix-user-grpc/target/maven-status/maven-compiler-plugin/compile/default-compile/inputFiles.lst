@@ -1,5 +1,0 @@
-/home/richard/codes/matrix/matrix-user/matrix-user-grpc/src/main/java/club/hm/matrix/user/grpc/service/impl/UserServiceImpl.java
-/home/richard/codes/matrix/matrix-user/matrix-user-grpc/src/main/java/club/hm/matrix/user/grpc/service/mapper/IProtoMapper.java
-/home/richard/codes/matrix/matrix-user/matrix-user-grpc/src/main/java/club/hm/matrix/user/grpc/service/mapper/UserProtoMapper.java
-/home/richard/codes/matrix/matrix-user/matrix-user-grpc/target/generated-sources/protobuf/grpc-java/club/hm/matrix/user/grpc/service/UserServiceGrpc.java
-/home/richard/codes/matrix/matrix-user/matrix-user-grpc/target/generated-sources/protobuf/java/club/hm/matrix/user/grpc/service/UserOuterClass.java

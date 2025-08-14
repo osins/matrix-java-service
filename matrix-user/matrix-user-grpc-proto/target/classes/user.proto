@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package club.hm.matrix.user.grpc.proto;
+
+import "google/protobuf/empty.proto";
+
+message User {
+  int64 id = 1;
+  string userId = 2;          // Matrix用户ID，对应实体的 userId
+  string username = 3;        // 对应实体的 username
+  string password = 4;        // 通常密码不建议传输，这里示范加上，如果不需要可以删掉
+  string email = 5;           // 对应实体的 email
+  string displayName = 6;     // 对应实体的 displayName
+  string avatarUrl = 7;       // 对应实体的 avatarUrl
+  bool isActive = 8;          // 对应实体的 isActive
+  string createdAt = 9;       // LocalDateTime 可以用字符串ISO格式传输
+  string lastLoginAt = 10;    // 同上
+}
+
+message UserIdRequest {
+  int64 id = 1;
+}
+
+message UserListResponse {
+  repeated User users = 1;
+}
+
+service UserService {
+  rpc GetUserById(UserIdRequest) returns (User);
+  rpc GetAllUsers(google.protobuf.Empty) returns (UserListResponse);
+  rpc CreateUser(User) returns (User);
+}

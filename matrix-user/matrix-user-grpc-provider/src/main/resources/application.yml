@@ -1,0 +1,26 @@
+grpc:
+  server:
+    port: 9092  # grpc服务监听端口
+
+spring:
+  application:
+    name: matrix-user
+  main:
+    web-application-type: none
+  r2dbc:
+    url: r2dbc:postgresql://in-server.homemart.club:30432/matrix_db
+    username: tooljet
+    password: tKqNd7bvDXXpZTC34rL6
+  cloud:
+    kubernetes:
+      discovery:
+        enabled: true
+        service-labels:
+          app.kubernetes.io/part-of: matrix
+
+logging:
+  level:
+    club.hm.matrix: DEBUG
+    io.grpc: DEBUG
+    org.springframework.data.r2dbc: DEBUG
+    root: INFO

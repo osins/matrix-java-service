@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
-@Table("matrix_user")
+@Table("matrix.user")
 @Accessors(chain = true)
 @AllArgsConstructor
 @NoArgsConstructor

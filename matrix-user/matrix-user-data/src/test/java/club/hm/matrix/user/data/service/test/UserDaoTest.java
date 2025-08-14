@@ -20,7 +20,7 @@ class UserDaoTest {
     private UserDao userDao;
 
     @Test
-    public void testGetUserById() {
+    public void testCreateUser() {
         var userId = UUID.randomUUID().toString();
         StepVerifier.create(userDao.createUser(User.builder()
                                 .userId(userId)

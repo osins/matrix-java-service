@@ -18,20 +18,29 @@
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.6.3/mapstruct-1.6.3.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
         </processorPath>
+        <module name="matrix-user-consumer" />
         <module name="matrix-message" />
+        <module name="matrix-shared-cloud-discovery-client" />
         <module name="matrix-user-data" />
         <module name="matrix-shared-data" />
-        <module name="matrix-shared-grpc" />
+        <module name="matrix-shared-grpc-base" />
         <module name="matrix-auth" />
+        <module name="matrix-shared-logging" />
         <module name="matrix-federation" />
-        <module name="matrix-user-grpc" />
+        <module name="matrix-user-grpc-provider" />
+        <module name="matrix-shared-grpc-client" />
         <module name="matrix-gateway" />
+        <module name="matrix-user-grpc-proto" />
         <module name="matrix-flyway" />
+        <module name="matrix-shared-grpc-server" />
         <module name="matrix-shared-common" />
         <module name="matrix-room" />
+        <module name="matrix-shared-snowflake-id-generator" />
         <module name="matrix-user-api" />
         <module name="matrix-websocket" />
         <module name="matrix-shared-test" />
+        <module name="matrix-shared-cloud-discovery-server" />
+        <module name="matrix-shared-webflux" />
       </profile>
     </annotationProcessing>
   </component>

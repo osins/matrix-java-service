@@ -45,5 +45,11 @@
             <version>0.0.1</version>
             <scope>compile</scope>
         </dependency>
+
+        <dependency>
+            <groupId>club.hm.matrix</groupId>
+            <artifactId>matrix-shared-snowflake-id-generator</artifactId>
+            <version>0.0.1</version>
+        </dependency>
     </dependencies>
 </project>
