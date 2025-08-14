@@ -47,6 +47,8 @@
     <file url="file://$PROJECT_DIR$/matrix-user/matrix-user-consumer/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-user/matrix-user-data/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-user/matrix-user-data/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/matrix-user/matrix-user-grpc-consumer/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/matrix-user/matrix-user-grpc-consumer/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-user/matrix-user-grpc-proto/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-user/matrix-user-grpc-proto/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-user/matrix-user-grpc-provider/src/main/java" charset="UTF-8" />

@@ -14,17 +14,6 @@
     <dependencies>
         <dependency>
             <groupId>club.hm.matrix</groupId>
-            <artifactId>matrix-user-grpc-proto</artifactId>
-            <version>0.0.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>club.hm.matrix</groupId>
-            <artifactId>matrix-shared-grpc-client</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>club.hm.matrix</groupId>
             <artifactId>matrix-shared-test</artifactId>
             <version>0.0.1</version>
         </dependency>

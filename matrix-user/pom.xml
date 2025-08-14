@@ -23,5 +23,6 @@
         <module>matrix-user-grpc-provider</module>
         <module>matrix-user-consumer</module>
         <module>matrix-user-grpc-proto</module>
+        <module>matrix-user-grpc-consumer</module>
     </modules>
 </project>

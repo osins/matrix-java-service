@@ -1,5 +1,7 @@
+META-INF/spring-configuration-metadata.json
 club/hm/matrix/shared/grpc/client/discovery/ReactiveGrpcDiscoveryConfiguration.class
 club/hm/matrix/shared/grpc/client/discovery/ReactiveGrpcDiscoveryConfiguration$LocalReactiveConfig.class
 club/hm/matrix/shared/grpc/client/discovery/ReactiveGrpcDiscoveryConfiguration$KubernetesReactiveConfig.class
+club/hm/matrix/shared/grpc/client/discovery/LocalGrpcProperties.class
 club/hm/matrix/shared/grpc/client/discovery/ReactiveGrpcServiceDiscovery.class
 club/hm/matrix/shared/grpc/client/discovery/LocalReactiveGrpcServiceDiscovery.class

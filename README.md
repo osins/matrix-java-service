@@ -1,4 +1,4 @@
-# Matrix 项目结构与配置信息
+# Matrix 项目配置信息
 
 ## 1. 核心环境配置
 
@@ -45,57 +45,80 @@
 - Lombok 版本: 1.18.38
 - Mapstruct 版本: 1.6.3
 - R2DBC PostgreSQL 版本: 1.0.7.RELEASE
-- Flyway 版本: 11.10.1
+- Flyway 版本: 11.10.1 (matrix-flyway 模块中使用 11.11.0)
 - Mockito 版本: 5.17.0
 
 ## 3. 项目模块结构和父子关系
-
-```
+```azure
 matrix (根模块)
-├── matrix-shared (共享模块)
-│   ├── matrix-shared-data
-│   ├── matrix-shared-test
-│   ├── matrix-shared-common
-│   ├── matrix-shared-grpc (gRPC共享模块)
-│   │   ├── matrix-shared-grpc-client
-│   │   ├── matrix-shared-grpc-server
-│   │   └── matrix-shared-grpc-base
-│   ├── matrix-shared-snowflake-id-generator
-│   └── matrix-shared-logging
-├── matrix-gateway
-├── matrix-auth
-├── matrix-user (用户服务模块)
-│   ├── matrix-user-api
-│   ├── matrix-user-data
-│   ├── matrix-user-grpc-provider
-│   ├── matrix-user-consumer
-│   └── matrix-user-grpc-proto
-├── matrix-room
-├── matrix-message
-├── matrix-websocket
-├── matrix-federation
-└── matrix-flyway
+    ├── matrix-shared (共享模块)
+    │   ├── matrix-shared-common
+    │   ├── matrix-shared-data
+    │   ├── matrix-shared-test
+    │   ├── matrix-shared-grpc (gRPC共享模块)
+    │   │   ├── matrix-shared-grpc-base
+    │   │   ├── matrix-shared-grpc-client
+    │   │   └── matrix-shared-grpc-server
+    │   ├── matrix-shared-snowflake-id-generator
+    │   ├── matrix-shared-logging
+    │   ├── matrix-shared-cloud (云服务模块)
+    │   │   ├── matrix-shared-cloud-discovery-client
+    │   │   └── matrix-shared-cloud-discovery-server
+    │   └── matrix-shared-webflux
+    ├── matrix-gateway
+    ├── matrix-auth
+    ├── matrix-user (用户服务模块)
+    │   ├── matrix-user-api
+    │   ├── matrix-user-data
+    │   ├── matrix-user-grpc-proto
+    │   ├── matrix-user-grpc-provider
+    │   ├── matrix-user-consumer
+    │   └── matrix-user-grpc-consumer
+    ├── matrix-room
+    ├── matrix-message
+    ├── matrix-websocket
+    ├── matrix-federation
+    └── matrix-flyway
 ```
+## 4. 模块依赖关系说明
 
-### 模块依赖关系说明
+### 根模块 (matrix)
+- 定义了所有子模块
+- 管理全局依赖版本
+- 配置统一的构建插件
 
-1. **根模块 (matrix)**:
-    - 定义了所有子模块
-    - 管理全局依赖版本
-    - 配置统一的构建插件
+### 共享模块 (matrix-shared)
+- **matrix-shared-data**: 提供数据库访问功能，依赖于 Spring WebFlux、Spring Data R2DBC 和 PostgreSQL R2DBC 驱动
+- **matrix-shared-grpc**: gRPC 基础设施模块
+    - **matrix-shared-grpc-base**: 包含 gRPC 核心依赖，如 grpc-netty-shaded、grpc-protobuf、grpc-stub 等
+    - **matrix-shared-grpc-client**: gRPC 客户端功能
+    - **matrix-shared-grpc-server**: gRPC 服务端功能
+- **matrix-shared-snowflake-id-generator**: 提供分布式 ID 生成服务
+- **matrix-shared-cloud**: 云服务相关功能
+    - **matrix-shared-cloud-discovery-server**: 服务发现服务端
+    - **matrix-shared-cloud-discovery-client**: 服务发现客户端
 
-2. **共享模块 (matrix-shared)**:
-    - 包含多个子模块，提供通用功能
-    - matrix-shared-grpc 提供 gRPC 基础设施
-    - matrix-shared-snowflake-id-generator 提供 ID 生成服务
+### 用户服务模块 (matrix-user)
+- **matrix-user-grpc-proto**: 定义 gRPC 接口和消息协议，依赖 matrix-shared-grpc-base
+- **matrix-user-data**: 用户数据访问模块，依赖 matrix-shared-data
+- **matrix-user-grpc-provider**: 提供 gRPC 服务实现
+- **matrix-user-consumer**: 用户服务消费者
+- **matrix-user-grpc-consumer**: gRPC 消费者实现
+- **matrix-user-api**: 用户服务 API 接口定义
 
-3. **用户服务模块 (matrix-user)**:
-    - matrix-user-grpc-proto 定义 gRPC 接口和消息
-    - matrix-user-consumer 依赖 matrix-user-grpc-proto
-    - 各模块之间通过 gRPC 进行通信
+### 网关模块 (matrix-gateway)
+- 依赖 Spring Cloud Gateway
+- 作为整个系统的入口
+- 依赖 matrix-shared-webflux 和 matrix-shared-cloud-discovery-server
 
-4. **网关模块 (matrix-gateway)**:
-    - 依赖 Spring Cloud Gateway
-    - 作为整个系统的入口
+### 认证模块 (matrix-auth)
+- 提供认证服务功能
+- 依赖 Spring Security 和 JWT 库
+- 使用 R2DBC PostgreSQL 进行数据存储
+
+### 数据库迁移模块 (matrix-flyway)
+- 管理数据库迁移脚本
+- 使用 Flyway 进行数据库版本控制
+- 依赖 PostgreSQL JDBC 驱动
 
 所有模块都继承自根模块 matrix，共享统一的依赖版本管理和构建配置。这种结构有利于统一管理依赖版本，避免版本冲突，并提供良好的模块化架构。

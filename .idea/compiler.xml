@@ -19,6 +19,7 @@
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
         </processorPath>
         <module name="matrix-user-consumer" />
+        <module name="matrix-user-grpc-consumer" />
         <module name="matrix-message" />
         <module name="matrix-shared-cloud-discovery-client" />
         <module name="matrix-user-data" />
