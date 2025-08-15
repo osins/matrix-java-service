@@ -15,6 +15,11 @@
     <dependencies>
         <dependency>
             <groupId>club.hm.matrix</groupId>
+            <artifactId>matrix-shared-common</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>club.hm.matrix</groupId>
             <artifactId>matrix-shared-webflux</artifactId>
         </dependency>
         
@@ -26,6 +31,12 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-oauth2-authorization-server</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>nimbus-jose-jwt</artifactId>
+                    <groupId>com.nimbusds</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         
         <dependency>
@@ -42,5 +53,20 @@
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-jackson</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>club.hm.matrix</groupId>
+            <artifactId>matrix-shared-test</artifactId>
+        </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

@@ -22,6 +22,12 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.objenesis</groupId>
+            <artifactId>objenesis</artifactId>
+            <version>3.4</version>
+        </dependency>
+
         <!-- Spring Boot 测试 Starter，包含JUnit5和Mock支持 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -48,6 +54,12 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>objenesis</artifactId>
+                    <groupId>org.objenesis</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 </project>

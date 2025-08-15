@@ -71,6 +71,7 @@
         <!-- 第三方依赖版本 -->
         <lombok.version>1.18.38</lombok.version>
         <mapstruct.version>1.6.3</mapstruct.version>
+        <guava.version>33.4.8-jre</guava.version>
         <r2dbc-postgresql.version>1.0.7.RELEASE</r2dbc-postgresql.version>
         <flyway.version>11.10.1</flyway.version>
 
@@ -200,6 +201,13 @@
                 <groupId>io.projectreactor.netty</groupId>
                 <artifactId>reactor-netty-http</artifactId>
                 <version>1.2.8</version>
+                <scope>compile</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
                 <scope>compile</scope>
             </dependency>
         </dependencies>

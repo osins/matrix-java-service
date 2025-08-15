@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: club-hm-matrix-security
+    timezone: Asia/Shanghai
+  main:
+    web-application-type: none
+  r2dbc:
+    url: r2dbc:postgresql://in-server.homemart.club:30432/matrix_db
+    username: tooljet
+    password: tKqNd7bvDXXpZTC34rL6
+  datasource:
+    url: jdbc:mysql://in-server.homemart.club:30366/cat_app?allowMultiQueries=true&useSSL=false&useUnicode=true&characterEncoding=utf8
+    username: root
+    password: root
+  data:
+    redis:
+      host: in-server.homemart.club
+      port: 30363
+      password: catadmin1 # 如果有密码
+
+hm.security.jwt:
+  secret: 3LU9aBU0r3retRnrpU8DUfGiMtCarTKdLbWbZW7fV43WNVBD7dH8z4UrfMB8rHXofbsAAe2kc8iup68opzM8
+  expiration: 3600
+  zone-id: ${spring.application.timezone}
+  admin-id: 1
+  role-cache: false
+
+local:
+  grpc:
+    service-ports:
+      matrix-auth: localhost:9091
+      matrix-user: localhost:9092
+      matrix-room: localhost:9093
+      matrix-message: localhost:9094
+      matrix-websocket: localhost:9095
