@@ -1,41 +1,23 @@
 package club.hm.matrix.auth.security.authentication;
 
-import lombok.Data;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
+import java.util.Collections;
 
 /**
  * JWT 专用 Authentication，实现 Spring Security Authentication 接口
+ *
+ * @param token 原始 JWT
  */
-@Data
-public class JwtTokenAuthentication implements Authentication {
-
-    private final String token; // 原始 JWT
-    private boolean authenticated = false; // 是否已经认证
-    private Object principal; // 用户身份信息
-    private Object details;   // 可选附加信息
-    private Collection<? extends GrantedAuthority> authorities; // 权限列表
+public record JwtTokenAuthentication(String token) implements Authentication {
 
     // 构造未认证的 token
-    public JwtTokenAuthentication(String token) {
-        this.token = token;
-    }
-
-    // 构造已认证的 token
-    public JwtTokenAuthentication(Object principal,
-                                  String token,
-                                  Collection<? extends GrantedAuthority> authorities) {
-        this.principal = principal;
-        this.token = token;
-        this.authorities = authorities;
-        this.authenticated = true;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
+        return Collections.emptyList();
     }
 
     @Override
@@ -45,29 +27,25 @@ public class JwtTokenAuthentication implements Authentication {
 
     @Override
     public Object getDetails() {
-        return details;
+        return null;
     }
 
     @Override
     public Object getPrincipal() {
-        return principal;
+        return null;
     }
 
     @Override
     public boolean isAuthenticated() {
-        return authenticated;
+        return false;
     }
 
     @Override
     public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
-        this.authenticated = isAuthenticated;
     }
 
     @Override
     public String getName() {
-        if (principal != null) {
-            return principal.toString();
-        }
         return null;
     }
 }

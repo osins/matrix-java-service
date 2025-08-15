@@ -2,7 +2,7 @@ package club.hm.matrix.auth.security.config;
 
 import club.hm.matrix.auth.security.authentication.CustomReactiveAuthenticationManager;
 import club.hm.matrix.auth.security.authentication.CustomReactiveAuthorizationManager;
-import club.hm.matrix.auth.security.converter.AuthenticationTokenConverter;
+import club.hm.matrix.auth.security.converter.CustomServerAuthenticationConverter;
 import club.hm.matrix.auth.security.filter.CustomAuthenticationWebFilter;
 import club.hm.matrix.auth.security.filter.CustomAuthorizationWebFilter;
 import club.hm.matrix.auth.security.filter.CustomServerAuthenticationFailureHandler;
@@ -41,7 +41,7 @@ public class SecurityConfig {
     private final CustomServerAuthenticationFailureHandler authenticationFailureHandler;
     private final CustomServerAccessDeniedHandler accessDeniedHandler;
     private final CustomAuthenticationEntryPoint authenticationEntryPoint;
-    private final AuthenticationTokenConverter tokenConverter;
+    private final CustomServerAuthenticationConverter tokenConverter;
 
     @Bean
     @ConditionalOnMissingBean(ObjectMapper.class)

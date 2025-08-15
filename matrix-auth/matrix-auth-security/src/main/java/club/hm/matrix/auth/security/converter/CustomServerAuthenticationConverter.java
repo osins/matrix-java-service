@@ -16,10 +16,9 @@ import java.util.Optional;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class AuthenticationTokenConverter implements ServerAuthenticationConverter {
+public class CustomServerAuthenticationConverter implements ServerAuthenticationConverter {
 
     public static final String BEARER_PREFIX = "Bearer ";
-    private final ObjectMapper objectMapper;
 
     @Override
     public Mono<Authentication> convert(ServerWebExchange exchange) {
