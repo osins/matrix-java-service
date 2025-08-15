@@ -18,4 +18,34 @@
         <module>matrix-shared-grpc-server</module>
         <module>matrix-shared-grpc-base</module>
     </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-shared-cloud</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-shared-grpc-base</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-shared-grpc-client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-shared-grpc-server</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>

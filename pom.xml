@@ -146,8 +146,25 @@
             <dependency>
                 <groupId>club.hm.matrix</groupId>
                 <artifactId>matrix-shared</artifactId>
-                <version>0.0.1</version>
+                <version>${project.version}</version>
+                <type>pom</type>
             </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-shared-cloud</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-shared-grpc</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
             <!-- 数据库相关 -->
             <dependency>
                 <groupId>org.postgresql</groupId>
@@ -161,76 +178,29 @@
                 <artifactId>flyway-core</artifactId>
                 <version>${flyway.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-database-postgresql</artifactId>
                 <version>${flyway.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>org.springframework.kafka</groupId>
                 <artifactId>spring-kafka</artifactId>
             </dependency>
+
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>1.18.38</version>
             </dependency>
+
             <dependency>
                 <groupId>io.projectreactor.netty</groupId>
                 <artifactId>reactor-netty-http</artifactId>
                 <version>1.2.8</version>
                 <scope>compile</scope>
-            </dependency>
-            <dependency>
-                <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-data</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-user-grpc-provider</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-grpc-base</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-cloud-discovery-server</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-cloud-discovery-client</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-webflux</artifactId>
-                <version>0.0.1</version>
-            </dependency>
-            <dependency>
-                <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-grpc-client</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-grpc-server</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-logging</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-test</artifactId>
-                <version>${project.version}</version>
-                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -10,7 +10,9 @@
     </parent>
 
     <artifactId>matrix-shared-cloud</artifactId>
+    <version>0.0.1</version>
     <packaging>pom</packaging>
+
     <modules>
         <module>matrix-shared-cloud-discovery-server</module>
         <module>matrix-shared-cloud-discovery-client</module>
@@ -20,11 +22,11 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <grpc.version>1.74.0</grpc.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
-
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-starter-kubernetes-discoveryclient</artifactId>
@@ -35,6 +37,18 @@
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-starter-kubernetes-config</artifactId>
                 <version>1.1.10.RELEASE</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-shared-cloud-discovery-server</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-shared-cloud-discovery-client</artifactId>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

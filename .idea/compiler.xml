@@ -25,6 +25,7 @@
         <module name="matrix-shared-grpc-client" />
         <module name="matrix-gateway" />
         <module name="matrix-flyway" />
+        <module name="matrix-shared-cache" />
         <module name="matrix-shared-grpc-server" />
         <module name="matrix-user-api" />
         <module name="matrix-websocket" />
@@ -48,6 +49,9 @@
         <module name="matrix-auth-api" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="matrix-shared-dependencies" target="21" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

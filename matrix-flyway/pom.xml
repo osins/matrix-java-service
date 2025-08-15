@@ -10,6 +10,7 @@
     </parent>
 
     <artifactId>matrix-flyway</artifactId>
+    <version>0.0.1</version>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
@@ -41,8 +42,9 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>${flyway.version}</version>
                 <configuration>
-                    <url>jdbc:h2:file:./target/foobar</url>
-                    <user>sa</user>
+                    <url>r2dbc:postgresql://in-server.homemart.club:30432/matrix_db</url>
+                    <user>tooljet</user>
+                    <password>tKqNd7bvDXXpZTC34rL6</password>
                 </configuration>
             </plugin>
         </plugins>
