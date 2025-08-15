@@ -1,4 +1,0 @@
-club/hm/matrix/user/grpc/provider/MatrixUserGrpcProviderApplication.class
-club/hm/matrix/user/grpc/provider/impl/UserServiceImpl.class
-club/hm/matrix/user/grpc/provider/mapper/IProtoMapper.class
-club/hm/matrix/user/grpc/provider/mapper/UserProtoMapper.class
