@@ -1,10 +1,13 @@
 package club.hm.matrix.auth.security.authentication;
 
-import club.hm.matrix.auth.security.converter.AuthenticationJwtConverter;
+import club.hm.matrix.auth.security.domain.CustomPrincipal;
+import club.hm.matrix.auth.security.jwt.JwtTokenProvider;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
@@ -16,12 +19,32 @@ import java.util.Optional;
 @Component
 @RequiredArgsConstructor
 public class ReactiveAuthenticationJwtManager implements ReactiveAuthenticationManager {
-    private final AuthenticationJwtConverter bearerConverter;
+    private final JwtTokenProvider jwtTokenProvider;
+    private final ObjectMapper objectMapper;
 
     @Override
     public Mono<Authentication> authenticate(Authentication authentication) throws AuthenticationException {
         return Mono.justOrEmpty(authentication)
                 .map(auth -> Optional.ofNullable(auth.getCredentials()).map(String::valueOf).orElseThrow(() -> new BadCredentialsException("Authentication failed")))
-                .map(bearerConverter::convert);
+                .map(this::convert);
+    }
+
+    public Authentication convert(String token) {
+        var claimsJws = jwtTokenProvider.decryptToken(token);
+        var subject = claimsJws.getPayload().getSubject();
+        var principal = tokenToPrincipal(subject);
+        if(principal==null)
+            throw new RuntimeException("Invalid token");
+
+        return new UsernamePasswordAuthenticationToken(principal, null, principal.getAuthorities());
+    }
+
+    private CustomPrincipal tokenToPrincipal(String subject) {
+        try {
+            return objectMapper.readValue(subject, CustomPrincipal.class);
+        } catch (Exception ex) {
+            log.error("tokenToPrincipal error: {}, {}", subject, ex.getMessage(), ex);
+            return null;
+        }
     }
 }

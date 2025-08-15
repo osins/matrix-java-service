@@ -1,6 +1,5 @@
 package club.hm.matrix.auth.security.authentication;
 
-import club.hm.matrix.auth.security.converter.AuthenticationJwtConverter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authorization.AuthorizationDecision;
@@ -10,18 +9,19 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+/**
+ * 矩阵权限管理
+ */
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class ReactiveAccessDecisionManager implements ReactiveAuthorizationManager<ServerWebExchange> {
-    private final AuthenticationJwtConverter converter;
-
     @Override
     public Mono<AuthorizationDecision> check(Mono<Authentication> authentication, ServerWebExchange context) {
         var path = context.getRequest().getURI().getPath();
         var method = context.getRequest().getMethod().name();
 
-        return converter.convert(context)
+        return authentication
                 .filter(Authentication::isAuthenticated)
                 .flatMap(auth -> checkPermission(auth, path, method))
                 .map(AuthorizationDecision::new)

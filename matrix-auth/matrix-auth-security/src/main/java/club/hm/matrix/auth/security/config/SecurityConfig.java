@@ -2,15 +2,17 @@ package club.hm.matrix.auth.security.config;
 
 import club.hm.matrix.auth.security.authentication.ReactiveAuthenticationJwtManager;
 import club.hm.matrix.auth.security.authentication.ReactiveAccessDecisionManager;
-import club.hm.matrix.auth.security.converter.AuthenticationJwtConverter;
+import club.hm.matrix.auth.security.converter.AuthenticationTokenConverter;
 import club.hm.matrix.auth.security.filter.CustomAuthenticationWebFilter;
 import club.hm.matrix.auth.security.filter.CustomAuthorizationWebFilter;
 import club.hm.matrix.auth.security.filter.CustomServerAuthenticationFailureHandler;
 import club.hm.matrix.auth.security.handler.CustomAuthenticationSuccessHandler;
 import club.hm.matrix.auth.security.handler.CustomServerAccessDeniedHandler;
 import club.hm.matrix.auth.security.handler.ReactiveAuthenticationEntryPoint;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -39,7 +41,13 @@ public class SecurityConfig {
     private final CustomServerAuthenticationFailureHandler authenticationFailureHandler;
     private final CustomServerAccessDeniedHandler accessDeniedHandler;
     private final ReactiveAuthenticationEntryPoint authenticationEntryPoint;
-    private final AuthenticationJwtConverter bearerConverter;
+    private final AuthenticationTokenConverter tokenConverter;
+
+    @Bean
+    @ConditionalOnMissingBean(ObjectMapper.class)
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
+    }
 
     @Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
@@ -82,7 +90,7 @@ public class SecurityConfig {
     @Bean
     public AuthenticationWebFilter jwtAuthenticationWebFilter() {
         var authenticationWebFilter = new CustomAuthenticationWebFilter(jwtAuthenticationManager);
-        authenticationWebFilter.setServerAuthenticationConverter(bearerConverter);
+        authenticationWebFilter.setServerAuthenticationConverter(tokenConverter);
         authenticationWebFilter.setAuthenticationSuccessHandler(authenticationSuccessHandler);
         authenticationWebFilter.setAuthenticationFailureHandler(authenticationFailureHandler);
         return authenticationWebFilter;
