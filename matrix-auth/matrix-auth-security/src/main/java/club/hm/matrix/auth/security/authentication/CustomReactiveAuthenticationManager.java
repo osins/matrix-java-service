@@ -18,7 +18,7 @@ import java.util.Optional;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class ReactiveAuthenticationJwtManager implements ReactiveAuthenticationManager {
+public class CustomReactiveAuthenticationManager implements ReactiveAuthenticationManager {
     private final JwtTokenProvider jwtTokenProvider;
     private final ObjectMapper objectMapper;
 

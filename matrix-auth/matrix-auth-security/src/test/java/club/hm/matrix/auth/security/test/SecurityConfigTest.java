@@ -1,7 +1,7 @@
 package club.hm.matrix.auth.security.test;
 
-import club.hm.matrix.auth.security.authentication.ReactiveAuthenticationJwtManager;
-import club.hm.matrix.auth.security.authentication.ReactiveAccessDecisionManager;
+import club.hm.matrix.auth.security.authentication.CustomReactiveAuthenticationManager;
+import club.hm.matrix.auth.security.authentication.CustomReactiveAuthorizationManager;
 import club.hm.matrix.auth.security.converter.AuthenticationTokenConverter;
 import club.hm.matrix.auth.security.domain.CustomPrincipal;
 import club.hm.matrix.auth.security.domain.JwtSetting;
@@ -33,10 +33,10 @@ class SecurityConfigTest {
     private JwtTokenProvider jwtTokenProvider;
 
     @Autowired
-    private ReactiveAccessDecisionManager accessDecisionManager;
+    private CustomReactiveAuthorizationManager accessDecisionManager;
 
     @Autowired
-    private ReactiveAuthenticationJwtManager authenticationManager;
+    private CustomReactiveAuthenticationManager authenticationManager;
 
     @Autowired
     private AuthenticationTokenConverter tokenConverter;

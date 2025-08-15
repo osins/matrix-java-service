@@ -10,7 +10,7 @@ import java.util.Collection;
  * JWT 专用 Authentication，实现 Spring Security Authentication 接口
  */
 @Data
-public class JwtAuthenticationToken implements Authentication {
+public class JwtTokenAuthentication implements Authentication {
 
     private final String token; // 原始 JWT
     private boolean authenticated = false; // 是否已经认证
@@ -19,12 +19,12 @@ public class JwtAuthenticationToken implements Authentication {
     private Collection<? extends GrantedAuthority> authorities; // 权限列表
 
     // 构造未认证的 token
-    public JwtAuthenticationToken(String token) {
+    public JwtTokenAuthentication(String token) {
         this.token = token;
     }
 
     // 构造已认证的 token
-    public JwtAuthenticationToken(Object principal,
+    public JwtTokenAuthentication(Object principal,
                                   String token,
                                   Collection<? extends GrantedAuthority> authorities) {
         this.principal = principal;

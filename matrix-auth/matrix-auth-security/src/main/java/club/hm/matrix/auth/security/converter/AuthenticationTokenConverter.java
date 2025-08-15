@@ -1,13 +1,10 @@
 package club.hm.matrix.auth.security.converter;
 
-import club.hm.matrix.auth.security.authentication.JwtAuthenticationToken;
-import club.hm.matrix.auth.security.domain.CustomPrincipal;
-import club.hm.matrix.auth.security.jwt.JwtTokenProvider;
+import club.hm.matrix.auth.security.authentication.JwtTokenAuthentication;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.server.authentication.ServerAuthenticationConverter;
 import org.springframework.stereotype.Component;
@@ -31,7 +28,7 @@ public class AuthenticationTokenConverter implements ServerAuthenticationConvert
                     .filter(authHeader -> authHeader.startsWith(BEARER_PREFIX))
                     .map(authHeader -> authHeader.substring(BEARER_PREFIX.length()))
                     .filter(token -> !token.isEmpty())
-                    .map(JwtAuthenticationToken::new);
+                    .map(JwtTokenAuthentication::new);
             authentication.ifPresentOrElse(sink::success, () -> sink.error(new RuntimeException("Invalid token")));
         });
     }

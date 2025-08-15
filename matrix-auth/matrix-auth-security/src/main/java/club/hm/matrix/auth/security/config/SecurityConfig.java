@@ -1,14 +1,14 @@
 package club.hm.matrix.auth.security.config;
 
-import club.hm.matrix.auth.security.authentication.ReactiveAuthenticationJwtManager;
-import club.hm.matrix.auth.security.authentication.ReactiveAccessDecisionManager;
+import club.hm.matrix.auth.security.authentication.CustomReactiveAuthenticationManager;
+import club.hm.matrix.auth.security.authentication.CustomReactiveAuthorizationManager;
 import club.hm.matrix.auth.security.converter.AuthenticationTokenConverter;
 import club.hm.matrix.auth.security.filter.CustomAuthenticationWebFilter;
 import club.hm.matrix.auth.security.filter.CustomAuthorizationWebFilter;
 import club.hm.matrix.auth.security.filter.CustomServerAuthenticationFailureHandler;
 import club.hm.matrix.auth.security.handler.CustomAuthenticationSuccessHandler;
 import club.hm.matrix.auth.security.handler.CustomServerAccessDeniedHandler;
-import club.hm.matrix.auth.security.handler.ReactiveAuthenticationEntryPoint;
+import club.hm.matrix.auth.security.handler.CustomAuthenticationEntryPoint;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,12 +35,12 @@ import org.springframework.security.web.server.context.NoOpServerSecurityContext
 @ComponentScan(basePackages = "club.hm.matrix.auth.security")
 public class SecurityConfig {
 
-    private final ReactiveAuthenticationJwtManager jwtAuthenticationManager;
-    private final ReactiveAccessDecisionManager accessDecisionManager;
+    private final CustomReactiveAuthenticationManager jwtAuthenticationManager;
+    private final CustomReactiveAuthorizationManager accessDecisionManager;
     private final CustomAuthenticationSuccessHandler authenticationSuccessHandler;
     private final CustomServerAuthenticationFailureHandler authenticationFailureHandler;
     private final CustomServerAccessDeniedHandler accessDeniedHandler;
-    private final ReactiveAuthenticationEntryPoint authenticationEntryPoint;
+    private final CustomAuthenticationEntryPoint authenticationEntryPoint;
     private final AuthenticationTokenConverter tokenConverter;
 
     @Bean

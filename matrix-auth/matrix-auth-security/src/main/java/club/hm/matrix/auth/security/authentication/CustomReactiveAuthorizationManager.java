@@ -15,7 +15,7 @@ import reactor.core.publisher.Mono;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class ReactiveAccessDecisionManager implements ReactiveAuthorizationManager<ServerWebExchange> {
+public class CustomReactiveAuthorizationManager implements ReactiveAuthorizationManager<ServerWebExchange> {
     @Override
     public Mono<AuthorizationDecision> check(Mono<Authentication> authentication, ServerWebExchange context) {
         var path = context.getRequest().getURI().getPath();
