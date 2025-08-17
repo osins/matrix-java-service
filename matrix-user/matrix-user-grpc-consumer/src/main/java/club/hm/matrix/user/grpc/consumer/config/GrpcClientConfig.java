@@ -1,7 +1,6 @@
 package club.hm.matrix.user.grpc.consumer.config;
 
 import club.hm.matrix.shared.grpc.client.discovery.ReactiveGrpcServiceDiscovery;
-import club.hm.matrix.user.grpc.proto.UserServiceGrpc;
 import io.grpc.ManagedChannel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,32 +29,12 @@ public class GrpcClientConfig {
     }
 
     /**
-     * 创建用户服务的同步stub（用于阻塞调用）
+     * 创建用户服务的响应式 stub（Reactor gRPC）
      */
     @Bean
-    public UserServiceGrpc.UserServiceBlockingStub userServiceBlockingStub() {
+    public Mono<club.hm.matrix.user.grpc.proto.ReactorUserServiceGrpc.ReactorUserServiceStub> reactorUserServiceStub() {
         return userServiceChannel()
-                .map(channel -> UserServiceGrpc.newBlockingStub(channel).withWaitForReady())
-                .block(); // 在配置阶段阻塞获取
-    }
-
-    /**
-     * 创建用户服务的异步stub（用于响应式调用）
-     */
-    @Bean
-    public Mono<UserServiceGrpc.UserServiceStub> userServiceStub() {
-        return userServiceChannel()
-                .map(channel -> UserServiceGrpc.newStub(channel).withWaitForReady())
-                .cache();
-    }
-
-    /**
-     * 创建用户服务的Future stub（用于异步但非响应式调用）
-     */
-    @Bean
-    public Mono<UserServiceGrpc.UserServiceFutureStub> userServiceFutureStub() {
-        return userServiceChannel()
-                .map(channel -> UserServiceGrpc.newFutureStub(channel).withWaitForReady())
+                .map(channel -> club.hm.matrix.user.grpc.proto.ReactorUserServiceGrpc.newReactorStub(channel).withWaitForReady())
                 .cache();
     }
 }

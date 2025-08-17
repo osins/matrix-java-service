@@ -17,6 +17,11 @@ spring:
         enabled: true
         service-labels:
           app.kubernetes.io/part-of: matrix
+  data:
+    redis:
+      host: in-server.homemart.club
+      port: 30363
+      password: catadmin1 # 如果有密码
 
 logging:
   level:

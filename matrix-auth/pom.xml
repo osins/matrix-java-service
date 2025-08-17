@@ -27,6 +27,7 @@
         <module>matrix-auth-security</module>
         <module>matrix-auth-grpc-consumer</module>
         <module>matrix-auth-grpc-provider</module>
+        <module>matrix-auth-grpc-proto</module>
     </modules>
 
     <dependencyManagement>

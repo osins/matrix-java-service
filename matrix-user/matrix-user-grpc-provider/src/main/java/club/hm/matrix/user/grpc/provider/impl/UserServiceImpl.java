@@ -1,25 +1,23 @@
 package club.hm.matrix.user.grpc.provider.impl;
 
 import club.hm.matrix.user.data.service.UserDao;
+import club.hm.matrix.user.grpc.proto.ReactorUserServiceGrpc;
 import club.hm.matrix.user.grpc.proto.UserOuterClass;
-import club.hm.matrix.user.grpc.proto.UserServiceGrpc;
-import club.hm.matrix.user.grpc.provider.mapper.UserProtoMapper;
+import club.hm.matrix.user.grpc.provider.conveter.UserProtoConverter;
 import com.google.protobuf.Empty;
-import io.grpc.Context;
-import io.grpc.override.ReactorContextHolder;
-import io.grpc.stub.StreamObserver;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.devh.boot.grpc.server.service.GrpcService;
+import reactor.core.publisher.Mono;
 
 @Slf4j
 @GrpcService
 @RequiredArgsConstructor
-public class UserServiceImpl extends UserServiceGrpc.UserServiceImplBase{
+public class UserServiceImpl extends ReactorUserServiceGrpc.UserServiceImplBase {
 
     private final UserDao userDao;
-    private final UserProtoMapper userProtoMapper;
+    private final UserProtoConverter userProtoMapper;
 
     @PostConstruct
     public void init() {
@@ -27,35 +25,25 @@ public class UserServiceImpl extends UserServiceGrpc.UserServiceImplBase{
     }
 
     @Override
-    public void getUserById(UserOuterClass.UserIdRequest request, StreamObserver<UserOuterClass.User> responseObserver) {
-        userDao.getUserById(request.getId())
+    public Mono<UserOuterClass.User> getUserById(UserOuterClass.UserIdRequest request) {
+        return userDao.getUserById(request.getId())
                 .map(userProtoMapper::to)
-                .doOnError(t -> log.error("获取用户信息失败: {}, {}", request, t.getMessage(), t))
-                .subscribe(responseObserver::onNext, responseObserver::onError, responseObserver::onCompleted);
+                .doOnError(t -> log.error("获取用户信息失败: {}, {}", request, t.getMessage(), t));
     }
 
     @Override
-    public void getAllUsers(Empty request, StreamObserver<UserOuterClass.UserListResponse> responseObserver) {
-        userDao.getAllUsers()
+    public Mono<UserOuterClass.UserListResponse> getAllUsers(Empty request) {
+        return userDao.getAllUsers()
                 .map(userProtoMapper::to)
                 .collectList()
-                .map(list -> UserOuterClass.UserListResponse.newBuilder().addAllUsers(list).build())
-                .doOnError(t -> log.error("获取用户列表失败: {}, {}", request, t.getMessage(), t))
-                .subscribe(responseObserver::onNext, responseObserver::onError, responseObserver::onCompleted);
+                .map(list->UserOuterClass.UserListResponse.newBuilder().addAllUsers(list).build());
     }
 
     @Override
-    public void createUser(UserOuterClass.User request, StreamObserver<UserOuterClass.User> responseObserver) {
-        // 获取当前 gRPC Context
-        var grpcCtx = Context.current();
-
+    public Mono<UserOuterClass.User> createUser(UserOuterClass.User request) {
         var userEntity = userProtoMapper.from(request);
-        userDao.createUser(userEntity)
+        return userDao.createUser(userEntity)
                 .map(userProtoMapper::to)
-                .contextWrite(ctx -> ctx.put(Context.class, grpcCtx))
-                .doOnEach(signal -> ReactorContextHolder.setReactorContext(signal.getContextView()))
-                .doFinally(sig -> ReactorContextHolder.clear())
-                .doOnError(t -> log.error("创建用户失败: {}, {}", request, t.getMessage(), t))
-                .subscribe(responseObserver::onNext, responseObserver::onError, responseObserver::onCompleted);
+                .doOnError(t -> log.error("创建用户失败: {}, {}", request, t.getMessage(), t));
     }
 }

@@ -29,6 +29,7 @@
         <module name="matrix-shared-grpc-server" />
         <module name="matrix-user-api" />
         <module name="matrix-websocket" />
+        <module name="matrix-auth-grpc-proto" />
         <module name="matrix-shared-cloud-discovery-server" />
         <module name="matrix-shared-webflux" />
         <module name="matrix-user-grpc-consumer" />

@@ -1,15 +1,17 @@
-package club.hm.matrix.user.grpc.provider.mapper;
+package club.hm.matrix.user.grpc.provider.conveter;
 
 import club.hm.homemart.club.shared.common.Dates;
 import club.hm.homemart.club.shared.common.Objects;
+import club.hm.matrix.grpc.proto.converter.IProtoConverter;
 import club.hm.matrix.user.data.entity.User;
 import club.hm.matrix.user.grpc.proto.UserOuterClass;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
-public class UserProtoMapper implements IProtoMapper<UserOuterClass.User, User>{
+public class UserProtoConverter implements IProtoConverter<UserOuterClass.User, User> {
     @Override
     public UserOuterClass.User to(User user) {
         return Optional.ofNullable(user).map(u -> {
@@ -49,5 +51,15 @@ public class UserProtoMapper implements IProtoMapper<UserOuterClass.User, User>{
 
             return user;
         }).orElse(null);
+    }
+
+    @Override
+    public List<UserOuterClass.User> to(List<User> f) {
+        return f.stream().map(this::to).toList();
+    }
+
+    @Override
+    public List<User> from(List<UserOuterClass.User> t) {
+        return t.stream().map(this::from).toList();
     }
 }

@@ -67,6 +67,13 @@
         <!-- 谷歌的 grpc -->
         <grpc.version>1.74.0</grpc.version>
         <protobuf.version>4.31.1</protobuf.version>
+        <grpc.version>1.60.0</grpc.version>
+        <protobuf.version>3.25.1</protobuf.version>
+        <reactor-grpc.version>1.2.4</reactor-grpc.version>
+        <grpc-spring-boot.version>2.15.0.RELEASE</grpc-spring-boot.version>
+        <protobuf-maven-plugin.version>0.6.1</protobuf-maven-plugin.version>
+        <os-maven-plugin.version>1.7.1</os-maven-plugin.version>
+        <build-helper-maven-plugin.version>3.4.0</build-helper-maven-plugin.version>
 
         <!-- 第三方依赖版本 -->
         <lombok.version>1.18.38</lombok.version>
@@ -260,6 +267,19 @@
                         <protocArtifact>com.google.protobuf:protoc:${protobuf.version}:exe:${os.detected.classifier}</protocArtifact>
                         <pluginId>grpc-java</pluginId>
                         <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}</pluginArtifact>
+                        <outputDirectory>${project.build.directory}/generated-sources/protobuf/java</outputDirectory>
+                        <clearOutputDirectory>false</clearOutputDirectory>
+
+                        <!-- Reactor gRPC 插件配置 -->
+                        <protocPlugins>
+                            <protocPlugin>
+                                <id>reactor-grpc</id>
+                                <groupId>com.salesforce.servicelibs</groupId>
+                                <artifactId>reactor-grpc</artifactId>
+                                <version>${reactor-grpc.version}</version>
+                                <mainClass>com.salesforce.reactorgrpc.ReactorGrpcGenerator</mainClass>
+                            </protocPlugin>
+                        </protocPlugins>
                     </configuration>
                     <executions>
                         <execution>
@@ -267,8 +287,25 @@
                                 <goal>compile</goal>
                                 <goal>compile-custom</goal>
                             </goals>
+                            <configuration>
+                                <protocPlugins>
+                                    <protocPlugin>
+                                        <id>reactor-grpc</id>
+                                        <groupId>com.salesforce.servicelibs</groupId>
+                                        <artifactId>reactor-grpc</artifactId>
+                                        <version>${reactor-grpc.version}</version>
+                                        <mainClass>com.salesforce.reactorgrpc.ReactorGrpcGenerator</mainClass>
+                                    </protocPlugin>
+                                </protocPlugins>
+                            </configuration>
                         </execution>
                     </executions>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <version>${build-helper-maven-plugin.version}</version>
                 </plugin>
 
                 <!-- Java编译器插件 -->
