@@ -33,8 +33,7 @@ public class UserConverter {
         return UserDTO.builder()
                 .id(sysUser.id())
                 .username(sysUser.username())
-                .password(sysUser.password())
-                .email(sysUser.email())
+                .password(null)
                 .enabled(sysUser.enabled())
                 .roles(Collections.emptyList())
                 .build();
@@ -87,7 +86,6 @@ public class UserConverter {
                 userDTO.getId(),
                 userDTO.getUsername(),
                null, // password需要单独处理
-                userDTO.getEmail(),
                 userDTO.getEnabled(),
                 userDTO.getCreatedAt(),
                 userDTO.getUpdatedAt()
@@ -110,7 +108,6 @@ public class UserConverter {
                 userDTO.getId(),
                 userDTO.getUsername(),
                 password,
-                userDTO.getEmail(),
                 userDTO.getEnabled(),
                 userDTO.getCreatedAt(),
                 userDTO.getUpdatedAt()
@@ -150,9 +147,8 @@ public class UserConverter {
                 target.id(), // 保持原ID
                 source.getUsername(),
                 target.password(), // 保持原密码
-                source.getEmail(),
                 source.getEnabled(),
-                source.getCreatedAt(),
+                target.createdAt(),
                 source.getUpdatedAt()
         );
     }

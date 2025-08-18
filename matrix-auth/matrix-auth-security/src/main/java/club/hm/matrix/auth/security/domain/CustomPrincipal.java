@@ -1,10 +1,5 @@
 package club.hm.matrix.auth.security.domain;
 
-import club.hm.matrix.auth.security.constant.SecuritySettings;
-import club.hm.matrix.auth.security.enums.ClientType;
-import club.hm.matrix.auth.security.enums.JWTokenType;
-import club.hm.matrix.auth.security.enums.PlatformType;
-import club.hm.matrix.auth.security.enums.UserState;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -23,16 +18,9 @@ import java.util.Collections;
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CustomPrincipal implements Serializable, UserDetails {
-    private String jti;
-    private JWTokenType type;
     private Long userId;
     private String username;
-    private String mobile;
-    private String nickname;
-    private UserState status;
-    private ClientType clientType;
-    private PlatformType platformType;
-    private JtiSet jtiSet;
+    private Boolean enabled;
 
     private boolean accountExpired;
     private boolean credentialsExpired;
@@ -40,10 +28,6 @@ public class CustomPrincipal implements Serializable, UserDetails {
     private boolean kicked;
 
     private Collection<? extends GrantedAuthority> authorities = Collections.emptyList();
-
-    public static CustomPrincipal create() {
-        return new CustomPrincipal();
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -72,10 +56,6 @@ public class CustomPrincipal implements Serializable, UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return status != null && status.isEnable();
-    }
-
-    public boolean isExpired() {
-        return isAccountExpired() || isCredentialsNonExpired();
+        return enabled;
     }
 }

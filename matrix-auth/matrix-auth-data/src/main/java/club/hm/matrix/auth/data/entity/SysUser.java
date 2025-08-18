@@ -10,7 +10,6 @@ public record SysUser(
         @Id Long id,
         String username,
         String password,
-        String email,
         Boolean enabled,
         LocalDateTime createdAt,
         LocalDateTime updatedAt

@@ -5,7 +5,6 @@ import club.hm.matrix.auth.security.jwt.JwtTokenProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,8 +24,7 @@ public class CustomReactiveAuthenticationManager implements ReactiveAuthenticati
     @Override
     public Mono<Authentication> authenticate(Authentication authentication) throws AuthenticationException {
         return Mono.justOrEmpty(authentication)
-                .map(auth -> Optional.ofNullable(auth.getCredentials()).map(String::valueOf).orElseThrow(() -> new BadCredentialsException("Authentication failed")))
-                .map(this::convert);
+                .map(auth -> Optional.ofNullable(auth.getCredentials()).map(String::valueOf).map(this::convert).orElse(authentication));
     }
 
     public Authentication convert(String token) {

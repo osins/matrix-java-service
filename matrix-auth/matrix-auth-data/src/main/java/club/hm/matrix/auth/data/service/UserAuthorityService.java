@@ -43,20 +43,27 @@ public class UserAuthorityService {
      * @return 创建后的用户DTO
      */
     public Mono<UserDTO> createUser(UserDTO userDTO) {
-        var user = userConverter.toEntity(userDTO.setId(bufferedIdService.getNextId()), userDTO.getPassword());
-        log.debug("Create user: {}", user);
+        if(userDTO==null || userDTO.getUsername()==null)
+            return Mono.error(new IllegalArgumentException("用户名不能为空"));
 
-        return template.insert(user)
-                .flatMap(savedUser -> {
-                    // 如果有角色信息，保存用户角色关联
-                    if (userDTO.getRoles() != null && !userDTO.getRoles().isEmpty()) {
-                        return Flux.fromIterable(userDTO.getRoles())
-                                .flatMap(roleDTO -> userRoleRepo.save(new SysUserRole(savedUser.id(), roleDTO.getId())))
-                                .then(Mono.just(savedUser));
-                    }
-                    return Mono.just(savedUser);
-                })
-                .flatMap(this::loadUserWithRolesAndPermissions); // 返回完整DTO
+        return userRepo.findByUsername(userDTO.getUsername())
+                .flatMap(user -> Mono.<UserDTO>error(new RuntimeException("用户名已存在: " + userDTO.getUsername())))
+                .switchIfEmpty(Mono.defer(() -> {
+                    var user = userConverter.toEntity(userDTO.setId(bufferedIdService.getNextId()), userDTO.getPassword());
+                    log.debug("Create user: {}", user);
+
+                    return template.insert(user)
+                            .flatMap(savedUser -> {
+                                // 如果有角色信息，保存用户角色关联
+                                if (userDTO.getRoles() != null && !userDTO.getRoles().isEmpty()) {
+                                    return Flux.fromIterable(userDTO.getRoles())
+                                            .flatMap(roleDTO -> userRoleRepo.save(new SysUserRole(savedUser.id(), roleDTO.getId())))
+                                            .then(Mono.just(savedUser));
+                                }
+                                return Mono.just(savedUser);
+                            })
+                            .flatMap(this::loadUserWithRolesAndPermissions); // 返回完整DTO
+                }));
     }
 
     /**

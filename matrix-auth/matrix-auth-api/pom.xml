@@ -11,12 +11,12 @@
 
     <artifactId>matrix-auth-api</artifactId>
     <packaging>jar</packaging>
+    <version>0.0.1</version>
 
     <dependencies>
         <dependency>
             <groupId>club.hm.matrix</groupId>
-            <artifactId>matrix-shared-common</artifactId>
-            <version>0.0.1</version>
+            <artifactId>matrix-shared-api</artifactId>
         </dependency>
     </dependencies>
 </project>

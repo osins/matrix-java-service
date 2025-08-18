@@ -58,6 +58,16 @@
             <groupId>club.hm.matrix</groupId>
             <artifactId>matrix-shared-test</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>club.hm.matrix</groupId>
+            <artifactId>matrix-auth-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>club.hm.matrix</groupId>
+            <artifactId>matrix-auth-grpc-consumer</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

@@ -9,30 +9,45 @@ import reactor.core.publisher.Mono;
  */
 public interface UserAuthorityGrpc {
 
-    // 根据用户ID加载用户
-    Mono<User> loadUserById(long userId);
+    Mono<UserResponse> loadUserById(LoadUserByIdRequest request);
 
-    // 根据用户名加载用户
-    Mono<User> loadUserByUsername(String username);
+    Mono<UserResponse> loadUserById(Mono<LoadUserByIdRequest> request);
 
-    // 获取用户权限列表
-    Mono<PermissionsList> getUserPermissions(long userId);
+    Mono<UserResponse> loadUserByUsername(LoadUserByUsernameRequest request);
 
-    // 检查用户是否有指定权限
-    Mono<Boolean> hasPermission(long userId, String permissionCode);
+    Mono<UserResponse> loadUserByUsername(Mono<LoadUserByUsernameRequest> request);
 
-    // 获取用户角色列表
-    Mono<RolesList> getUserRoles(long userId);
+    Mono<PermissionsResponse> getUserPermissions(GetUserPermissionsRequest request);
 
-    // 检查用户是否有指定角色
-    Mono<Boolean> hasRole(long userId, String roleCode);
+    Mono<PermissionsResponse> getUserPermissions(Mono<GetUserPermissionsRequest> request);
 
-    // 批量加载用户信息
-    Flux<User> loadUsersByIds(Iterable<Long> userIds);
+    Mono<HasPermissionResponse> hasPermission(HasPermissionRequest request);
 
-    // 创建新用户
+    Mono<HasPermissionResponse> hasPermission(Mono<HasPermissionRequest> request);
+
+    Mono<RolesResponse> getUserRoles(GetUserRolesRequest request);
+
+    Mono<RolesResponse> getUserRoles(Mono<GetUserRolesRequest> request);
+
+    Mono<HasRoleResponse> hasRole(HasRoleRequest request);
+
+    Mono<HasRoleResponse> hasRole(Mono<HasRoleRequest> request);
+
+    Flux<UserResponse> loadUsersByIds(LoadUsersByIdsRequest request);
+
+    Flux<UserResponse> loadUsersByIds(Mono<LoadUsersByIdsRequest> request);
+
+    /**
+     * 新增：创建用户
+     */
     Mono<UserResponse> createUser(CreateUserRequest request);
 
-    // 更新用户信息
-    Mono<User> updateUser(long userId, User user);
+    Mono<UserResponse> createUser(Mono<CreateUserRequest> request);
+
+    /**
+     * 新增：更新用户信息
+     */
+    Mono<UserResponse> updateUser(UpdateUserRequest request);
+
+    Mono<UserResponse> updateUser(Mono<UpdateUserRequest> request);
 }

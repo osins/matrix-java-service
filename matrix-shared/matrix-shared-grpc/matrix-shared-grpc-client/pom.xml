@@ -53,7 +53,16 @@
                     <artifactId>grpc-stub</artifactId>
                     <groupId>io.grpc</groupId>
                 </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter</artifactId>
+                </exclusion>
             </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>club.hm.matrix</groupId>
+            <artifactId>matrix-shared-tracing</artifactId>
         </dependency>
     </dependencies>
 

@@ -30,7 +30,6 @@ class UserAuthorityClientImplTest {
         StepVerifier.create(clientService.createUser(CreateUserRequest.newBuilder().setUser(User.newBuilder()
                         .setUsername(username)
                         .setPassword(username)
-                        .setEmail("lll@qq.com")
                         .setEnabled(true)
                         .setCreatedAt(TimeStamp.now())
                         .setUpdatedAt(TimeStamp.now())

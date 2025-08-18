@@ -1,5 +1,6 @@
 package club.hm.matrix.auth.security.converter;
 
+import club.hm.matrix.auth.security.authentication.AnonymousAuthentication;
 import club.hm.matrix.auth.security.authentication.JwtTokenAuthentication;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -22,13 +23,11 @@ public class CustomServerAuthenticationConverter implements ServerAuthentication
 
     @Override
     public Mono<Authentication> convert(ServerWebExchange exchange) {
-        return Mono.create(sink -> {
-            var authentication = Optional.ofNullable(exchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION))
-                    .filter(authHeader -> authHeader.startsWith(BEARER_PREFIX))
-                    .map(authHeader -> authHeader.substring(BEARER_PREFIX.length()))
-                    .filter(token -> !token.isEmpty())
-                    .map(JwtTokenAuthentication::new);
-            authentication.ifPresentOrElse(sink::success, () -> sink.error(new RuntimeException("Invalid token")));
-        });
+        return Mono.just(Optional.ofNullable(exchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION))
+                .filter(authHeader -> authHeader.startsWith(BEARER_PREFIX))
+                .map(authHeader -> authHeader.substring(BEARER_PREFIX.length()))
+                .filter(token -> !token.isEmpty())
+                .<Authentication>map(JwtTokenAuthentication::new)
+                .orElse(new AnonymousAuthentication()));
     }
 }

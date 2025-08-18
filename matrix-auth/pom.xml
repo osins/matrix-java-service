@@ -28,6 +28,7 @@
         <module>matrix-auth-grpc-consumer</module>
         <module>matrix-auth-grpc-provider</module>
         <module>matrix-auth-grpc-proto</module>
+        <module>matrix-auth-consumer</module>
     </modules>
 
     <dependencyManagement>
@@ -61,6 +62,24 @@
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt-jackson</artifactId>
                 <version>${jwt.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-auth-grpc-consumer</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-auth-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-auth-security</artifactId>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

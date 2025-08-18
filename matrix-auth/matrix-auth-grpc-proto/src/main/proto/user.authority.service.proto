@@ -73,7 +73,6 @@ message User {
   int64 id = 1;
   string username = 2;
   string password = 3;  // 用于创建/更新
-  string email = 4;
   bool enabled = 5;
   repeated Role roles = 6;
 

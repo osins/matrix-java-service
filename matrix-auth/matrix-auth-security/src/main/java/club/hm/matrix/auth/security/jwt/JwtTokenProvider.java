@@ -8,7 +8,6 @@ import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -67,7 +66,8 @@ public class JwtTokenProvider {
         log.debug("过期时间：{}", expiration);
 
         try{
-            var subject = objectMapper.writeValueAsString(Optional.ofNullable(setting.getSubject()).map(p-> p.setJti(setting.getJti()).setType(setting.getType())).orElseThrow(() -> new CustomException("jwt token 缓存 subject 不能为空")));
+            var subject = objectMapper.writeValueAsString(Optional.ofNullable(setting.getSubject())
+                    .orElseThrow(() -> new CustomException("jwt token 缓存 subject 不能为空")));
 
             return Jwts.builder()
                     .header()

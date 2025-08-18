@@ -23,6 +23,8 @@
         <module>matrix-shared-cloud</module>
         <module>matrix-shared-webflux</module>
         <module>matrix-shared-cache</module>
+        <module>matrix-shared-api</module>
+        <module>matrix-shared-tracing</module>
     </modules>
 
     <dependencyManagement>
@@ -37,6 +39,12 @@
             <dependency>
                 <groupId>club.hm.matrix</groupId>
                 <artifactId>matrix-shared-logging</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-shared-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -70,6 +78,12 @@
                 <artifactId>matrix-shared-grpc</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-shared-tracing</artifactId>
+                <version>${project.version}</version>
             </dependency>
 
             <dependency>

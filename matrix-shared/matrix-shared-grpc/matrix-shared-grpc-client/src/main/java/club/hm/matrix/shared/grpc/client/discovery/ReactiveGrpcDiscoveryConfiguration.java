@@ -1,6 +1,10 @@
 package club.hm.matrix.shared.grpc.client.discovery;
 
+import io.micrometer.observation.ObservationRegistry;
+import io.micrometer.tracing.Tracer;
+import io.micrometer.tracing.propagation.Propagator;
 import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -35,10 +39,12 @@ public class ReactiveGrpcDiscoveryConfiguration {
         @Bean
         @ConditionalOnBean(ReactiveDiscoveryClient.class)
         public ReactiveGrpcServiceDiscovery kubernetesReactiveGrpcServiceDiscovery(
-                ReactiveDiscoveryClient reactiveDiscoveryClient) {
+                ReactiveDiscoveryClient reactiveDiscoveryClient,
+                ObservationRegistry observationRegistry,
+                Tracer tracer, Propagator propagator) {
             log.info("Creating Kubernetes reactive gRPC service discovery with: {}",
                     reactiveDiscoveryClient.getClass().getSimpleName());
-            return new ReactiveGrpcServiceDiscovery(reactiveDiscoveryClient);
+            return new ReactiveGrpcServiceDiscovery(observationRegistry, reactiveDiscoveryClient, tracer, propagator);
         }
     }
 
@@ -58,15 +64,15 @@ public class ReactiveGrpcDiscoveryConfiguration {
         @ConditionalOnMissingBean(ReactiveDiscoveryClient.class)
         public ReactiveDiscoveryClient simpleReactiveDiscoveryClient() {
             log.info("Creating SimpleReactiveDiscoveryClient for local development");
-            SimpleReactiveDiscoveryProperties properties = new SimpleReactiveDiscoveryProperties();
+            var properties = new SimpleReactiveDiscoveryProperties();
             return new SimpleReactiveDiscoveryClient(properties);
         }
 
         @Bean
         @ConditionalOnMissingBean(ReactiveGrpcServiceDiscovery.class)
-        public ReactiveGrpcServiceDiscovery localReactiveGrpcServiceDiscovery(LocalGrpcProperties localGrpcProperties) {
+        public ReactiveGrpcServiceDiscovery localReactiveGrpcServiceDiscovery(ObservationRegistry observationRegistry, LocalGrpcProperties localGrpcProperties, Tracer tracer, Propagator propagator) {
             log.info("Creating local reactive gRPC service discovery");
-            return new LocalReactiveGrpcServiceDiscovery(localGrpcProperties);
+            return new LocalReactiveGrpcServiceDiscovery(observationRegistry, localGrpcProperties, tracer, propagator);
         }
     }
 }

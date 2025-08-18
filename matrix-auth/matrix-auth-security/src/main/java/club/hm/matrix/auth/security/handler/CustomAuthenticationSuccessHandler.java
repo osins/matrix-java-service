@@ -14,9 +14,7 @@ import reactor.core.publisher.Mono;
 public class CustomAuthenticationSuccessHandler implements ServerAuthenticationSuccessHandler {
     @Override
     public Mono<Void> onAuthenticationSuccess(WebFilterExchange webFilterExchange, Authentication authentication) {
-        log.info("Authentication success for user: {}", authentication.getName());
-
-        // 仅记录日志、存储 SecurityContext
-        return Mono.empty(); // Filter 链继续
+        var exchange = webFilterExchange.getExchange();
+        return webFilterExchange.getChain().filter(exchange);
     }
 }

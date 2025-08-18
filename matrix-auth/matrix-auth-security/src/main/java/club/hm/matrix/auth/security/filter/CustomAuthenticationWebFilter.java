@@ -8,6 +8,8 @@ import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 public class CustomAuthenticationWebFilter extends AuthenticationWebFilter implements WebFilter {
     public CustomAuthenticationWebFilter(ReactiveAuthenticationManager authenticationManager) {
         super(authenticationManager);

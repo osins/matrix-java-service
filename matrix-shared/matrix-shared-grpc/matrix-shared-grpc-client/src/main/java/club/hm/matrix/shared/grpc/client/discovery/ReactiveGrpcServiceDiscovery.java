@@ -2,7 +2,12 @@ package club.hm.matrix.shared.grpc.client.discovery;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.micrometer.core.instrument.binder.grpc.ObservationGrpcClientInterceptor;
+import io.micrometer.observation.ObservationRegistry;
+import io.micrometer.tracing.Tracer;
+import io.micrometer.tracing.propagation.Propagator;
 import jakarta.annotation.PreDestroy;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.client.ServiceInstance;
@@ -16,15 +21,19 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
+@Getter
 @RequiredArgsConstructor
 public class ReactiveGrpcServiceDiscovery {
-
+    private final ObservationRegistry observationRegistry;
     private final ReactiveDiscoveryClient reactiveDiscoveryClient;
     private final ConcurrentHashMap<String, ManagedChannel> channelCache = new ConcurrentHashMap<>();
 
+    private final Tracer tracer;         // 注入 Micrometer Tracer
+    private final Propagator propagator; // 注入 Micrometer Propagator
+
     public Mono<ManagedChannel> getChannel(String serviceName) {
         // 先检查缓存
-        ManagedChannel cachedChannel = channelCache.get(serviceName);
+        var cachedChannel = channelCache.get(serviceName);
         if (cachedChannel != null && !cachedChannel.isShutdown()) {
             return Mono.just(cachedChannel);
         }
@@ -66,6 +75,8 @@ public class ReactiveGrpcServiceDiscovery {
 
         return ManagedChannelBuilder.forTarget(target)
                 .usePlaintext()
+                .intercept(new LoggingClientInterceptor(tracer, propagator))
+                .intercept(new ObservationGrpcClientInterceptor(observationRegistry))
                 .keepAliveTime(30, TimeUnit.SECONDS)
                 .keepAliveTimeout(5, TimeUnit.SECONDS)
                 .keepAliveWithoutCalls(true)

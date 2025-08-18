@@ -4,11 +4,12 @@ import club.hm.matrix.auth.data.service.UserAuthorityService;
 import club.hm.matrix.auth.grpc.*;
 import club.hm.matrix.auth.grpc.api.service.UserAuthorityGrpc;
 import club.hm.matrix.auth.grpc.provider.converter.UserAuthorityGrpcConverter;
+import io.grpc.Status;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.devh.boot.grpc.server.service.GrpcService;
-import reactor.core.publisher.Flux;
+import org.springframework.dao.DuplicateKeyException;
 import reactor.core.publisher.Mono;
 
 @Slf4j
@@ -25,49 +26,29 @@ public class UserAuthorityGrpcService extends ReactorUserAuthorityServiceGrpc.Us
     }
 
     @Override
-    public Mono<User> loadUserById(long userId) {
-        return null;
-    }
-
-    @Override
-    public Mono<User> loadUserByUsername(String username) {
-        return null;
-    }
-
-    @Override
-    public Mono<PermissionsList> getUserPermissions(long userId) {
-        return null;
-    }
-
-    @Override
-    public Mono<Boolean> hasPermission(long userId, String permissionCode) {
-        return null;
-    }
-
-    @Override
-    public Mono<RolesList> getUserRoles(long userId) {
-        return null;
-    }
-
-    @Override
-    public Mono<Boolean> hasRole(long userId, String roleCode) {
-        return null;
-    }
-
-    @Override
-    public Flux<User> loadUsersByIds(Iterable<Long> userIds) {
-        return null;
+    public Mono<UserResponse> loadUserByUsername(LoadUserByUsernameRequest request) {
+        return userAuthorityService.loadUserByUsername(request.getUsername())
+                .map(converter::toGrpcUser)
+                .doOnError(throwable -> log.error("loadUserByUsername error", throwable))
+                .doOnNext(userResponse -> log.info("loadUserByUsername success: {}", userResponse));
     }
 
     @Override
     public Mono<UserResponse> createUser(CreateUserRequest request) {
         return userAuthorityService.createUser(converter.fromGrpcUser(request.getUser()))
                 .map(converter::toGrpcUser)
-                .doOnError(t -> log.error("创建用户失败: {}, {}", request, t.getMessage(), t));
-    }
-
-    @Override
-    public Mono<User> updateUser(long userId, User user) {
-        return null;
+                .doOnError(t -> log.error("创建用户失败: {}, {}", request, t.getMessage(), t))
+                .onErrorMap(ex -> {
+                    if (ex instanceof IllegalArgumentException) {
+                        // 参数错误 → INVALID_ARGUMENT
+                        return Status.INVALID_ARGUMENT.withDescription(ex.getMessage()).asRuntimeException();
+                    } else if (ex instanceof DuplicateKeyException) {
+                        // 数据库重复 → ALREADY_EXISTS
+                        return Status.ALREADY_EXISTS.withDescription(ex.getMessage()).asRuntimeException();
+                    } else {
+                        // 其他 → INTERNAL
+                        return Status.INTERNAL.withDescription(ex.getMessage()).asRuntimeException();
+                    }
+                });
     }
 }

@@ -1,0 +1,6 @@
+spring:
+  data:
+    redis:
+      host: in-server.homemart.club
+      port: 30363
+      password: catadmin1 # 如果有密码

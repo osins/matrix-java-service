@@ -1,0 +1,6 @@
+hm.security.jwt:
+  secret: 3LU9aBU0r3retRnrpU8DUfGiMtCarTKdLbWbZW7fV43WNVBD7dH8z4UrfMB8rHXofbsAAe2kc8iup68opzM8
+  expiration: 3600
+  zone-id: ${spring.application.timezone}
+  admin-id: 1
+  role-cache: false

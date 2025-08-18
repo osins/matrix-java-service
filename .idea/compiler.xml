@@ -23,6 +23,7 @@
         <module name="matrix-shared-data" />
         <module name="matrix-shared-grpc-base" />
         <module name="matrix-shared-grpc-client" />
+        <module name="matrix-shared-tracing" />
         <module name="matrix-gateway" />
         <module name="matrix-flyway" />
         <module name="matrix-shared-cache" />
@@ -38,7 +39,9 @@
         <module name="matrix-auth-grpc-provider" />
         <module name="matrix-shared-logging" />
         <module name="matrix-federation" />
+        <module name="matrix-shared-api" />
         <module name="matrix-user-grpc-provider" />
+        <module name="matrix-auth-consumer" />
         <module name="matrix-user-grpc-proto" />
         <module name="matrix-shared-common" />
         <module name="matrix-auth-data" />

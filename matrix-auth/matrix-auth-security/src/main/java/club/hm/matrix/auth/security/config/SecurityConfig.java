@@ -6,6 +6,7 @@ import club.hm.matrix.auth.security.converter.CustomServerAuthenticationConverte
 import club.hm.matrix.auth.security.filter.CustomAuthenticationWebFilter;
 import club.hm.matrix.auth.security.filter.CustomAuthorizationWebFilter;
 import club.hm.matrix.auth.security.filter.CustomServerAuthenticationFailureHandler;
+import club.hm.matrix.auth.security.filter.RequestIdWebFilter;
 import club.hm.matrix.auth.security.handler.CustomAuthenticationSuccessHandler;
 import club.hm.matrix.auth.security.handler.CustomServerAccessDeniedHandler;
 import club.hm.matrix.auth.security.handler.CustomAuthenticationEntryPoint;
@@ -24,7 +25,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.authentication.AuthenticationWebFilter;
-import org.springframework.security.web.server.authorization.AuthorizationWebFilter;
 import org.springframework.security.web.server.context.NoOpServerSecurityContextRepository;
 
 @Slf4j
@@ -35,14 +35,6 @@ import org.springframework.security.web.server.context.NoOpServerSecurityContext
 @ComponentScan(basePackages = "club.hm.matrix.auth.security")
 public class SecurityConfig {
 
-    private final CustomReactiveAuthenticationManager jwtAuthenticationManager;
-    private final CustomReactiveAuthorizationManager accessDecisionManager;
-    private final CustomAuthenticationSuccessHandler authenticationSuccessHandler;
-    private final CustomServerAuthenticationFailureHandler authenticationFailureHandler;
-    private final CustomServerAccessDeniedHandler accessDeniedHandler;
-    private final CustomAuthenticationEntryPoint authenticationEntryPoint;
-    private final CustomServerAuthenticationConverter tokenConverter;
-
     @Bean
     @ConditionalOnMissingBean(ObjectMapper.class)
     public ObjectMapper objectMapper() {
@@ -50,7 +42,14 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
+    public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http,
+                                                            CustomReactiveAuthenticationManager authenticationManager,
+                                                            CustomReactiveAuthorizationManager authorizationManager,
+                                                            CustomServerAuthenticationConverter converter,
+                                                            CustomAuthenticationSuccessHandler successHandler,
+                                                            CustomServerAuthenticationFailureHandler failureHandler,
+                                                            CustomServerAccessDeniedHandler deniedHandler,
+                                                            CustomAuthenticationEntryPoint entryPoint) {
         return http
                 // 禁用CSRF，因为我们使用JWT
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
@@ -62,14 +61,14 @@ public class SecurityConfig {
                 .securityContextRepository(NoOpServerSecurityContextRepository.getInstance())
                 // 配置异常处理
                 .exceptionHandling(exceptions -> exceptions
-                        .accessDeniedHandler(accessDeniedHandler)
-                        .authenticationEntryPoint(authenticationEntryPoint)
+                        .accessDeniedHandler(deniedHandler)
+                        .authenticationEntryPoint(entryPoint)
                 )
                 // 配置授权规则
                 .authorizeExchange(exchanges -> exchanges
                         // 公开端点
                         .pathMatchers("/actuator/health", "/actuator/info").permitAll()
-                        .pathMatchers("/auth/login", "/auth/register").permitAll()
+                        .pathMatchers("/_matrix/client/v3/register", "/auth/register").permitAll()
                         .pathMatchers("/api/public/**").permitAll()
                         // API端点需要认证
                         .pathMatchers("/api/**").authenticated()
@@ -80,26 +79,30 @@ public class SecurityConfig {
                         // 其他所有请求都需要认证
                         .anyExchange().authenticated()
                 )
+                .addFilterBefore(new RequestIdWebFilter(), SecurityWebFiltersOrder.FIRST)
                 // 添加JWT认证过滤器
-                .addFilterBefore(jwtAuthenticationWebFilter(), SecurityWebFiltersOrder.AUTHENTICATION)
+                .addFilterBefore(jwtAuthenticationWebFilter(authenticationManager, converter, successHandler, failureHandler), SecurityWebFiltersOrder.AUTHENTICATION)
                 // 添加自定义授权过滤器
-                .addFilterAfter(authorizationWebFilter(), SecurityWebFiltersOrder.AUTHORIZATION)
+//                .addFilterAfter(authorizationWebFilter(authorizationManager), SecurityWebFiltersOrder.AUTHORIZATION)
                 .build();
     }
 
     @Bean
-    public AuthenticationWebFilter jwtAuthenticationWebFilter() {
-        var authenticationWebFilter = new CustomAuthenticationWebFilter(jwtAuthenticationManager);
-        authenticationWebFilter.setServerAuthenticationConverter(tokenConverter);
-        authenticationWebFilter.setAuthenticationSuccessHandler(authenticationSuccessHandler);
-        authenticationWebFilter.setAuthenticationFailureHandler(authenticationFailureHandler);
+    public AuthenticationWebFilter jwtAuthenticationWebFilter(CustomReactiveAuthenticationManager manager,
+                                                              CustomServerAuthenticationConverter converter,
+                                                              CustomAuthenticationSuccessHandler successHandler,
+                                                              CustomServerAuthenticationFailureHandler failureHandler) {
+        var authenticationWebFilter = new CustomAuthenticationWebFilter(manager);
+        authenticationWebFilter.setServerAuthenticationConverter(converter);
+        authenticationWebFilter.setAuthenticationSuccessHandler(successHandler);
+        authenticationWebFilter.setAuthenticationFailureHandler(failureHandler);
         return authenticationWebFilter;
     }
 
-    @Bean
-    public AuthorizationWebFilter authorizationWebFilter() {
-        return new CustomAuthorizationWebFilter(accessDecisionManager);
-    }
+//    @Bean
+//    public AuthorizationWebFilter authorizationWebFilter(CustomReactiveAuthorizationManager manager) {
+//        return new CustomAuthorizationWebFilter(manager);
+//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

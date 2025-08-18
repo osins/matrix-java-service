@@ -33,6 +33,11 @@
 
         <dependency>
             <groupId>club.hm.matrix</groupId>
+            <artifactId>matrix-shared-tracing</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>club.hm.matrix</groupId>
             <artifactId>matrix-shared-test</artifactId>
             <version>0.0.1</version>
         </dependency>

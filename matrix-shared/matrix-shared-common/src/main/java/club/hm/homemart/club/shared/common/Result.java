@@ -1,10 +1,12 @@
 package club.hm.homemart.club.shared.common;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
@@ -21,22 +23,26 @@ import java.util.function.Supplier;
 @Accessors(chain = true)
 @NoArgsConstructor
 public class Result<T> implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /**
      * 是否成功
      */
-    private boolean success;
+    private boolean available;
 
     /**
      * 状态码
      */
-    private int code;
+    private int errcode;
 
     /**
      * 返回消息
      */
-    private String message;
+    private String error;
+
+    @JsonIgnoreProperties(value = "retry_after_ms")
+    private Integer retryAfterMs;
 
     /**
      * 返回数据
@@ -56,22 +62,22 @@ public class Result<T> implements Serializable {
     /**
      * 私有构造函数
      *
-     * @param success 是否成功
-     * @param code    状态码
-     * @param message 返回消息
+     * @param available 是否成功
+     * @param errcode    状态码
+     * @param error 返回消息
      * @param data    返回数据
      */
-    private Result(boolean success, int code, String message, T data) {
-        this.success = success;
-        this.code = code;
-        this.message = message;
+    private Result(boolean available, int errcode, String error, T data) {
+        this.available = available;
+        this.errcode = errcode;
+        this.error = error;
         this.data = data;
     }
 
-    private Result(boolean success, int code, String message) {
-        this.success = success;
-        this.code = code;
-        this.message = message;
+    private Result(boolean available, int errcode, String error) {
+        this.available = available;
+        this.errcode = errcode;
+        this.error = error;
     }
 
 
@@ -158,12 +164,12 @@ public class Result<T> implements Serializable {
      * @return 转换后的结果
      */
     public <R> Result<R> map(Function<T, R> mapper) {
-        if (!success) {
-            return error(code, message);
+        if (!available) {
+            return error(errcode, error);
         }
         try {
             R newData = mapper.apply(data);
-            return new Result<R>(true, code, message, newData);
+            return new Result<R>(true, errcode, error, newData);
         } catch (Exception e) {
             return error(500, "数据转换失败: " + e.getMessage());
         }
@@ -177,7 +183,7 @@ public class Result<T> implements Serializable {
      * @return 转换后的结果
      */
     public <R> R flatMap(Function<T, R> mapper) {
-        if (!success) {
+        if (!available) {
             return null;
         }
         try {
@@ -188,7 +194,7 @@ public class Result<T> implements Serializable {
     }
 
     public Result<T> ifSuccess(Runnable runnable) {
-        if (success) {
+        if (available) {
             runnable.run();
         }
 
@@ -196,7 +202,7 @@ public class Result<T> implements Serializable {
     }
 
     public Result<T> ifSuccess(Consumer<T> runnable) {
-        if (success && data != null) {
+        if (available && data != null) {
             runnable.accept(data);
         }
 
@@ -204,7 +210,7 @@ public class Result<T> implements Serializable {
     }
 
     public Result<T> ifFail(Runnable runnable) {
-        if (!success) {
+        if (!available) {
             runnable.run();
         }
 
@@ -246,7 +252,7 @@ public class Result<T> implements Serializable {
     }
 
     public void orElse(Runnable runnable) {
-        if (success) {
+        if (available) {
             return;
         }
 
@@ -254,7 +260,7 @@ public class Result<T> implements Serializable {
     }
 
     public Result<T> orElse(Supplier<T> supplier) {
-        if (success) {
+        if (available) {
             return this;
         }
 
@@ -262,9 +268,9 @@ public class Result<T> implements Serializable {
     }
 
     public <R> Result<R> convert(Function<T, R> mapper) {
-        if(success)
-            return Result.success(message, mapper.apply(data));
+        if(available)
+            return Result.success(error, mapper.apply(data));
 
-        return Result.failure(code, message);
+        return Result.failure(errcode, error);
     }
 }

@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.List;
-
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -18,100 +16,103 @@ public class UserAuthorityClientImpl implements UserAuthorityGrpc {
     private final Mono<ReactorUserAuthorityServiceGrpc.ReactorUserAuthorityServiceStub> reactorStub;
 
     @Override
-    public Mono<User> loadUserById(long userId) {
+    public Mono<UserResponse> loadUserById(LoadUserByIdRequest request) {
+        return null;
+    }
+
+    @Override
+    public Mono<UserResponse> loadUserById(Mono<LoadUserByIdRequest> request) {
+        return null;
+    }
+
+    @Override
+    public Mono<UserResponse> loadUserByUsername(LoadUserByUsernameRequest request) {
         return reactorStub.flatMap(stub ->
-                stub.loadUserById(LoadUserByIdRequest.newBuilder()
-                                .setUserId(userId)
-                                .build())
-                        .flatMap(resp -> resp.hasUser() ? Mono.just(resp.getUser())
-                                : Mono.error(new RuntimeException(resp.getError())))
+                stub.loadUserByUsername(request)
+                        .doOnError(throwable -> log.error("loadUserByUsername error", throwable))
         );
     }
 
     @Override
-    public Mono<User> loadUserByUsername(String username) {
-        return reactorStub.flatMap(stub ->
-                stub.loadUserByUsername(LoadUserByUsernameRequest.newBuilder()
-                                .setUsername(username)
-                                .build())
-                        .flatMap(resp -> resp.hasUser() ? Mono.just(resp.getUser())
-                                : Mono.error(new RuntimeException(resp.getError())))
-        );
+    public Mono<UserResponse> loadUserByUsername(Mono<LoadUserByUsernameRequest> request) {
+        return null;
     }
 
     @Override
-    public Mono<PermissionsList> getUserPermissions(long userId) {
-        return reactorStub.flatMap(stub ->
-                stub.getUserPermissions(GetUserPermissionsRequest.newBuilder()
-                                .setUserId(userId)
-                                .build())
-                        .flatMap(resp -> resp.hasPermissions() ? Mono.just(resp.getPermissions())
-                                : Mono.error(new RuntimeException(resp.getError())))
-        );
+    public Mono<PermissionsResponse> getUserPermissions(GetUserPermissionsRequest request) {
+        return null;
     }
 
     @Override
-    public Mono<Boolean> hasPermission(long userId, String permissionCode) {
-        return reactorStub.flatMap(stub ->
-                stub.hasPermission(HasPermissionRequest.newBuilder()
-                                .setUserId(userId)
-                                .setPermissionCode(permissionCode)
-                                .build())
-                        .map(HasPermissionResponse::getHasPermission)
-        );
+    public Mono<PermissionsResponse> getUserPermissions(Mono<GetUserPermissionsRequest> request) {
+        return null;
     }
 
     @Override
-    public Mono<RolesList> getUserRoles(long userId) {
-        return reactorStub.flatMap(stub ->
-                stub.getUserRoles(GetUserRolesRequest.newBuilder()
-                                .setUserId(userId)
-                                .build())
-                        .flatMap(resp -> resp.hasRoles() ? Mono.just(resp.getRoles())
-                                : Mono.error(new RuntimeException(resp.getError())))
-        );
+    public Mono<HasPermissionResponse> hasPermission(HasPermissionRequest request) {
+        return null;
     }
 
     @Override
-    public Mono<Boolean> hasRole(long userId, String roleCode) {
-        return reactorStub.flatMap(stub ->
-                stub.hasRole(HasRoleRequest.newBuilder()
-                                .setUserId(userId)
-                                .setRoleCode(roleCode)
-                                .build())
-                        .map(HasRoleResponse::getHasRole)
-        );
+    public Mono<HasPermissionResponse> hasPermission(Mono<HasPermissionRequest> request) {
+        return null;
     }
 
     @Override
-    public Flux<User> loadUsersByIds(Iterable<Long> userIds) {
-        return reactorStub.flatMapMany(stub ->
-                stub.loadUsersByIds(LoadUsersByIdsRequest.newBuilder()
-                                .addAllUserIds((List<Long>) userIds)
-                                .build())
-                        .map(UserResponse::getUser)
-        );
+    public Mono<RolesResponse> getUserRoles(GetUserRolesRequest request) {
+        return null;
+    }
+
+    @Override
+    public Mono<RolesResponse> getUserRoles(Mono<GetUserRolesRequest> request) {
+        return null;
+    }
+
+    @Override
+    public Mono<HasRoleResponse> hasRole(HasRoleRequest request) {
+        return null;
+    }
+
+    @Override
+    public Mono<HasRoleResponse> hasRole(Mono<HasRoleRequest> request) {
+        return null;
+    }
+
+    @Override
+    public Flux<UserResponse> loadUsersByIds(LoadUsersByIdsRequest request) {
+        return null;
+    }
+
+    @Override
+    public Flux<UserResponse> loadUsersByIds(Mono<LoadUsersByIdsRequest> request) {
+        return null;
     }
 
     @Override
     public Mono<UserResponse> createUser(CreateUserRequest request) {
-        return reactorStub.flatMap(stub ->
-                stub.createUser(CreateUserRequest.newBuilder()
-                                .setUser(request.getUser())
-                                .build())
-                        .doOnError(throwable -> log.error("createUser error: {}, \nuser: {}", throwable.getMessage(), request.getUser(), throwable))
+        return Mono.deferContextual(ctx -> {
+                    return reactorStub.flatMap(stub ->
+                            stub.createUser(CreateUserRequest.newBuilder()
+                                            .setUser(request.getUser())
+                                            .build())
+                                    .doOnError(throwable -> log.error("createUser error: {}, \nuser: {}", throwable.getMessage(), request.getUser(), throwable))
+                    );
+                }
         );
     }
 
     @Override
-    public Mono<User> updateUser(long userId, User user) {
-        return reactorStub.flatMap(stub ->
-                stub.updateUser(UpdateUserRequest.newBuilder()
-                                .setUserId(userId)
-                                .setUser(user)
-                                .build())
-                        .flatMap(resp -> resp.hasUser() ? Mono.just(resp.getUser())
-                                : Mono.error(new RuntimeException(resp.getError())))
-        );
+    public Mono<UserResponse> createUser(Mono<CreateUserRequest> request) {
+        return null;
+    }
+
+    @Override
+    public Mono<UserResponse> updateUser(UpdateUserRequest request) {
+        return null;
+    }
+
+    @Override
+    public Mono<UserResponse> updateUser(Mono<UpdateUserRequest> request) {
+        return null;
     }
 }
