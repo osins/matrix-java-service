@@ -1,0 +1,74 @@
+package club.hm.matrix.auth.oauth2.server.handler;
+
+import club.hm.matrix.auth.api.service.TokenService;
+import club.hm.matrix.auth.grpc.LoadUserByUsernameRequest;
+import club.hm.matrix.auth.grpc.UserResponse;
+import club.hm.matrix.auth.grpc.api.service.UserAuthorityGrpc;
+import club.hm.matrix.auth.oauth2.server.enums.GrantType;
+import club.hm.matrix.auth.oauth2.server.service.AuthorizationCodeService;
+import club.hm.matrix.auth.oauth2.server.vo.TokenResponse;
+import club.hm.matrix.auth.security.service.UserPasswordEncoderService;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
+
+@Slf4j
+@Service
+@RequiredArgsConstructor
+public class PasswordHandler implements IAuthorizeHandler<TokenResponse> {
+    private final AuthorizationCodeService authorizationCodeService;
+    private final UserAuthorityGrpc userAuthorityGrpc;
+    private final UserPasswordEncoderService passwordEncoderService;
+    private final TokenService<TokenResponse> tokenService;
+
+    @Override
+    public GrantType grantType() {
+        return GrantType.PASSWORD;
+    }
+
+    @Override
+    public Mono<TokenResponse> handle(@NonNull ServerHttpRequest request) {
+        var params = request.getQueryParams();
+        if (!params.containsKey("username")) {
+            return Mono.error(new RuntimeException("用户名不能为空"));
+        }
+
+        if (!params.containsKey("password")) {
+            return Mono.error(new RuntimeException("密码不能为空"));
+        }
+
+        var username = params.getFirst("username");
+        var password = params.getFirst("password");
+
+        return Mono.defer(() -> {
+                    var code = request.getQueryParams().getFirst("code");
+                    var state = request.getQueryParams().getFirst("state");
+                    if (code == null || state == null)
+                        return Mono.error(new RuntimeException("code和state不能为空"));
+
+                    return authorizationCodeService.validateAndConsume(code, state);
+                })
+                .flatMap(valid -> {
+                    if (valid) {
+                        return userAuthorityGrpc.loadUserByUsername(LoadUserByUsernameRequest.newBuilder()
+                                .setUsername(username)
+                                .build());
+                    }
+
+                    return Mono.error(new RuntimeException("invalid_code"));
+                })
+                .map(UserResponse::getUser)
+                .mapNotNull(user -> {
+                    if (passwordEncoderService.matches(password, user.getPassword())) {
+                        log.debug("用户 {} 密码验证成功!", user.getUsername());
+                        return tokenService.generateToken(user);
+                    }
+
+                    log.debug("用户 {} 密码验证失败!", user.getUsername());
+                    return null;
+                });
+    }
+}

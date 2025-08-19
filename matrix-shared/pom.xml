@@ -25,6 +25,7 @@
         <module>matrix-shared-cache</module>
         <module>matrix-shared-api</module>
         <module>matrix-shared-tracing</module>
+        <module>matrix-shared-sms</module>
     </modules>
 
     <dependencyManagement>
@@ -84,6 +85,12 @@
                 <groupId>club.hm.matrix</groupId>
                 <artifactId>matrix-shared-tracing</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-shared-sms</artifactId>
+                <version>0.0.1</version>
             </dependency>
 
             <dependency>

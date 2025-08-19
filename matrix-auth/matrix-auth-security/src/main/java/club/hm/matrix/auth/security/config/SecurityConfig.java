@@ -3,13 +3,13 @@ package club.hm.matrix.auth.security.config;
 import club.hm.matrix.auth.security.authentication.CustomReactiveAuthenticationManager;
 import club.hm.matrix.auth.security.authentication.CustomReactiveAuthorizationManager;
 import club.hm.matrix.auth.security.converter.CustomServerAuthenticationConverter;
+import club.hm.matrix.auth.security.converter.JwtCustomizer;
 import club.hm.matrix.auth.security.filter.CustomAuthenticationWebFilter;
-import club.hm.matrix.auth.security.filter.CustomAuthorizationWebFilter;
 import club.hm.matrix.auth.security.filter.CustomServerAuthenticationFailureHandler;
 import club.hm.matrix.auth.security.filter.RequestIdWebFilter;
 import club.hm.matrix.auth.security.handler.CustomAuthenticationSuccessHandler;
 import club.hm.matrix.auth.security.handler.CustomServerAccessDeniedHandler;
-import club.hm.matrix.auth.security.handler.CustomAuthenticationEntryPoint;
+import club.hm.matrix.auth.security.handler.BearerTokenAuthenticationEntryPoint;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +17,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
@@ -49,7 +50,8 @@ public class SecurityConfig {
                                                             CustomAuthenticationSuccessHandler successHandler,
                                                             CustomServerAuthenticationFailureHandler failureHandler,
                                                             CustomServerAccessDeniedHandler deniedHandler,
-                                                            CustomAuthenticationEntryPoint entryPoint) {
+                                                            BearerTokenAuthenticationEntryPoint entryPoint,
+                                                            JwtCustomizer customizer) {
         return http
                 // 禁用CSRF，因为我们使用JWT
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
@@ -79,6 +81,9 @@ public class SecurityConfig {
                         // 其他所有请求都需要认证
                         .anyExchange().authenticated()
                 )
+                .oauth2ResourceServer(oauth2-> oauth2
+                        .authenticationEntryPoint(entryPoint)
+                        .jwt(customizer))
                 .addFilterBefore(new RequestIdWebFilter(), SecurityWebFiltersOrder.FIRST)
                 // 添加JWT认证过滤器
                 .addFilterBefore(jwtAuthenticationWebFilter(authenticationManager, converter, successHandler, failureHandler), SecurityWebFiltersOrder.AUTHENTICATION)

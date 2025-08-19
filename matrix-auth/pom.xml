@@ -28,7 +28,8 @@
         <module>matrix-auth-grpc-consumer</module>
         <module>matrix-auth-grpc-provider</module>
         <module>matrix-auth-grpc-proto</module>
-        <module>matrix-auth-consumer</module>
+        <module>matrix-auth-client</module>
+        <module>matrix-auth-oauth2-server</module>
     </modules>
 
     <dependencyManagement>
@@ -80,6 +81,12 @@
                 <groupId>club.hm.matrix</groupId>
                 <artifactId>matrix-auth-security</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-auth-grpc-proto</artifactId>
+                <version>0.0.1</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

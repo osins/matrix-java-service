@@ -3,7 +3,6 @@ package club.hm.matrix.auth.grpc.provider.converter;
 import club.hm.matrix.auth.data.dto.UserDTO;
 import club.hm.matrix.auth.grpc.*;
 import org.springframework.stereotype.Component;
-import reactor.core.publisher.Mono;
 
 import static club.hm.matrix.shared.grpc.base.utils.TimeStamp.fromTimestamp;
 import static club.hm.matrix.shared.grpc.base.utils.TimeStamp.toTimestamp;

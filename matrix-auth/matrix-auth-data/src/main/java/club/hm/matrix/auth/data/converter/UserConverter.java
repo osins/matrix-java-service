@@ -33,7 +33,7 @@ public class UserConverter {
         return UserDTO.builder()
                 .id(sysUser.id())
                 .username(sysUser.username())
-                .password(null)
+                .password(sysUser.password())
                 .enabled(sysUser.enabled())
                 .roles(Collections.emptyList())
                 .build();

@@ -18,5 +18,10 @@
             <groupId>club.hm.matrix</groupId>
             <artifactId>matrix-shared-api</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>club.hm.matrix</groupId>
+            <artifactId>matrix-auth-grpc-proto</artifactId>
+        </dependency>
     </dependencies>
 </project>

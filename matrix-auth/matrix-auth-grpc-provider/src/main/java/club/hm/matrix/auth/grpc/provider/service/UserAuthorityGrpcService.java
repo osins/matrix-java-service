@@ -29,6 +29,7 @@ public class UserAuthorityGrpcService extends ReactorUserAuthorityServiceGrpc.Us
     public Mono<UserResponse> loadUserByUsername(LoadUserByUsernameRequest request) {
         return userAuthorityService.loadUserByUsername(request.getUsername())
                 .map(converter::toGrpcUser)
+                .switchIfEmpty(Mono.just(UserResponse.newBuilder().setError("请求参数无效").build()))
                 .doOnError(throwable -> log.error("loadUserByUsername error", throwable))
                 .doOnNext(userResponse -> log.info("loadUserByUsername success: {}", userResponse));
     }

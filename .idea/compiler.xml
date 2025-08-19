@@ -33,6 +33,7 @@
         <module name="matrix-auth-grpc-proto" />
         <module name="matrix-shared-cloud-discovery-server" />
         <module name="matrix-shared-webflux" />
+        <module name="matrix-auth-client" />
         <module name="matrix-user-grpc-consumer" />
         <module name="matrix-message" />
         <module name="matrix-user-data" />
@@ -41,8 +42,9 @@
         <module name="matrix-federation" />
         <module name="matrix-shared-api" />
         <module name="matrix-user-grpc-provider" />
-        <module name="matrix-auth-consumer" />
+        <module name="matrix-shared-sms" />
         <module name="matrix-user-grpc-proto" />
+        <module name="matrix-auth-oauth2-server" />
         <module name="matrix-shared-common" />
         <module name="matrix-auth-data" />
         <module name="matrix-auth-grpc-consumer" />
