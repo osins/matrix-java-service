@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="maven-osins-reactor-grpc-plugin" />
       </profile>
       <profile name="Annotation profile for matrix" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -100,6 +101,7 @@
       <module name="matrix-user-grpc-proto" options="-parameters -parameters" />
       <module name="matrix-user-grpc-provider" options="-parameters -parameters" />
       <module name="matrix-websocket" options="-parameters -parameters" />
+      <module name="maven-osins-reactor-grpc-plugin" options="" />
     </option>
   </component>
 </project>
