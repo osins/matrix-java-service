@@ -5,9 +5,9 @@ import club.hm.matrix.auth.client.vo.TokenResponse;
 import club.hm.matrix.auth.client.vo.RegisterRequest;
 import club.hm.matrix.auth.grpc.CreateUserRequest;
 import club.hm.matrix.auth.grpc.User;
-import club.hm.matrix.auth.grpc.api.service.UserAuthorityGrpc;
 import club.hm.matrix.auth.api.service.TokenService;
-import club.hm.matrix.auth.security.service.UserPasswordEncoderService;
+import club.hm.matrix.auth.grpc.consumer.service.impl.UserAuthorityGrpcClient;
+import club.hm.matrix.auth.security.service.PasswordEncoderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -19,8 +19,8 @@ import java.util.Optional;
 @Component()
 @RequiredArgsConstructor
 public class PasswordRegisterAuthHandler implements RegisterAuthHandler {
-    private final UserAuthorityGrpc userAuthorityGrpc;
-    private final UserPasswordEncoderService userPasswordEncoderService;
+    private final UserAuthorityGrpcClient userAuthorityClient;
+    private final PasswordEncoderService passwordEncoderService;
     private final TokenService<TokenResponse> tokenService;
 
     @Override
@@ -35,11 +35,9 @@ public class PasswordRegisterAuthHandler implements RegisterAuthHandler {
         }
         log.info("Password auth for username={}", request.username());
 
-        return userAuthorityGrpc.createUser(CreateUserRequest.newBuilder()
-                        .setUser(User.newBuilder()
-                                .setUsername(request.username())
-                                .setPassword(userPasswordEncoderService.encode(request.password()))
-                                .build())
+        return userAuthorityClient.createUser(CreateUserRequest.newBuilder()
+                        .setUsername(request.username())
+                        .setPassword(passwordEncoderService.encode(request.password()))
                         .build())
                 .map(response -> {
                     return Optional.of(response.getUser())

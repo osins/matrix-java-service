@@ -20,6 +20,7 @@
 ### gRPC 和 Protobuf 版本
 - gRPC 版本: 1.74.0
 - Protobuf 版本: 4.31.1
+- Protobuf 编译器版本: 4.32.0
 
 ## 2. 核心依赖及版本
 
@@ -44,9 +45,15 @@
 ### 第三方依赖
 - Lombok 版本: 1.18.38
 - Mapstruct 版本: 1.6.3
+- Guava 版本: 33.4.8-jre
 - R2DBC PostgreSQL 版本: 1.0.7.RELEASE
 - Flyway 版本: 11.10.1 (matrix-flyway 模块中使用 11.11.0)
 - Mockito 版本: 5.17.0
+- Redisson 版本: 3.50.0
+
+### 云原生相关
+- Spring Cloud Kubernetes 版本: 3.2.0
+- Fabric8 Kubernetes Client 版本: 7.0.1
 
 ## 3. 项目模块结构和父子关系
 ```azure

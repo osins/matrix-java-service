@@ -1,10 +1,12 @@
 package club.hm.matrix.user.grpc.provider.impl;
 
+import club.hm.matrix.shared.grpc.base.utils.Observer;
 import club.hm.matrix.user.data.service.UserDao;
-import club.hm.matrix.user.grpc.proto.ReactorUserServiceGrpc;
 import club.hm.matrix.user.grpc.proto.UserOuterClass;
+import club.hm.matrix.user.grpc.proto.UserServiceGrpc;
 import club.hm.matrix.user.grpc.provider.conveter.UserProtoConverter;
 import com.google.protobuf.Empty;
+import io.grpc.stub.StreamObserver;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +16,7 @@ import reactor.core.publisher.Mono;
 @Slf4j
 @GrpcService
 @RequiredArgsConstructor
-public class UserServiceImpl extends ReactorUserServiceGrpc.UserServiceImplBase {
+public class UserServiceImpl extends UserServiceGrpc.UserServiceImplBase {
 
     private final UserDao userDao;
     private final UserProtoConverter userProtoMapper;
@@ -25,25 +27,24 @@ public class UserServiceImpl extends ReactorUserServiceGrpc.UserServiceImplBase 
     }
 
     @Override
-    public Mono<UserOuterClass.User> getUserById(UserOuterClass.UserIdRequest request) {
-        return userDao.getUserById(request.getId())
-                .map(userProtoMapper::to)
-                .doOnError(t -> log.error("获取用户信息失败: {}, {}", request, t.getMessage(), t));
+    public void getUserById(UserOuterClass.UserIdRequest request, StreamObserver<UserOuterClass.User> obs) {
+        Observer.provider(userDao.getUserById(request.getId())
+                        .map(userProtoMapper::to), obs);
     }
 
     @Override
-    public Mono<UserOuterClass.UserListResponse> getAllUsers(Empty request) {
-        return userDao.getAllUsers()
+    public void getAllUsers(Empty request, StreamObserver<UserOuterClass.UserListResponse> obs) {
+        Observer.provider(userDao.getAllUsers()
                 .map(userProtoMapper::to)
                 .collectList()
-                .map(list->UserOuterClass.UserListResponse.newBuilder().addAllUsers(list).build());
+                .map(list->UserOuterClass.UserListResponse.newBuilder().addAllUsers(list).build()), obs);
     }
 
     @Override
-    public Mono<UserOuterClass.User> createUser(UserOuterClass.User request) {
+    public void createUser(UserOuterClass.User request, StreamObserver<UserOuterClass.User> obs) {
         var userEntity = userProtoMapper.from(request);
-        return userDao.createUser(userEntity)
+        Observer.provider(userDao.createUser(userEntity)
                 .map(userProtoMapper::to)
-                .doOnError(t -> log.error("创建用户失败: {}, {}", request, t.getMessage(), t));
+                .doOnError(t -> log.error("创建用户失败: {}, {}", request, t.getMessage(), t)), obs);
     }
 }

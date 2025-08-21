@@ -1,8 +1,8 @@
 package club.hm.matrix.user.grpc.consumer.service;
 
-import club.hm.matrix.user.grpc.proto.ReactorUserServiceGrpc;
+import club.hm.matrix.shared.grpc.base.utils.Observer;
 import club.hm.matrix.user.grpc.proto.UserOuterClass;
-import com.google.protobuf.Empty;
+import club.hm.matrix.user.grpc.proto.UserServiceGrpc;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -14,14 +14,14 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class UserGrpcClientService {
 
-    private final Mono<ReactorUserServiceGrpc.ReactorUserServiceStub> reactorStub;
+    private final Mono<UserServiceGrpc.UserServiceStub> reactorStub;
 
     /**
      * 创建用户
      */
     public Mono<UserOuterClass.User> createUser(UserOuterClass.User user) {
         return reactorStub
-                .flatMap(stub -> stub.createUser(user))
+                .flatMap(stub -> Observer.mono(user, stub::createUser))
                 .doOnError(error -> log.error("Create user failed: {}", user, error))
                 .doOnNext(resp -> log.info("Create user success: {}", resp));
     }
@@ -30,21 +30,17 @@ public class UserGrpcClientService {
      * 根据 ID 获取用户
      */
     public Mono<UserOuterClass.User> getUserById(long id) {
+        var request = UserOuterClass.UserIdRequest.newBuilder().setId(id).build();
         return reactorStub
-                .flatMap(stub -> stub.getUserById(
-                        UserOuterClass.UserIdRequest.newBuilder().setId(id).build()
-                ))
+                .flatMap(stub -> Observer.mono(request, stub::getUserById))
                 .doOnError(error -> log.error("Get user by ID failed: {}", id, error));
     }
 
     /**
      * 获取所有用户（转换为 Flux）
      */
-    public Flux<UserOuterClass.User> getAllUsers() {
+    public Flux<UserOuterClass.UserListResponse> getAllUsers() {
         return reactorStub
-                .flatMapMany(stub -> stub.getAllUsers(Empty.getDefaultInstance())
-                        .flatMapIterable(UserOuterClass.UserListResponse::getUsersList)
-                )
-                .doOnError(error -> log.error("Get all users failed", error));
+                .flatMapMany(stub -> Observer.flux(stub::getAllUsers));
     }
 }

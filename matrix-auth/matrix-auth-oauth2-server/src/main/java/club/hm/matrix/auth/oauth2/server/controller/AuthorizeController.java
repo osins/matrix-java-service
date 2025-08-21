@@ -1,8 +1,15 @@
 package club.hm.matrix.auth.oauth2.server.controller;
 
+import club.hm.homemart.club.shared.common.uitls.Result;
+import club.hm.matrix.auth.security.service.PasswordEncoderService;
+import club.hm.matrix.shared.grpc.base.utils.StatusConverter;
+import club.hm.matrix.auth.api.service.TokenService;
+import club.hm.matrix.auth.grpc.CreateUserRequest;
+import club.hm.matrix.auth.grpc.api.service.UserAuthorityGrpc;
 import club.hm.matrix.auth.oauth2.server.service.GrantTypeAuthorizeService;
 import club.hm.matrix.auth.oauth2.server.service.ResponseTypeAuthorizeService;
-import com.fxg.module.common.Result;
+import club.hm.matrix.auth.oauth2.server.vo.RegisterRequest;
+import club.hm.matrix.auth.oauth2.server.vo.TokenResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -20,6 +27,9 @@ import java.util.*;
 public class AuthorizeController {
     private final GrantTypeAuthorizeService grantTypeAuthorizeService;
     private final ResponseTypeAuthorizeService responseTypeAuthorizeService;
+    private final UserAuthorityGrpc userAuthorityGrpc;
+    private final TokenService<TokenResponse> tokenService;
+    private final PasswordEncoderService passwordEncoderService;
 
     private Mono<?> authorizeResult(ServerHttpRequest request){
         if(request.getQueryParams().containsKey("response_type"))
@@ -37,43 +47,16 @@ public class AuthorizeController {
                 .map(Result::success);
     }
 
-    // 短信验证码发送 - WebFlux版本
-//    @PostMapping("/authorize/sms_code")
-//    public Mono<Result<Void>> authorizeSms(@RequestBody OAuth2SendSmsCodeRequest request) {
-//        return Mono.fromCallable(() -> Optional.ofNullable(request.getMobile())
-//                        .orElseThrow(() -> new RuntimeException("手机号码不能为空")))
-//                .flatMap(mobile ->
-//                        smsLoginCodeCache.getCodeAsync(mobile)
-//                                .flatMap(existingCode -> {
-//                                    if (existingCode.isPresent()) {
-//                                        return Mono.just(Result.failure("短信验证码已发送,请不要重复请求"));
-//                                    }
-//
-//                                    return smsLoginCodeCache.generateAsync(mobile)
-//                                            .flatMap(codeOpt -> {
-//                                                if (codeOpt.isPresent()) {
-//                                                    return aliyunSmsService.sendLoginSmsAsync(mobile, codeOpt.get());
-//                                                }
-//                                                return Mono.just(Result.failure("发送失败"));
-//                                            });
-//                                })
-//                )
-//                .onErrorReturn(Result.failure("发送失败"));
-//    }
-
-    // 重置密码 - WebFlux版本
-//    @PostMapping("/authorize/password/forgot")
-//    public Mono<Result<Void>> resetPassword(@RequestBody PasswordForgotRequest request) {
-//        return smsLoginCodeCache.getCodeAsync(request.getMobile())
-//                .flatMap(codeOpt -> {
-//                    if (!codeOpt.filter(code -> code.equalsIgnoreCase(request.getCode())).isPresent()) {
-//                        return Mono.just(Result.failure("验证码错误"));
-//                    }
-//
-//                    return securityUserService.forgotPasswordAsync(request);
-//                })
-//                .onErrorReturn(Result.failure("重置密码失败"));
-//    }
+    // OIDC 客户端注册端点 - WebFlux版本
+    @PostMapping("/register")
+    public Mono<Result<TokenResponse>> oidcClientRegistration(@RequestBody RegisterRequest request) {
+        return userAuthorityGrpc.createUser(CreateUserRequest.newBuilder()
+                        .setUsername(request.username())
+                        .setPassword(passwordEncoderService.encode(request.password()))
+                        .build())
+                .map(response -> Result.success(tokenService.generateToken(response.getUser())))
+                .onErrorResume(StatusConverter::error);
+    }
 
     // 设备授权端点 - WebFlux版本
     @PostMapping("/device_authorization")
@@ -157,15 +140,4 @@ public class AuthorizeController {
                 .onErrorReturn(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                         .body(Map.of("error", "User info retrieval failed")));
     }
-
-    // OIDC 客户端注册端点 - WebFlux版本
-//    @PostMapping("/register")
-//    public Mono<ResponseEntity<Result<TokenResponse>>> oidcClientRegistration(@RequestBody RegisterRequest data) {
-//        return Mono.fromCallable(() -> {
-//                    // 实现客户端注册逻辑
-//                    return ResponseEntity.ok(Result.success(new TokenResponse()));
-//                })
-//                .onErrorReturn(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-//                        .body(Result.error("Client registration failed")));
-//    }
 }

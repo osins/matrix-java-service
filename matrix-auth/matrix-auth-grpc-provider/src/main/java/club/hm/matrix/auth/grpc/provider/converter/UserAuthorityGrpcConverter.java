@@ -4,7 +4,6 @@ import club.hm.matrix.auth.data.dto.UserDTO;
 import club.hm.matrix.auth.grpc.*;
 import org.springframework.stereotype.Component;
 
-import static club.hm.matrix.shared.grpc.base.utils.TimeStamp.fromTimestamp;
 import static club.hm.matrix.shared.grpc.base.utils.TimeStamp.toTimestamp;
 
 @Component
@@ -37,16 +36,12 @@ public class UserAuthorityGrpcConverter {
     /**
      * gRPC User -> UserDTO
      */
-    public UserDTO fromGrpcUser(User user) {
-        if (user == null) return null;
+    public UserDTO fromGrpcUser(CreateUserRequest request) {
+        if (request == null) return null;
 
         return UserDTO.builder()
-                .id(user.getId())
-                .username(user.getUsername())
-                .password(user.getPassword())
-                .enabled(user.getEnabled())
-                .createdAt(fromTimestamp(user.getCreatedAt()))
-                .updatedAt(fromTimestamp(user.getUpdatedAt()))
+                .username(request.getUsername())
+                .password(request.getPassword())
                 .build();
     }
 

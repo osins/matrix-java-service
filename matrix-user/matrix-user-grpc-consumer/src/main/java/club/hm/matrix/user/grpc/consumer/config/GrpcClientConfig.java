@@ -1,6 +1,7 @@
 package club.hm.matrix.user.grpc.consumer.config;
 
-import club.hm.matrix.shared.grpc.client.discovery.ReactiveGrpcServiceDiscovery;
+import club.hm.matrix.shared.grpc.client.ReactiveGrpcServiceDiscovery;
+import club.hm.matrix.user.grpc.proto.UserServiceGrpc;
 import io.grpc.ManagedChannel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,9 +33,9 @@ public class GrpcClientConfig {
      * 创建用户服务的响应式 stub（Reactor gRPC）
      */
     @Bean
-    public Mono<club.hm.matrix.user.grpc.proto.ReactorUserServiceGrpc.ReactorUserServiceStub> reactorUserServiceStub() {
+    public Mono<UserServiceGrpc.UserServiceStub> reactorUserServiceStub() {
         return userServiceChannel()
-                .map(channel -> club.hm.matrix.user.grpc.proto.ReactorUserServiceGrpc.newReactorStub(channel).withWaitForReady())
+                .map(channel -> UserServiceGrpc.newStub(channel).withWaitForReady())
                 .cache();
     }
 }

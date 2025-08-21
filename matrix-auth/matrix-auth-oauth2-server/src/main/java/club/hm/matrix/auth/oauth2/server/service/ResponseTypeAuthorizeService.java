@@ -1,8 +1,8 @@
 package club.hm.matrix.auth.oauth2.server.service;
 
-import club.hm.homemart.club.shared.common.Result;
+import club.hm.homemart.club.shared.common.uitls.Result;
 import club.hm.matrix.auth.oauth2.server.enums.ResponseType;
-import club.hm.matrix.auth.oauth2.server.handler.IResponseTypeHandler;
+import club.hm.matrix.auth.oauth2.server.handler.response.IResponseTypeHandler;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

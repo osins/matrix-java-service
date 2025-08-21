@@ -67,7 +67,9 @@ public class RoleConverter {
         return new SysRole(
                 roleDTO.getId(),
                 roleDTO.getName(),
-                null  // SysRole 中的 description 字段，RoleDTO 中没有对应字段
+                roleDTO.getDescription(),
+                roleDTO.getCreatedAt(),
+                roleDTO.getUpdatedAt()
         );
     }
 

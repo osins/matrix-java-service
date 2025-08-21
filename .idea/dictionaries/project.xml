@@ -2,13 +2,20 @@
   <dictionary name="project">
     <words>
       <w>aliyun</w>
+      <w>aliyuncs</w>
       <w>catadmin</w>
+      <w>dysmsapi</w>
       <w>errcode</w>
+      <w>ffwcpi</w>
+      <w>gjson</w>
       <w>homemart</w>
+      <w>isrc</w>
       <w>jtis</w>
+      <w>ltai</w>
       <w>motd</w>
       <w>postgre</w>
       <w>reactorgrpc</w>
+      <w>richar</w>
       <w>servicelibs</w>
       <w>tooljet</w>
       <w>wahaha</w>

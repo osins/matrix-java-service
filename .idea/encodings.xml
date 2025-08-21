@@ -15,6 +15,8 @@
     <file url="file://$PROJECT_DIR$/matrix-auth/matrix-auth-grpc-provider/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-auth/matrix-auth-oauth2-server/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-auth/matrix-auth-oauth2-server/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/matrix-auth/matrix-auth-role-strategy-manage/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/matrix-auth/matrix-auth-role-strategy-manage/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-auth/matrix-auth-security/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-auth/matrix-auth-security/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-auth/src/main/java" charset="UTF-8" />

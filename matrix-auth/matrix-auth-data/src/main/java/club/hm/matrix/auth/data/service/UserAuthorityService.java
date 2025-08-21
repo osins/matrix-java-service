@@ -10,6 +10,8 @@ import club.hm.matrix.auth.data.entity.SysUser;
 import club.hm.matrix.auth.data.entity.SysRole;
 import club.hm.matrix.auth.data.entity.SysPermission;
 import club.hm.matrix.auth.data.entity.SysUserRole;
+import club.hm.matrix.shared.data.exception.DuplicateException;
+import club.hm.matrix.shared.data.exception.NotFoundException;
 import club.hm.matrix.auth.data.repos.*;
 import club.hm.matrix.shared.snowflake.id.generator.BufferedIdService;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,8 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.LocalDateTime;
+import java.util.DuplicateFormatFlagsException;
 import java.util.List;
 
 @Slf4j
@@ -43,11 +47,11 @@ public class UserAuthorityService {
      * @return 创建后的用户DTO
      */
     public Mono<UserDTO> createUser(UserDTO userDTO) {
-        if(userDTO==null || userDTO.getUsername()==null)
+        if (userDTO == null || userDTO.getUsername() == null)
             return Mono.error(new IllegalArgumentException("用户名不能为空"));
 
         return userRepo.findByUsername(userDTO.getUsername())
-                .flatMap(user -> Mono.<UserDTO>error(new RuntimeException("用户名已存在: " + userDTO.getUsername())))
+                .flatMap(user -> Mono.<UserDTO>error(new DuplicateException("用户名已存在: " + userDTO.getUsername())))
                 .switchIfEmpty(Mono.defer(() -> {
                     var user = userConverter.toEntity(userDTO.setId(bufferedIdService.getNextId()), userDTO.getPassword());
                     log.debug("Create user: {}", user);
@@ -57,7 +61,7 @@ public class UserAuthorityService {
                                 // 如果有角色信息，保存用户角色关联
                                 if (userDTO.getRoles() != null && !userDTO.getRoles().isEmpty()) {
                                     return Flux.fromIterable(userDTO.getRoles())
-                                            .flatMap(roleDTO -> userRoleRepo.save(new SysUserRole(savedUser.id(), roleDTO.getId())))
+                                            .flatMap(roleDTO -> userRoleRepo.save(new SysUserRole(savedUser.id(), roleDTO.getId(), LocalDateTime.now(), LocalDateTime.now())))
                                             .then(Mono.just(savedUser));
                                 }
                                 return Mono.just(savedUser);
@@ -66,10 +70,18 @@ public class UserAuthorityService {
                 }));
     }
 
+    public Mono<Integer> changePasswordByUsername(String username, String password) {
+        return userRepo.existsByUsername(username)
+                .flatMap(exists -> exists ? userRepo.changePasswordByUsername(username, password)
+                        .doOnNext(count -> log.info("更新用户密码成功，mobile: {}", username))
+                        .doOnError(throwable -> log.error("更新用户密码失败，mobile: {}, 异常: {}", username, throwable.getMessage(), throwable))
+                        : Mono.error(new NotFoundException("用户不存在")));
+    }
+
     /**
      * 更新已有用户信息
      *
-     * @param userId 用户ID
+     * @param userId  用户ID
      * @param userDTO 用户信息DTO（可部分更新）
      * @return 更新后的用户DTO
      */
@@ -167,7 +179,7 @@ public class UserAuthorityService {
     /**
      * 检查用户是否具有特定权限
      *
-     * @param userId 用户ID
+     * @param userId         用户ID
      * @param permissionCode 权限编码
      * @return 是否具有该权限
      */
@@ -193,7 +205,7 @@ public class UserAuthorityService {
     /**
      * 检查用户是否具有特定角色
      *
-     * @param userId 用户ID
+     * @param userId   用户ID
      * @param roleCode 角色编码
      * @return 是否具有该角色
      */

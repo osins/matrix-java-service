@@ -6,6 +6,7 @@ import lombok.Getter;
 public enum ResponseType {
     UNKNOWN("unknown", "Unknown"),
     CODE("code", "Authorization Code"),
+    SMS_CODE("sms_code", "get sms code"),
     TOKEN("token", "Implicit"),
     DEVICE_CODE("device_code", "Device Code"),
     IDENTITY("identity", "Identity"),

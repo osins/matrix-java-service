@@ -1,7 +1,7 @@
 package club.hm.matrix.user.grpc.provider.conveter;
 
-import club.hm.homemart.club.shared.common.Dates;
-import club.hm.homemart.club.shared.common.Objects;
+import club.hm.homemart.club.shared.common.uitls.Dates;
+import club.hm.homemart.club.shared.common.uitls.Objects;
 import club.hm.matrix.grpc.proto.converter.IProtoConverter;
 import club.hm.matrix.user.data.entity.User;
 import club.hm.matrix.user.grpc.proto.UserOuterClass;

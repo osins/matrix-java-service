@@ -66,11 +66,9 @@
 
         <!-- 谷歌的 grpc -->
         <grpc.version>1.74.0</grpc.version>
-        <protobuf.version>4.31.1</protobuf.version>
-        <grpc.version>1.60.0</grpc.version>
-        <protobuf.version>3.25.1</protobuf.version>
-        <reactor-grpc.version>1.2.4</reactor-grpc.version>
         <grpc-spring-boot.version>2.15.0.RELEASE</grpc-spring-boot.version>
+        <protobuf.version>4.31.1</protobuf.version>
+        <protoc.version>4.32.0</protoc.version>
         <protobuf-maven-plugin.version>0.6.1</protobuf-maven-plugin.version>
         <os-maven-plugin.version>1.7.1</os-maven-plugin.version>
         <build-helper-maven-plugin.version>3.4.0</build-helper-maven-plugin.version>
@@ -258,28 +256,16 @@
                     </executions>
                 </plugin>
 
-                <!-- protobuf编译插件 -->
                 <plugin>
                     <groupId>org.xolstice.maven.plugins</groupId>
                     <artifactId>protobuf-maven-plugin</artifactId>
                     <version>0.6.1</version>
                     <configuration>
-                        <protocArtifact>com.google.protobuf:protoc:${protobuf.version}:exe:${os.detected.classifier}</protocArtifact>
+                        <protocArtifact>com.google.protobuf:protoc:3.25.5:exe:${os.detected.classifier}</protocArtifact>
                         <pluginId>grpc-java</pluginId>
-                        <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}</pluginArtifact>
-                        <outputDirectory>${project.build.directory}/generated-sources/protobuf/java</outputDirectory>
-                        <clearOutputDirectory>false</clearOutputDirectory>
-
-                        <!-- Reactor gRPC 插件配置 -->
-                        <protocPlugins>
-                            <protocPlugin>
-                                <id>reactor-grpc</id>
-                                <groupId>com.salesforce.servicelibs</groupId>
-                                <artifactId>reactor-grpc</artifactId>
-                                <version>${reactor-grpc.version}</version>
-                                <mainClass>com.salesforce.reactorgrpc.ReactorGrpcGenerator</mainClass>
-                            </protocPlugin>
-                        </protocPlugins>
+                        <pluginArtifact>io.grpc:protoc-gen-grpc-java:1.74.0:exe:${os.detected.classifier}</pluginArtifact>
+                        <protoSourceRoot>${project.basedir}/src/main/resources/proto</protoSourceRoot>
+                        <outputBaseDirectory>${project.build.directory}/generated-sources</outputBaseDirectory>
                     </configuration>
                     <executions>
                         <execution>
@@ -287,25 +273,30 @@
                                 <goal>compile</goal>
                                 <goal>compile-custom</goal>
                             </goals>
-                            <configuration>
-                                <protocPlugins>
-                                    <protocPlugin>
-                                        <id>reactor-grpc</id>
-                                        <groupId>com.salesforce.servicelibs</groupId>
-                                        <artifactId>reactor-grpc</artifactId>
-                                        <version>${reactor-grpc.version}</version>
-                                        <mainClass>com.salesforce.reactorgrpc.ReactorGrpcGenerator</mainClass>
-                                    </protocPlugin>
-                                </protocPlugins>
-                            </configuration>
                         </execution>
                     </executions>
                 </plugin>
 
+                <!-- Build Helper Plugin - 添加生成的源代码目录 -->
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>${build-helper-maven-plugin.version}</version>
+                    <version>3.6.0</version>
+                    <executions>
+                        <execution>
+                            <id>add-generated-sources</id>
+                            <phase>generate-sources</phase>
+                            <goals>
+                                <goal>add-source</goal>
+                            </goals>
+                            <configuration>
+                                <sources>
+                                    <source>${project.build.directory}/generated-sources/protobuf/java</source>
+                                    <source>${project.build.directory}/generated-sources/protobuf/grpc-java</source>
+                                </sources>
+                            </configuration>
+                        </execution>
+                    </executions>
                 </plugin>
 
                 <!-- Java编译器插件 -->
@@ -318,6 +309,9 @@
                         <target>${java.version}</target>
                         <encoding>${project.build.sourceEncoding}</encoding>
                         <parameters>true</parameters>
+                        <compilerArgs>
+                            <arg>-parameters</arg>
+                        </compilerArgs>
                         <annotationProcessorPaths>
                             <path>
                                 <groupId>org.springframework.boot</groupId>

@@ -15,6 +15,8 @@ public final class TimeStamp {
     }
 
     public static Timestamp toTimestamp(LocalDateTime ldt) {
+        if(ldt==null)
+            return null;
         return Timestamp.newBuilder()
                 .setSeconds(ldt.atZone(ZoneId.systemDefault()).toEpochSecond())
                 .setNanos(ldt.getNano())

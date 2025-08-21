@@ -16,6 +16,11 @@
     <dependencies>
         <dependency>
             <groupId>club.hm.matrix</groupId>
+            <artifactId>matrix-shared-data</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>club.hm.matrix</groupId>
             <artifactId>matrix-shared-grpc-base</artifactId>
             <version>${project.version}</version>
         </dependency>

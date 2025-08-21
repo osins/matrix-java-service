@@ -15,6 +15,7 @@ public enum GrantType {
     DEVICE_CODE("device_code", "设备模式"),
     SMS_CODE("sms_code", "短信模式"),
     EMAIL_CODE("email_code", "邮箱模式"),
+    CHANGE_PASSWORD("change_password", "修改密码模式"),
     ;
 
     @JsonValue

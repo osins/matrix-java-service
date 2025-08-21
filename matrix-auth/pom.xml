@@ -30,6 +30,7 @@
         <module>matrix-auth-grpc-proto</module>
         <module>matrix-auth-client</module>
         <module>matrix-auth-oauth2-server</module>
+        <module>matrix-auth-role-strategy-manage</module>
     </modules>
 
     <dependencyManagement>

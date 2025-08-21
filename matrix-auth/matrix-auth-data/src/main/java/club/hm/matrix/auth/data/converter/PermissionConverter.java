@@ -4,6 +4,7 @@ import club.hm.matrix.auth.data.dto.PermissionDTO;
 import club.hm.matrix.auth.data.entity.SysPermission;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,7 +47,9 @@ public class PermissionConverter {
         return new SysPermission(
                 dto.getId(),
                 dto.getCode(),
-                dto.getName() // 将 name 映射到 description
+                dto.getName(),
+                dto.getCreatedAt(),
+                dto.getUpdatedAt()
         );
     }
 

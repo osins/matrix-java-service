@@ -5,9 +5,9 @@ import club.hm.matrix.auth.client.vo.TokenResponse;
 import club.hm.matrix.auth.client.vo.LoginRequest;
 import club.hm.matrix.auth.grpc.LoadUserByUsernameRequest;
 import club.hm.matrix.auth.grpc.UserResponse;
-import club.hm.matrix.auth.grpc.api.service.UserAuthorityGrpc;
 import club.hm.matrix.auth.api.service.TokenService;
-import club.hm.matrix.auth.security.service.UserPasswordEncoderService;
+import club.hm.matrix.auth.grpc.consumer.service.impl.UserAuthorityGrpcClient;
+import club.hm.matrix.auth.security.service.PasswordEncoderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -17,8 +17,8 @@ import reactor.core.publisher.Mono;
 @Component
 @RequiredArgsConstructor
 public class PasswordLoginHandler implements LoginHandler {
-    private final UserAuthorityGrpc userAuthorityGrpc;
-    private final UserPasswordEncoderService userPasswordEncoderService;
+    private final UserAuthorityGrpcClient userAuthorityClient;
+    private final PasswordEncoderService passwordEncoderService;
     private final TokenService<TokenResponse> tokenService;
 
     @Override
@@ -28,12 +28,10 @@ public class PasswordLoginHandler implements LoginHandler {
 
     @Override
     public Mono<TokenResponse> handle(LoginRequest request) {
-        return userAuthorityGrpc.loadUserByUsername(LoadUserByUsernameRequest.newBuilder()
-                        .setUsername(request.getIdentifier().getUser())
-                        .build())
+        return userAuthorityClient.loadUserByUsername(LoadUserByUsernameRequest.newBuilder().setUsername(request.getIdentifier().getUser()).build())
                 .map(UserResponse::getUser)
                 .flatMap(user -> {
-                    if (userPasswordEncoderService.matches(request.getPassword(), user.getPassword())) {
+                    if (passwordEncoderService.matches(request.getPassword(), user.getPassword())) {
                         return Mono.just(tokenService.generateToken(user));
                     } else {
                         return Mono.error(new RuntimeException("密码错误"));

@@ -5,5 +5,10 @@
     <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/2d1befde-40ba-4540-9880-6c5e38b4f386/console_1.sql" value="2d1befde-40ba-4540-9880-6c5e38b4f386" />
     <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/2d1befde-40ba-4540-9880-6c5e38b4f386/console_2.sql" value="2d1befde-40ba-4540-9880-6c5e38b4f386" />
     <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/2d1befde-40ba-4540-9880-6c5e38b4f386/console_3.sql" value="2d1befde-40ba-4540-9880-6c5e38b4f386" />
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/2d1befde-40ba-4540-9880-6c5e38b4f386/console_4.sql" value="2d1befde-40ba-4540-9880-6c5e38b4f386" />
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/2d1befde-40ba-4540-9880-6c5e38b4f386/console_5.sql" value="2d1befde-40ba-4540-9880-6c5e38b4f386" />
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/2d1befde-40ba-4540-9880-6c5e38b4f386/console_6.sql" value="2d1befde-40ba-4540-9880-6c5e38b4f386" />
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/2d1befde-40ba-4540-9880-6c5e38b4f386/console_7.sql" value="2d1befde-40ba-4540-9880-6c5e38b4f386" />
+    <file url="file://$PROJECT_DIR$/matrix-auth/matrix-auth-data/src/main/java/club/hm/matrix/auth/data/repos/SysUserRepository.java" value="2d1befde-40ba-4540-9880-6c5e38b4f386" />
   </component>
 </project>
