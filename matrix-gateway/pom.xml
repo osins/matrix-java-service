@@ -17,6 +17,18 @@
     <name>matrix-gateway</name>
     <description>Matrix协议API网关服务</description>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-dependencies</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <dependency>
             <groupId>club.hm.matrix</groupId>

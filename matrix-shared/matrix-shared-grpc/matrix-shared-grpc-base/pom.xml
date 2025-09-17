@@ -20,13 +20,6 @@
             <artifactId>matrix-shared-logging</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.google.errorprone</groupId>
-            <artifactId>error_prone_annotations</artifactId>
-            <version>2.36.0</version>
-            <scope>compile</scope>
-        </dependency>
-
         <!-- Spring Boot starter -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -40,11 +33,28 @@
             <scope>compile</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.google.errorprone</groupId>
+            <artifactId>error_prone_annotations</artifactId>
+            <version>2.36.0</version>
+            <scope>compile</scope>
+        </dependency>
+
         <!-- protobuf插件 -->
         <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java-util</artifactId>
             <version>${protobuf.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>error_prone_annotations</artifactId>
+                    <groupId>com.google.errorprone</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>j2objc-annotations</artifactId>
+                    <groupId>com.google.j2objc</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>

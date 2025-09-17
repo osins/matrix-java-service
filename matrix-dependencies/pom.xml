@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>club.hm.matrix</groupId>
+    <artifactId>matrix-dependencies</artifactId>
+    <version>0.0.1</version>
+    <packaging>pom</packaging>
+    <name>matrix dependencies</name>
+    <description>matrix Dependencies</description>
+
+    <properties>
+        <project.version>0.0.1</project.version>
+        <java.version>21</java.version>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <spring-boot.version>3.5.4</spring-boot.version>
+        <spring-cloud.version>2025.0.0</spring-cloud.version>
+
+        <!-- 服务发现 -->
+        <spring-cloud-kubernetes.version>3.2.0</spring-cloud-kubernetes.version>
+        <fabric8-kubernetes-client.version>7.0.1</fabric8-kubernetes-client.version>
+
+        <spring-amqp.version>3.2.6</spring-amqp.version>
+        <spring-authorization-server.version>1.5.1</spring-authorization-server.version>
+        <spring-batch.version>5.2.2</spring-batch.version>
+        <spring-data-bom.version>2025.0.2</spring-data-bom.version>
+        <spring-framework.version>6.2.9</spring-framework.version>
+        <spring-graphql.version>1.4.1</spring-graphql.version>
+        <spring-hateoas.version>2.5.1</spring-hateoas.version>
+        <spring-integration.version>6.5.1</spring-integration.version>
+        <spring-kafka.version>3.3.8</spring-kafka.version>
+        <spring-ldap.version>3.3.2</spring-ldap.version>
+        <spring-pulsar.version>1.2.8</spring-pulsar.version>
+        <spring-restdocs.version>3.0.4</spring-restdocs.version>
+        <spring-retry.version>2.0.12</spring-retry.version>
+        <spring-security.version>6.5.2</spring-security.version>
+        <spring-session.version>3.5.1</spring-session.version>
+        <spring-ws.version>4.1.1</spring-ws.version>
+
+        <!-- 谷歌的 grpc -->
+        <grpc.version>1.74.0</grpc.version>
+        <grpc-spring-boot.version>2.15.0.RELEASE</grpc-spring-boot.version>
+        <protobuf.version>4.31.1</protobuf.version>
+        <protoc.version>4.32.0</protoc.version>
+        <protobuf-maven-plugin.version>0.6.1</protobuf-maven-plugin.version>
+        <os-maven-plugin.version>1.7.1</os-maven-plugin.version>
+        <build-helper-maven-plugin.version>3.4.0</build-helper-maven-plugin.version>
+
+        <!-- 第三方依赖版本 -->
+        <lombok.version>1.18.38</lombok.version>
+        <mapstruct.version>1.6.3</mapstruct.version>
+        <guava.version>33.4.8-jre</guava.version>
+        <r2dbc-postgresql.version>1.0.7.RELEASE</r2dbc-postgresql.version>
+        <flyway.version>11.10.1</flyway.version>
+        <jwt.version>0.12.6</jwt.version>
+
+        <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
+        <maven-assembly-plugin.version>3.7.1</maven-assembly-plugin.version>
+        <maven-clean-plugin.version>3.4.1</maven-clean-plugin.version>
+        <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
+        <maven-dependency-plugin.version>3.8.1</maven-dependency-plugin.version>
+        <maven-deploy-plugin.version>3.1.4</maven-deploy-plugin.version>
+        <maven-enforcer-plugin.version>3.5.0</maven-enforcer-plugin.version>
+        <maven-failsafe-plugin.version>3.5.3</maven-failsafe-plugin.version>
+        <maven-help-plugin.version>3.5.1</maven-help-plugin.version>
+        <maven-install-plugin.version>3.1.4</maven-install-plugin.version>
+        <maven-invoker-plugin.version>3.9.1</maven-invoker-plugin.version>
+        <maven-jar-plugin.version>3.4.2</maven-jar-plugin.version>
+        <maven-javadoc-plugin.version>3.11.2</maven-javadoc-plugin.version>
+        <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
+        <maven-shade-plugin.version>3.6.0</maven-shade-plugin.version>
+        <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
+        <maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
+        <maven-war-plugin.version>3.4.0</maven-war-plugin.version>
+
+        <mockito.version>5.17.0</mockito.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Spring Boot BOM -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Spring Cloud BOM -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Spring Cloud Kubernetes BOM -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-kubernetes-dependencies</artifactId>
+                <version>${spring-cloud-kubernetes.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- matrix 模块依赖管理 -->
+            <!-- matrix-shared 模块 -->
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-shared</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-shared-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-shared-cache</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-shared-cloud</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-shared-cloud-discovery-client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-shared-cloud-discovery-server</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-shared-grpc-server</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-shared-grpc-base</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-shared-grpc-client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-shared-webflux</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-client-server-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-shared-test</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-shared-logging</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-shared-sms</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-shared-snowflake-id-generator</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-shared-socket</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-shared-data</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-shared-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-shared-tracing</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- matrix-auth 模块 -->
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-auth</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-auth-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-auth-client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-auth-data</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-auth-grpc-consumer</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-auth-grpc-proto</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-auth-grpc-provider</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-auth-oauth2-server</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-auth-role-strategy-manage</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-auth-security</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- matrix-client-server 模块 -->
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-client-server</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-client-server-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- matrix-user 模块 -->
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-user</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-user-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-user-consumer</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-user-data</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-user-grpc-consumer</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-user-grpc-proto</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-user-grpc-provider</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- 其他模块 -->
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-room</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-federation</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-flyway</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-tio</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-gateway</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- 第三方依赖版本控制 -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>r2dbc-postgresql</artifactId>
+                <version>${r2dbc-postgresql.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-core</artifactId>
+                <version>${flyway.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-database-postgresql</artifactId>
+                <version>${flyway.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.grpc</groupId>
+                <artifactId>grpc-bom</artifactId>
+                <version>${grpc.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java</artifactId>
+                <version>${protobuf.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.devh</groupId>
+                <artifactId>grpc-spring-boot-starter</artifactId>
+                <version>${grpc-spring-boot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-api</artifactId>
+                <version>${jwt.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-impl</artifactId>
+                <version>${jwt.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-jackson</artifactId>
+                <version>${jwt.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <distributionManagement>
+        <repository>
+            <id>project-releases</id>
+            <url>http://s2.homemart.club:5200/repository/club.hm.martix/</url>
+        </repository>
+        <snapshotRepository>
+            <id>project-snapshots</id>
+            <url>http://s2.homemart.club:5200/repository/club.hm.martix/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+</project>

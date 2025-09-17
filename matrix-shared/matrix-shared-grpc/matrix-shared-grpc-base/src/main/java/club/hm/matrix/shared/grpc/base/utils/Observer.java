@@ -1,6 +1,7 @@
 package club.hm.matrix.shared.grpc.base.utils;
 
 import com.google.protobuf.Empty;
+import com.google.protobuf.Message;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +17,7 @@ public final class Observer {
     private Observer() {
     }
 
-    public static <R extends com.google.protobuf.GeneratedMessageV3> Mono<R> mono(BiConsumer<Empty, StreamObserver<R>> obs) {
+    public static <R extends Message> Mono<R> mono(BiConsumer<Empty, StreamObserver<R>> obs) {
         log.debug("grpc start");
         return Mono.create(sink -> {
             try {
@@ -45,7 +46,7 @@ public final class Observer {
         });
     }
 
-    public static <T extends com.google.protobuf.GeneratedMessageV3, R extends com.google.protobuf.GeneratedMessageV3> Mono<R> mono(T request, BiConsumer<T, StreamObserver<R>> obs) {
+    public static <T extends Message, R extends Message> Mono<R> mono(T request, BiConsumer<T, StreamObserver<R>> obs) {
         log.debug("grpc start, request: {}", Gjson.toJSONString(request));
 
         return Mono.create(sink -> {
@@ -75,7 +76,7 @@ public final class Observer {
         });
     }
 
-    public static <R extends com.google.protobuf.GeneratedMessageV3> void provider(Mono<R> mono, StreamObserver<R> obs) {
+    public static <R extends Message> void provider(Mono<R> mono, StreamObserver<R> obs) {
         mono.doOnNext(data -> {
                     log.debug("provider next: {}", data);
                 })
@@ -94,7 +95,7 @@ public final class Observer {
                 });
     }
 
-    public static <R extends com.google.protobuf.GeneratedMessageV3> Flux<R> flux(BiConsumer<Empty, StreamObserver<R>> obs) {
+    public static <R extends Message> Flux<R> flux(BiConsumer<Empty, StreamObserver<R>> obs) {
         log.debug("grpc flux start");
         return Flux.create(sink -> {
             try {
@@ -124,7 +125,7 @@ public final class Observer {
         }, FluxSink.OverflowStrategy.BUFFER);
     }
 
-    public static <T extends com.google.protobuf.GeneratedMessageV3, R extends com.google.protobuf.GeneratedMessageV3> Flux<R> flux(T request, BiConsumer<T, StreamObserver<R>> obs) {
+    public static <T extends Message, R extends Message> Flux<R> flux(T request, BiConsumer<T, StreamObserver<R>> obs) {
         log.debug("grpc flux request: {}", Gjson.toJSONString(request));
         return Flux.create(sink -> {
             try {
@@ -153,15 +154,15 @@ public final class Observer {
         }, FluxSink.OverflowStrategy.BUFFER);
     }
 
-    public static <R extends com.google.protobuf.GeneratedMessageV3> void provider(Flux<R> flux, StreamObserver<R> obs) {
+    public static <R extends Message> void provider(Flux<R> flux, StreamObserver<R> obs) {
         flux.doOnNext(data -> {
                     log.debug("grpc server next: {}", data);
                 })
                 .doOnError(throwable -> {
                     log.error("{}", throwable.getMessage());
                     obs.onError(Status.INTERNAL
-                                    .withDescription(throwable.getMessage())
-                                    .asRuntimeException()
+                            .withDescription(throwable.getMessage())
+                            .asRuntimeException()
                     );
                 })
                 .subscribe(response -> {

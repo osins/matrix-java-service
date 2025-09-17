@@ -16,22 +16,15 @@
         <developer/>
     </developers>
     <modules>
+        <module>matrix-dependencies</module>
         <module>matrix-shared</module>
-        <module>matrix-gateway</module>
+        <module>matrix-flyway</module>
         <module>matrix-auth</module>
         <module>matrix-user</module>
-        <module>matrix-room</module>
-        <module>matrix-message</module>
-        <module>matrix-websocket</module>
-        <module>matrix-federation</module>
-        <module>matrix-flyway</module>
+        <module>matrix-client-server</module>
+        <module>matrix-gateway</module>
     </modules>
-    <scm>
-        <connection/>
-        <developerConnection/>
-        <tag/>
-        <url/>
-    </scm>
+
     <properties>
         <project.version>0.0.1</project.version>
         <java.version>21</java.version>
@@ -105,11 +98,11 @@
     <distributionManagement>
         <repository>
             <id>project-releases</id>
-            <url>http://s2.homemart.club:5200/repository/com.gruul.mall/</url>
+            <url>http://s2.homemart.club:5200/repository/club.hm.martix/</url>
         </repository>
         <snapshotRepository>
             <id>project-snapshots</id>
-            <url>http://s2.homemart.club:5200/repository/com.gruul.mall/</url>
+            <url>http://s2.homemart.club:5200/repository/club.hm.martix/</url>
         </snapshotRepository>
     </distributionManagement>
 
@@ -147,28 +140,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-kafka</artifactId>
                 <version>${spring-kafka.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared</artifactId>
-                <version>${project.version}</version>
-                <type>pom</type>
-            </dependency>
-
-            <dependency>
-                <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-cloud</artifactId>
-                <version>${project.version}</version>
-                <type>pom</type>
-            </dependency>
-
-            <dependency>
-                <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-grpc</artifactId>
-                <version>${project.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
             </dependency>
 
             <!-- 数据库相关 -->
@@ -275,6 +246,18 @@
                             </goals>
                         </execution>
                     </executions>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.eclipse.aether</groupId>
+                            <artifactId>aether-api</artifactId>
+                            <version>1.1.0</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.eclipse.aether</groupId>
+                            <artifactId>aether-impl</artifactId>
+                            <version>1.1.0</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
 
                 <!-- Build Helper Plugin - 添加生成的源代码目录 -->

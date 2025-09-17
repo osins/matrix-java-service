@@ -3,7 +3,7 @@ package club.hm.matrix.auth.oauth2.server.handler.authorize;
 import club.hm.matrix.auth.api.service.TokenService;
 import club.hm.matrix.auth.grpc.LoadUserByUsernameRequest;
 import club.hm.matrix.auth.grpc.UserResponse;
-import club.hm.matrix.auth.grpc.api.service.UserAuthorityGrpc;
+import club.hm.matrix.auth.grpc.consumer.generated.UserAuthorityGrpcClient;
 import club.hm.matrix.auth.oauth2.server.enums.GrantType;
 import club.hm.matrix.auth.oauth2.server.service.SmsLoginCodeService;
 import club.hm.matrix.auth.oauth2.server.vo.TokenResponse;
@@ -17,7 +17,7 @@ import reactor.core.publisher.Mono;
 @Service
 @RequiredArgsConstructor
 public class AuthorizeSmsCodeHandler implements IAuthorizeHandler<TokenResponse> {
-    private final UserAuthorityGrpc userAuthorityGrpc;
+    private final UserAuthorityGrpcClient userAuthorityGrpcClient;
     private final SmsLoginCodeService smsLoginCodeService;
     private final TokenService<TokenResponse> tokenService;
 
@@ -40,7 +40,7 @@ public class AuthorizeSmsCodeHandler implements IAuthorizeHandler<TokenResponse>
         var username = params.getFirst("username");
         var code = params.getFirst("code");
 
-        return userAuthorityGrpc.loadUserByUsername(LoadUserByUsernameRequest.newBuilder()
+        return userAuthorityGrpcClient.loadUserByUsername(LoadUserByUsernameRequest.newBuilder()
                         .setUsername(username)
                         .build())
                 .map(UserResponse::getUser)

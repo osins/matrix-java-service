@@ -30,31 +30,10 @@
         <dependencies>
             <dependency>
                 <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-grpc</artifactId>
-            </dependency>
-
-            <dependency>
-                <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-user-grpc-proto</artifactId>
+                <artifactId>matrix-dependencies</artifactId>
                 <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-user-api</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-user-grpc-provider</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-user-grpc-consumer</artifactId>
-                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -1,11 +1,12 @@
 package club.hm.matrix.auth.oauth2.server.controller;
 
 import club.hm.homemart.club.shared.common.uitls.Result;
+import club.hm.matrix.auth.grpc.UserAuthorityServiceGrpc;
 import club.hm.matrix.auth.security.service.PasswordEncoderService;
+import club.hm.matrix.shared.grpc.base.utils.Observer;
 import club.hm.matrix.shared.grpc.base.utils.StatusConverter;
 import club.hm.matrix.auth.api.service.TokenService;
 import club.hm.matrix.auth.grpc.CreateUserRequest;
-import club.hm.matrix.auth.grpc.api.service.UserAuthorityGrpc;
 import club.hm.matrix.auth.oauth2.server.service.GrantTypeAuthorizeService;
 import club.hm.matrix.auth.oauth2.server.service.ResponseTypeAuthorizeService;
 import club.hm.matrix.auth.oauth2.server.vo.RegisterRequest;
@@ -27,7 +28,7 @@ import java.util.*;
 public class AuthorizeController {
     private final GrantTypeAuthorizeService grantTypeAuthorizeService;
     private final ResponseTypeAuthorizeService responseTypeAuthorizeService;
-    private final UserAuthorityGrpc userAuthorityGrpc;
+    private final Mono<UserAuthorityServiceGrpc.UserAuthorityServiceStub> userAuthorityServiceStubMono;
     private final TokenService<TokenResponse> tokenService;
     private final PasswordEncoderService passwordEncoderService;
 
@@ -50,10 +51,11 @@ public class AuthorizeController {
     // OIDC 客户端注册端点 - WebFlux版本
     @PostMapping("/register")
     public Mono<Result<TokenResponse>> oidcClientRegistration(@RequestBody RegisterRequest request) {
-        return userAuthorityGrpc.createUser(CreateUserRequest.newBuilder()
-                        .setUsername(request.username())
-                        .setPassword(passwordEncoderService.encode(request.password()))
-                        .build())
+        var createUserRequest = CreateUserRequest.newBuilder()
+                .setUsername(request.username())
+                .setPassword(passwordEncoderService.encode(request.password()))
+                .build();
+        return userAuthorityServiceStubMono.flatMap(stub-> Observer.mono(createUserRequest, stub::createUser))
                 .map(response -> Result.success(tokenService.generateToken(response.getUser())))
                 .onErrorResume(StatusConverter::error);
     }

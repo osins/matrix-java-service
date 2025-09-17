@@ -8,7 +8,7 @@ import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 
 @SpringBootConfiguration
 @EnableAutoConfiguration
-@ComponentScan(basePackages = "club.hm.matrix")
+@ComponentScan(basePackages = {"club.hm.matrix"})
 @EnableR2dbcRepositories(basePackages = "club.hm.matrix.auth.data")
 public class MatrixAuthGrpcProviderApplication {
     public static void main(String[] args) {

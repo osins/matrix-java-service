@@ -1,5 +1,6 @@
 package club.hm.matrix.auth.client.vo;
 
+import club.hm.matrix.client.server.common.domain.WellKnownClient;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
@@ -15,9 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TokenResponse {
 
-    @JsonProperty("user_id")
-    private String userId;
-
     @JsonProperty("access_token")
     private String accessToken;
 
@@ -30,6 +28,13 @@ public class TokenResponse {
     @JsonProperty("device_id")
     private String deviceId;
 
+    @JsonProperty("user_id")
+    private String userId;
+
     @JsonProperty("home_server")
     private String homeServer;
+
+    // 新增 well_known 字段
+    @JsonProperty("well_known")
+    private WellKnownClient wellKnown;
 }

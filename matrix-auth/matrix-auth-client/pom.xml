@@ -22,6 +22,11 @@
     <dependencies>
         <dependency>
             <groupId>club.hm.matrix</groupId>
+            <artifactId>matrix-client-server-common</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>club.hm.matrix</groupId>
             <artifactId>matrix-shared-tracing</artifactId>
         </dependency>
 

@@ -7,7 +7,6 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="maven-osins-reactor-grpc-plugin" />
       </profile>
       <profile name="Annotation profile for matrix" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -30,27 +29,26 @@
         <module name="matrix-flyway" />
         <module name="matrix-shared-cache" />
         <module name="matrix-shared-grpc-server" />
+        <module name="matrix-client-server-api" />
         <module name="matrix-user-api" />
-        <module name="matrix-websocket" />
+        <module name="matrix-client-server-common" />
         <module name="matrix-auth-grpc-proto" />
         <module name="matrix-shared-cloud-discovery-server" />
         <module name="matrix-shared-webflux" />
         <module name="matrix-auth-client" />
         <module name="matrix-user-grpc-consumer" />
-        <module name="matrix-message" />
         <module name="matrix-user-data" />
         <module name="matrix-auth-grpc-provider" />
         <module name="matrix-shared-logging" />
-        <module name="matrix-federation" />
         <module name="matrix-shared-api" />
         <module name="matrix-user-grpc-provider" />
         <module name="matrix-shared-sms" />
         <module name="matrix-user-grpc-proto" />
+        <module name="matrix-shared-socket" />
         <module name="matrix-auth-oauth2-server" />
         <module name="matrix-shared-common" />
         <module name="matrix-auth-data" />
         <module name="matrix-auth-grpc-consumer" />
-        <module name="matrix-room" />
         <module name="matrix-shared-snowflake-id-generator" />
         <module name="matrix-shared-test" />
         <module name="matrix-auth-security" />
@@ -58,7 +56,12 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="matrix-chat-protocol" target="21" />
+      <module name="matrix-federation" target="21" />
+      <module name="matrix-room" target="21" />
       <module name="matrix-shared-dependencies" target="21" />
+      <module name="matrix-tio" target="21" />
+      <module name="maven-osins-reactor-grpc-plugin" target="21" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -73,10 +76,14 @@
       <module name="matrix-auth-oauth2-server" options="-parameters -parameters" />
       <module name="matrix-auth-role-strategy-manage" options="-parameters -parameters" />
       <module name="matrix-auth-security" options="-parameters -parameters" />
+      <module name="matrix-chat-protocol" options="-parameters -parameters" />
+      <module name="matrix-client-server" options="" />
+      <module name="matrix-client-server-api" options="-parameters -parameters" />
+      <module name="matrix-client-server-common" options="-parameters -parameters" />
+      <module name="matrix-dependencies" options="" />
       <module name="matrix-federation" options="-parameters -parameters" />
       <module name="matrix-flyway" options="-parameters -parameters" />
       <module name="matrix-gateway" options="-parameters -parameters" />
-      <module name="matrix-message" options="-parameters -parameters" />
       <module name="matrix-room" options="-parameters -parameters" />
       <module name="matrix-shared-api" options="-parameters -parameters" />
       <module name="matrix-shared-cache" options="-parameters -parameters" />
@@ -90,9 +97,11 @@
       <module name="matrix-shared-logging" options="-parameters -parameters" />
       <module name="matrix-shared-sms" options="-parameters -parameters" />
       <module name="matrix-shared-snowflake-id-generator" options="-parameters -parameters" />
+      <module name="matrix-shared-socket" options="-parameters -parameters" />
       <module name="matrix-shared-test" options="-parameters -parameters" />
       <module name="matrix-shared-tracing" options="-parameters -parameters" />
       <module name="matrix-shared-webflux" options="-parameters -parameters" />
+      <module name="matrix-tio" options="-parameters -parameters" />
       <module name="matrix-user" options="" />
       <module name="matrix-user-api" options="-parameters -parameters" />
       <module name="matrix-user-consumer" options="-parameters -parameters" />
@@ -100,7 +109,6 @@
       <module name="matrix-user-grpc-consumer" options="-parameters -parameters" />
       <module name="matrix-user-grpc-proto" options="-parameters -parameters" />
       <module name="matrix-user-grpc-provider" options="-parameters -parameters" />
-      <module name="matrix-websocket" options="-parameters -parameters" />
       <module name="maven-osins-reactor-grpc-plugin" options="" />
     </option>
   </component>

@@ -6,7 +6,7 @@ import club.hm.matrix.auth.client.vo.LoginRequest;
 import club.hm.matrix.auth.grpc.LoadUserByUsernameRequest;
 import club.hm.matrix.auth.grpc.UserResponse;
 import club.hm.matrix.auth.api.service.TokenService;
-import club.hm.matrix.auth.grpc.consumer.service.impl.UserAuthorityGrpcClient;
+import club.hm.matrix.auth.grpc.consumer.generated.UserAuthorityGrpcClient;
 import club.hm.matrix.auth.security.service.PasswordEncoderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

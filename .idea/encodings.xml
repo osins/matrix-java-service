@@ -21,14 +21,22 @@
     <file url="file://$PROJECT_DIR$/matrix-auth/matrix-auth-security/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-auth/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-auth/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/matrix-chat-protocol/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/matrix-chat-protocol/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/matrix-client-server/matrix-client-server-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/matrix-client-server/matrix-client-server-api/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/matrix-client-server/matrix-client-server-common/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/matrix-client-server/matrix-client-server-common/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/matrix-client-server/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/matrix-client-server/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/matrix-dependencies/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/matrix-dependencies/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-federation/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-federation/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-flyway/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-flyway/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-gateway/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-gateway/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/matrix-message/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/matrix-message/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-room/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-room/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-shared/matrix-shared-api/src/main/java" charset="UTF-8" />
@@ -59,6 +67,8 @@
     <file url="file://$PROJECT_DIR$/matrix-shared/matrix-shared-sms/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-shared/matrix-shared-snowflake-id-generator/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-shared/matrix-shared-snowflake-id-generator/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/matrix-shared/matrix-shared-socket/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/matrix-shared/matrix-shared-socket/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-shared/matrix-shared-test/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-shared/matrix-shared-test/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-shared/matrix-shared-tracing/src/main/java" charset="UTF-8" />
@@ -67,6 +77,8 @@
     <file url="file://$PROJECT_DIR$/matrix-shared/matrix-shared-webflux/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-shared/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-shared/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/matrix-tio/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/matrix-tio/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-user/matrix-user-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-user/matrix-user-api/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-user/matrix-user-consumer/src/main/java" charset="UTF-8" />
@@ -81,12 +93,11 @@
     <file url="file://$PROJECT_DIR$/matrix-user/matrix-user-grpc-provider/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-user/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-user/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/matrix-websocket/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/matrix-websocket/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/maven-osins-reactor-grpc-plugin/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/maven-osins-reactor-grpc-plugin/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+    <file url="file://$USER_HOME$/src/main/java" charset="UTF-8" />
     <file url="file://$USER_HOME$/src/main/resources" charset="UTF-8" />
   </component>
 </project>

@@ -21,4 +21,13 @@ public class JSON {
             return Optional.empty();
         }
     }
+
+    public static <T> Optional<T> toOptional(String object, Class<T> clazz) {
+        try {
+            return Optional.ofNullable(objectMapper.readValue(object, clazz));
+        } catch (Exception e) {
+            log.error("JSON.toJSONString error: {}", e.getMessage());
+            return Optional.empty();
+        }
+    }
 }

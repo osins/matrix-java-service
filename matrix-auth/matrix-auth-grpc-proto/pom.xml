@@ -24,6 +24,10 @@
             <groupId>club.hm.matrix</groupId>
             <artifactId>matrix-shared-grpc-base</artifactId>
         </dependency>
+        <dependency>
+            <groupId>club.hm.matrix</groupId>
+            <artifactId>matrix-shared-grpc-client</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -35,8 +39,25 @@
         </extensions>
         <plugins>
             <plugin>
-                <groupId>org.xolstice.maven.plugins</groupId>
-                <artifactId>protobuf-maven-plugin</artifactId>
+                <groupId>io.osins.grpc</groupId>
+                <artifactId>osins-reactor-grpc-maven-plugin</artifactId>
+                <version>1.74.0.0</version>
+                <configuration>
+                    <packageName>club.hm.matrix.auth.grpc.consumer.generated</packageName>
+                    <channelName>authGrpcChannel</channelName>
+                    <source>/src/main/resources/grpc/proto</source>
+                    <outDesc>/grpc/desc</outDesc>
+                    <outProtobuf>/grpc/sources</outProtobuf>
+                    <outClient>${project.parent.basedir}/matrix-auth-grpc-consumer/src/main/java</outClient>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate-grpc-spring-beans</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
             <!-- 确保生成的代码被编译 -->
@@ -48,6 +69,21 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.basedir}/target/generated-sources/grpc/sources/java</source>
+                                <source>${project.basedir}/target/generated-sources/grpc/sources/grpc-java</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

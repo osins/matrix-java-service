@@ -26,6 +26,7 @@
         <module>matrix-shared-api</module>
         <module>matrix-shared-tracing</module>
         <module>matrix-shared-sms</module>
+        <module>matrix-shared-socket</module>
     </modules>
 
     <dependencyManagement>
@@ -33,83 +34,10 @@
             <!-- 自研模块 -->
             <dependency>
                 <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-common</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-logging</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-api</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-data</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-cache</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-webflux</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-cloud</artifactId>
+                <artifactId>matrix-dependencies</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>
-            </dependency>
-
-            <dependency>
-                <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-grpc</artifactId>
-                <version>${project.version}</version>
-                <type>pom</type>
-            </dependency>
-
-            <dependency>
-                <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-tracing</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-sms</artifactId>
-                <version>0.0.1</version>
-            </dependency>
-
-            <dependency>
-                <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-test</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <!-- 第三方依赖 -->
-            <dependency>
-                <groupId>org.redisson</groupId>
-                <artifactId>redisson-spring-boot-starter</artifactId>
-                <version>3.50.0</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-webflux</artifactId>
-                <version>3.5.4</version>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

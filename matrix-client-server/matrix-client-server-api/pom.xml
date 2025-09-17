@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>club.hm.matrix</groupId>
+        <artifactId>matrix-client-server</artifactId>
+        <version>0.0.1</version>
+    </parent>
+
+    <artifactId>matrix-client-server-api</artifactId>
+    <version>0.0.1</version>
+    <packaging>jar</packaging>
+
+    <name>matrix-message</name>
+    <description>Matrix协议消息服务</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>club.hm.matrix</groupId>
+            <artifactId>matrix-shared-webflux</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>club.hm.matrix</groupId>
+            <artifactId>matrix-client-server-common</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>club.hm.matrix</groupId>
+            <artifactId>matrix-shared-test</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <argLine>-javaagent:${settings.localRepository}/org/mockito/mockito-inline/5.17.0/mockito-inline-5.17.0.jar</argLine>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

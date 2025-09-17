@@ -2,7 +2,7 @@ package club.hm.matrix.auth.oauth2.server.handler.authorize;
 
 import club.hm.homemart.club.shared.common.uitls.Result;
 import club.hm.matrix.auth.grpc.ChangePasswordByUsernameRequest;
-import club.hm.matrix.auth.grpc.api.service.UserAuthorityGrpc;
+import club.hm.matrix.auth.grpc.consumer.generated.UserAuthorityGrpcClient;
 import club.hm.matrix.auth.oauth2.server.enums.GrantType;
 import club.hm.matrix.auth.oauth2.server.service.SmsLoginCodeService;
 import club.hm.matrix.auth.security.service.PasswordEncoderService;
@@ -16,7 +16,7 @@ import reactor.core.publisher.Mono;
 @Service
 @RequiredArgsConstructor
 public class AuthorizeChangePasswordHandler implements IAuthorizeHandler<Result<Void>> {
-    private final UserAuthorityGrpc userAuthorityGrpc;
+    private final UserAuthorityGrpcClient userAuthorityGrpcClient;
     private final SmsLoginCodeService smsLoginCodeService;
     private final PasswordEncoderService passwordEncoderService;
 
@@ -36,7 +36,7 @@ public class AuthorizeChangePasswordHandler implements IAuthorizeHandler<Result<
                     if(!result)
                         return Mono.error(new RuntimeException("验证码错误"));
 
-                    return userAuthorityGrpc.changePasswordByUsername(ChangePasswordByUsernameRequest.newBuilder()
+                    return userAuthorityGrpcClient.changePasswordByUsername(ChangePasswordByUsernameRequest.newBuilder()
                                     .setUsername(mobile)
                                     .setNewPassword(passwordEncoderService.encode(password))
                                     .build())

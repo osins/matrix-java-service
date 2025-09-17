@@ -1,10 +1,7 @@
 package club.hm.matrix.auth.grpc.consumer.service.test;
 
 import club.hm.matrix.auth.grpc.CreateUserRequest;
-import club.hm.matrix.auth.grpc.User;
-import club.hm.matrix.auth.grpc.consumer.config.GrpcClientConfig;
-import club.hm.matrix.auth.grpc.consumer.service.impl.UserAuthorityGrpcClient;
-import club.hm.matrix.shared.grpc.base.utils.TimeStamp;
+import club.hm.matrix.auth.grpc.consumer.generated.UserAuthorityGrpcClient;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,7 +14,7 @@ import java.util.UUID;
 
 @Slf4j
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = GrpcClientConfig.class)
+@SpringBootTest(classes = TestApplication.class)
 class UserAuthorityGrpcClientTest {
     @Autowired
     UserAuthorityGrpcClient clientService;

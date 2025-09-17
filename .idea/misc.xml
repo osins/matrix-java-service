@@ -7,6 +7,14 @@
         <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/matrix-chat-protocol/pom.xml" />
+        <option value="$PROJECT_DIR$/matrix-federation/pom.xml" />
+        <option value="$PROJECT_DIR$/matrix-room/pom.xml" />
+        <option value="$PROJECT_DIR$/matrix-tio/pom.xml" />
+      </set>
+    </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_21" project-jdk-name="graalvm-ce-21" project-jdk-type="JavaSDK" />
 </project>

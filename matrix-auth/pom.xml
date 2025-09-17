@@ -37,57 +37,11 @@
         <dependencies>
             <!-- Spring Boot基础依赖 -->
             <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter</artifactId>
-            </dependency>
-
-            <!-- WebFlux -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-webflux</artifactId>
-            </dependency>
-
-            <!-- JWT支持 -->
-            <dependency>
-                <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt-api</artifactId>
-                <version>${jwt.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt-impl</artifactId>
-                <version>${jwt.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt-jackson</artifactId>
-                <version>${jwt.version}</version>
-            </dependency>
-
-            <dependency>
                 <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-auth-grpc-consumer</artifactId>
+                <artifactId>matrix-dependencies</artifactId>
                 <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-auth-api</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-auth-security</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-auth-grpc-proto</artifactId>
-                <version>0.0.1</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
