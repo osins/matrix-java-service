@@ -8,13 +8,17 @@
     <packaging>pom</packaging>
     <name>matrix</name>
     <description>matrix</description>
+
     <url/>
+
     <licenses>
         <license/>
     </licenses>
+
     <developers>
         <developer/>
     </developers>
+
     <modules>
         <module>matrix-dependencies</module>
         <module>matrix-shared</module>
