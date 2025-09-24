@@ -54,6 +54,7 @@ public final class Observer {
                 obs.accept(request, new StreamObserver<R>() {
                     @Override
                     public void onNext(R o) {
+
                         log.debug("grpc next: {}, request: {}", o, Gjson.toJSONString(request));
                         sink.success(o);
                     }

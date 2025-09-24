@@ -3,8 +3,6 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/matrix-auth/matrix-auth-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-auth/matrix-auth-api/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/matrix-auth/matrix-auth-client/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/matrix-auth/matrix-auth-client/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-auth/matrix-auth-data/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-auth/matrix-auth-data/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-auth/matrix-auth-grpc-consumer/src/main/java" charset="UTF-8" />
@@ -25,6 +23,8 @@
     <file url="file://$PROJECT_DIR$/matrix-chat-protocol/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-client-server/matrix-client-server-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-client-server/matrix-client-server-api/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/matrix-client-server/matrix-client-server-auth/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/matrix-client-server/matrix-client-server-auth/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-client-server/matrix-client-server-common/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-client-server/matrix-client-server-common/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-client-server/src/main/java" charset="UTF-8" />

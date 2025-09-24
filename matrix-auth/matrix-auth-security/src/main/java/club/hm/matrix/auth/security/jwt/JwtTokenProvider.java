@@ -3,6 +3,8 @@ package club.hm.matrix.auth.security.jwt;
 import club.hm.homemart.club.shared.common.Exception.CustomException;
 import club.hm.matrix.auth.security.config.SecurityJwtConfig;
 import club.hm.matrix.auth.security.domain.JwtSetting;
+import club.hm.matrix.auth.security.domain.TokenResponse;
+import club.hm.matrix.auth.security.enums.JWTokenType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
@@ -16,10 +18,7 @@ import javax.crypto.SecretKey;
 import java.security.NoSuchAlgorithmException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.Base64;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Slf4j
 @Component
@@ -39,7 +38,7 @@ public class JwtTokenProvider {
     }
 
 
-    private SecretKey getSecretKeySpec(){
+    private SecretKey getSecretKeySpec() {
         return Keys.hmacShaKeyFor(Base64.getDecoder().decode(config.getSecret()));
     }
 
@@ -52,12 +51,20 @@ public class JwtTokenProvider {
     }
 
 
-    public String generateToken(JwtSetting setting) {
+    public TokenResponse generateToken(JwtSetting setting) {
+        return TokenResponse.builder()
+                .accessToken(generateToken(setting, JWTokenType.ACCESS_TOKEN))
+                .refreshToken(generateToken(setting, JWTokenType.REFRESH_TOKEN))
+                .expiresInMs(Long.valueOf(config.getExpiration() * 1000).intValue())
+                .build();
+    }
+
+    public String generateToken(JwtSetting setting, JWTokenType type) {
         log.debug("generate token, current default time zone: {}", ZoneId.systemDefault());
 
         var zoneId = getZoneId();
         var now = ZonedDateTime.now(zoneId);
-        var expiration = now.plusSeconds(setting.getExpiration());
+        var expiration = now.plusSeconds(type.isAccess() ? config.getExpiration() : config.getRefreshExpiration());
 
         var nowInstant = now.toInstant();
         var expInstant = expiration.toInstant();
@@ -65,13 +72,13 @@ public class JwtTokenProvider {
         log.debug("生成 token 当前时间（{}）：{}", zoneId, now);
         log.debug("过期时间：{}", expiration);
 
-        try{
+        try {
             var subject = objectMapper.writeValueAsString(Optional.ofNullable(setting.getSubject())
                     .orElseThrow(() -> new CustomException("jwt token 缓存 subject 不能为空")));
 
             return Jwts.builder()
                     .header()
-                    .keyId(setting.getKeyId())
+                    .keyId(config.getKeyId())
                     .and()
                     .subject(subject)
                     .signWith(getSecretKeySpec())
@@ -80,8 +87,48 @@ public class JwtTokenProvider {
                     .expiration(Date.from(expInstant))
                     .id(setting.getJti())
                     .compact();
-        }catch (Exception ex){
+        } catch (Exception ex) {
             log.error("生成 token 失败: {}, {}", setting, ex.getMessage(), ex);
+            return null;
+        }
+    }
+
+    public TokenResponse generateToken(String refreshToken) {
+        return TokenResponse.builder()
+                .accessToken(generateToken(refreshToken, JWTokenType.ACCESS_TOKEN))
+                .refreshToken(generateToken(refreshToken, JWTokenType.REFRESH_TOKEN))
+                .expiresInMs(Long.valueOf(config.getExpiration() * 1000).intValue())
+                .build();
+    }
+
+    public String generateToken(String refreshToken, JWTokenType type) {
+        log.debug("generate token by refresh token: {}", refreshToken);
+
+        try {
+            var claimsJws = decryptToken(refreshToken);
+            var payload = claimsJws.getPayload();
+            var subject = payload.getSubject();
+
+            var zoneId = getZoneId();
+            var now = ZonedDateTime.now(zoneId);
+            var expiration = now.plusSeconds(type.isAccess() ? config.getExpiration() : config.getRefreshExpiration());
+
+            var nowInstant = now.toInstant();
+            var expInstant = expiration.toInstant();
+
+            return Jwts.builder()
+                    .header()
+                    .keyId(config.getKeyId())
+                    .and()
+                    .subject(subject)
+                    .signWith(getSecretKeySpec())
+                    .notBefore(Date.from(nowInstant))
+                    .issuedAt(Date.from(nowInstant))
+                    .expiration(Date.from(expInstant))
+                    .id(payload.getId())
+                    .compact();
+        } catch (Exception ex) {
+            log.error("生成 token 失败: {}, {}, {}", config, refreshToken, ex.getMessage(), ex);
             return null;
         }
     }

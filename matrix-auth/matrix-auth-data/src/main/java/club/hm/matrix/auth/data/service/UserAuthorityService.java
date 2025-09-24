@@ -1,5 +1,7 @@
 package club.hm.matrix.auth.data.service;
 
+import club.hm.homemart.club.shared.common.uitls.Longs;
+import club.hm.homemart.club.shared.common.uitls.Strings;
 import club.hm.matrix.auth.data.converter.PermissionConverter;
 import club.hm.matrix.auth.data.converter.RoleConverter;
 import club.hm.matrix.auth.data.converter.UserConverter;
@@ -24,6 +26,7 @@ import reactor.core.publisher.Mono;
 import java.time.LocalDateTime;
 import java.util.DuplicateFormatFlagsException;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -121,14 +124,19 @@ public class UserAuthorityService {
      * 加载用户的角色和权限信息
      */
     private Mono<UserDTO> loadUserWithRolesAndPermissions(SysUser user) {
-        return loadUserRoles(user.id())
-                .flatMap(this::loadRolesWithPermissions)
-                .collectList()
-                .map(roles -> {
-                    UserDTO userDTO = userConverter.toDTO(user);
-                    userDTO.setRoles(roles);
-                    return userDTO;
-                });
+        return Optional.ofNullable(user)
+                .filter(u -> Longs.isNoneZero(u.id()))
+                .map(u -> {
+                    return loadUserRoles(user.id())
+                            .flatMap(this::loadRolesWithPermissions)
+                            .collectList()
+                            .map(roles -> {
+                                UserDTO userDTO = userConverter.toDTO(user);
+                                userDTO.setRoles(roles);
+                                return userDTO;
+                            });
+                }).orElse(Mono.empty());
+
     }
 
     /**

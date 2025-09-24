@@ -17,7 +17,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
@@ -45,7 +45,6 @@ public class SecurityConfig {
     @Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http,
                                                             CustomReactiveAuthenticationManager authenticationManager,
-                                                            CustomReactiveAuthorizationManager authorizationManager,
                                                             CustomServerAuthenticationConverter converter,
                                                             CustomAuthenticationSuccessHandler successHandler,
                                                             CustomServerAuthenticationFailureHandler failureHandler,
@@ -69,6 +68,7 @@ public class SecurityConfig {
                 // 配置授权规则
                 .authorizeExchange(exchanges -> exchanges
                         // 公开端点
+                        .pathMatchers(HttpMethod.OPTIONS).permitAll()
                         .pathMatchers("/actuator/health", "/actuator/info").permitAll()
                         .pathMatchers("/_matrix/client/v3/register", "/auth/register").permitAll()
                         .pathMatchers("/api/public/**").permitAll()
@@ -87,8 +87,6 @@ public class SecurityConfig {
                 .addFilterBefore(new RequestIdWebFilter(), SecurityWebFiltersOrder.FIRST)
                 // 添加JWT认证过滤器
                 .addFilterBefore(jwtAuthenticationWebFilter(authenticationManager, converter, successHandler, failureHandler), SecurityWebFiltersOrder.AUTHENTICATION)
-                // 添加自定义授权过滤器
-//                .addFilterAfter(authorizationWebFilter(authorizationManager), SecurityWebFiltersOrder.AUTHORIZATION)
                 .build();
     }
 

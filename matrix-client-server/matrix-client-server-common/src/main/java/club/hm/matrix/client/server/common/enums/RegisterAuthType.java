@@ -1,4 +1,4 @@
-package club.hm.matrix.auth.client.enums;
+package club.hm.matrix.client.server.common.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -9,10 +9,12 @@ public enum RegisterAuthType {
     UNKNOWN("", "未知"),
     DUMMY("m.login.dummy", "测试/开发"),
     PASSWORD("m.login.password", "用户密码认证"),
-    RECAPTCHA("m.login.recaptcha", "验证码"),
+    RECAPTCHA("m.login.recaptcha", "Google ReCaptcha 验证码"),
+    SSO("m.login.sso", "Single Sign-On 类型认证"),
     EMAIL_IDENTITY("m.login.email.identity", "邮箱验证"),
     MSISDN("m.login.msisdn", "手机号验证"),
-    TOKEN("m.login.token", "token 登录");
+    TOKEN("m.login.token", "token 登录"),
+    REGISTER_TOKEN("m.login.registration_token", "注册令牌验证，仅用于 /register 接口");
 
     private final String value;
     private final String desc;

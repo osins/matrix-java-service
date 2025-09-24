@@ -32,11 +32,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>club.hm.matrix</groupId>
             <artifactId>matrix-shared-cache</artifactId>
         </dependency>

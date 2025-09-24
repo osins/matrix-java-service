@@ -4,7 +4,7 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Claims;
 import org.springframework.security.oauth2.jwt.Jwt;
 import java.time.Instant;
-import java.util.Map;
+import java.util.HashMap;
 
 public class JwtConverter {
 
@@ -13,11 +13,14 @@ public class JwtConverter {
         var header = jws.getHeader();
 
         // 使用 Map.of() 构建headers (Java 9+)
-        var headers = Map.<String, Object>of(
-                "alg", header.getAlgorithm(),
-                "typ", header.getType()
-        );
+        var headers = new HashMap<String, Object>();
+        if (header.getAlgorithm() != null) {
+            headers.put("alg", header.getAlgorithm());
+        }
 
+        if (header.getType() != null) {
+            headers.put("typ", header.getType());
+        }
         // 使用 Optional 风格处理时间 (更现代的写法)
         var issuedAt = claims.getIssuedAt() != null ?
                 claims.getIssuedAt().toInstant() : Instant.now();

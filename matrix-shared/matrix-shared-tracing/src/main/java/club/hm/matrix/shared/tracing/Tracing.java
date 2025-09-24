@@ -20,15 +20,20 @@ public class Tracing {
     private final ObservationRegistry registry;
 
     public <T> Mono<T> observe(String name, String path, String value, Supplier<Mono<T>> supplier) {
-        return Observation.createNotStarted(name, registry)
-                .lowCardinalityKeyValue(path, value)
-                .observe((() -> supplier.get().doOnNext(t -> {
-                    log.debug("success: {}", t);
-                }).doOnError(throwable -> {
-                    log.error("error: {}", throwable.getMessage());
-                }).doFinally(signalType -> {
-                    log.debug("finally: {}", signalType);
-                })));
+        try {
+            return Observation.createNotStarted(name, registry)
+                    .lowCardinalityKeyValue(path, value)
+                    .observe((() -> supplier.get().doOnNext(t -> {
+                        log.debug("success: {}", t);
+                    }).doOnError(throwable -> {
+                        log.error("error: {}", throwable.getMessage());
+                    }).doFinally(signalType -> {
+                        log.debug("finally: {}", signalType);
+                    })));
+        }catch (Exception ex){
+            log.error("error: {}", ex.getMessage(), ex);
+            return supplier.get();
+        }
     }
 
 

@@ -26,7 +26,7 @@ public class CustomServerAuthenticationConverter implements ServerAuthentication
         return Mono.just(Optional.ofNullable(exchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION))
                 .filter(authHeader -> authHeader.startsWith(BEARER_PREFIX))
                 .map(authHeader -> authHeader.substring(BEARER_PREFIX.length()))
-                .filter(token -> !token.isEmpty())
+                .filter(token -> !token.trim().isEmpty())
                 .<Authentication>map(JwtTokenAuthentication::new)
                 .orElse(new AnonymousAuthentication()));
     }

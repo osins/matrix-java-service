@@ -15,6 +15,7 @@
 
     <modules>
         <module>matrix-client-server-common</module>
+        <module>matrix-client-server-auth</module>
         <module>matrix-client-server-api</module>
     </modules>
 

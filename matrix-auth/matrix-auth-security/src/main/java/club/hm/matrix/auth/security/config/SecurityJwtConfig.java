@@ -7,8 +7,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 @ConfigurationProperties(prefix = "hm.security.jwt")
 public class SecurityJwtConfig {
+    private String keyId;
     private String secret;
-    private Integer expiration;
+    private Long expiration;
+    private Long refreshExpiration;
     private String zoneId;
     private Long adminId;
     private Boolean roleCache;

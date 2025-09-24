@@ -30,7 +30,9 @@ public class BearerTokenAuthenticationEntryPoint implements ServerAuthentication
         response.getHeaders().add("Content-Type", MediaType.APPLICATION_JSON_VALUE);
 
         var errorResponse = new HashMap<String, Object>();
-        errorResponse.put("error", "Unauthorized");
+        errorResponse.put("errcode", "M_UNKNOWN_TOKEN");
+        errorResponse.put("error", "Token expired or invalid");
+        errorResponse.put("soft_logout", true);
         errorResponse.put("message", "认证失败，请提供有效的访问令牌");
         errorResponse.put("status", HttpStatus.UNAUTHORIZED.value());
         errorResponse.put("timestamp", System.currentTimeMillis());

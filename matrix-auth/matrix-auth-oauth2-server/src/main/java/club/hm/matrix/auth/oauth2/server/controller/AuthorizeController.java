@@ -53,7 +53,7 @@ public class AuthorizeController {
     public Mono<Result<TokenResponse>> oidcClientRegistration(@RequestBody RegisterRequest request) {
         var createUserRequest = CreateUserRequest.newBuilder()
                 .setUsername(request.username())
-                .setPassword(passwordEncoderService.encode(request.password()))
+                .setPassword(request.password())
                 .build();
         return userAuthorityServiceStubMono.flatMap(stub-> Observer.mono(createUserRequest, stub::createUser))
                 .map(response -> Result.success(tokenService.generateToken(response.getUser())))

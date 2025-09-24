@@ -60,11 +60,9 @@ class SecurityConfigTest {
         var jwtSettings = JwtSetting.create()
                 .setJti(UUID.randomUUID().toString())
                 .setType(JWTokenType.ACCESS_TOKEN)
-                .setExpiration(3600)
-                .setKeyId(UUID.randomUUID().toString())
                 .setSubject(CustomPrincipal.builder().username("wahaha").build());
 
-        var token = jwtTokenProvider.generateToken(jwtSettings);
+        var token = jwtTokenProvider.generateToken(jwtSettings, JWTokenType.ACCESS_TOKEN);
 
 //        testSuccess(token);
 //        testFail("xxxxdfdsfs");

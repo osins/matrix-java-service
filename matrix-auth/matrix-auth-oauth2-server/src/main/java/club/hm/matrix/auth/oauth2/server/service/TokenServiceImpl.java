@@ -23,9 +23,8 @@ public class TokenServiceImpl implements TokenService<TokenResponse> {
     @Override
     public TokenResponse generateToken(User user) {
         var userId = "@%s:matrix.org".formatted(user.getUsername());
-        var jwtSettings = JwtSetting.create().setExpiration(3600)
+        var jwtSettings = JwtSetting.create()
                 .setJti(UUID.randomUUID().toString())
-                .setKeyId("matrix.org.v1")
                 .setType(JWTokenType.ACCESS_TOKEN)
                 .setSubject(CustomPrincipal.builder()
                         .username(user.getUsername())
@@ -33,15 +32,31 @@ public class TokenServiceImpl implements TokenService<TokenResponse> {
                         .authorities(user.getRolesList().stream().map(role -> new SimpleGrantedAuthority(role.getCode())).toList())
                         .build());
 
-        var expiration = 3600;
-        var accessToken = jwtTokenProvider.generateToken(jwtSettings.setType(JWTokenType.ACCESS_TOKEN).setExpiration(expiration));
-        var refreshToken = jwtTokenProvider.generateToken(jwtSettings.setType(JWTokenType.REFRESH_TOKEN).setExpiration(expiration * 3));
+        var response = jwtTokenProvider.generateToken(jwtSettings);
 
         return TokenResponse.builder()
                 .userId(userId)
-                .accessToken(accessToken)
-                .refreshToken(refreshToken)
-                .expiresInMs(expiration * 1000)
+                .accessToken(response.getAccessToken())
+                .refreshToken(response.getRefreshToken())
+                .expiresInMs(response.getExpiresInMs())
+                .deviceId(UUID.randomUUID().toString())
+                .homeServer("matrix.org")
+                .build();
+    }
+
+    @Override
+    public TokenResponse refreshToken(String refreshToken) {
+        if(!jwtTokenProvider.validateToken(refreshToken)){
+            return null;
+        }
+
+        var response = jwtTokenProvider.generateToken(refreshToken);
+
+        return TokenResponse.builder()
+                .accessToken(response.getAccessToken())
+                .refreshToken(response.getRefreshToken())
+                .expiresInMs(response.getExpiresInMs())
+                .deviceId(UUID.randomUUID().toString())
                 .deviceId(UUID.randomUUID().toString())
                 .homeServer("matrix.org")
                 .build();

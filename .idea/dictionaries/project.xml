@@ -17,14 +17,18 @@
       <w>ltai</w>
       <w>motd</w>
       <w>msgtype</w>
+      <w>mxid</w>
       <w>osins</w>
       <w>postgre</w>
+      <w>pushrules</w>
       <w>reactorgrpc</w>
       <w>richar</w>
       <w>servicelibs</w>
+      <w>thirdparty</w>
       <w>threepid</w>
       <w>tooljet</w>
       <w>wahaha</w>
+      <w>wefuiwegh</w>
       <w>xolstice</w>
     </words>
   </dictionary>
