@@ -97,21 +97,19 @@ matrix (根模块)
 │   ├── matrix-auth-grpc-provider    # gRPC 认证提供者
 │   ├── matrix-auth-grpc-proto       # gRPC 认证协议定义
 │   ├── matrix-auth-oauth2-server    # OAuth2 服务端
-│   ├── matrix-auth-role-strategy-manage  # 角色策略管理
-│   └── ...                          # 其他认证相关模块
+│   └── matrix-auth-role-strategy-manage  # 角色策略管理
 ├── matrix-user                      # 用户服务
 │   ├── matrix-user-api              # 用户服务接口
 │   ├── matrix-user-data             # 用户数据访问
 │   ├── matrix-user-consumer         # 用户服务消费者
 │   ├── matrix-user-grpc-consumer    # gRPC 用户消费者
 │   ├── matrix-user-grpc-provider    # gRPC 用户提供者
-│   ├── matrix-user-grpc-proto       # gRPC 用户协议定义
-│   └── ...                          # 其他用户相关模块
+│   └── matrix-user-grpc-proto       # gRPC 用户协议定义
 ├── matrix-client-server             # 客户端服务
 │   ├── matrix-client-server-api     # 客户端服务接口
 │   ├── matrix-client-server-auth    # 客户端认证
-│   ├── matrix-client-server-common  # 客户端通用组件
-│   └── ...                          # 其他客户端相关模块
+│   ├── matrix-client-server-authentication  # 客户端认证扩展
+│   └── matrix-client-server-common  # 客户端通用组件
 ├── matrix-gateway                   # 网关服务
 └── matrix-flyway                    # 数据库迁移
 ```
