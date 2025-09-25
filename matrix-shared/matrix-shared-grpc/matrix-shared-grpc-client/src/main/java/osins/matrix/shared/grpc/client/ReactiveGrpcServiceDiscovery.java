@@ -24,12 +24,8 @@ import java.util.concurrent.TimeUnit;
 @Getter
 @RequiredArgsConstructor
 public class ReactiveGrpcServiceDiscovery {
-    private final ObservationRegistry observationRegistry;
     private final ReactiveDiscoveryClient reactiveDiscoveryClient;
     private final ConcurrentHashMap<String, ManagedChannel> channelCache = new ConcurrentHashMap<>();
-
-    private final Tracer tracer;         // 注入 Micrometer Tracer
-    private final Propagator propagator; // 注入 Micrometer Propagator
 
     public Mono<ManagedChannel> getChannel(String serviceName) {
         // 先检查缓存
@@ -75,8 +71,6 @@ public class ReactiveGrpcServiceDiscovery {
 
         return ManagedChannelBuilder.forTarget(target)
                 .usePlaintext()
-                .intercept(new LoggingClientInterceptor(tracer, propagator))
-                .intercept(new ObservationGrpcClientInterceptor(observationRegistry))
                 .keepAliveTime(30, TimeUnit.SECONDS)
                 .keepAliveTimeout(5, TimeUnit.SECONDS)
                 .keepAliveWithoutCalls(true)

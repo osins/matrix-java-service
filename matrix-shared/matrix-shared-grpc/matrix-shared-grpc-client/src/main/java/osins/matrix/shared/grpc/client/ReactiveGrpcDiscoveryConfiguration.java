@@ -38,12 +38,10 @@ public class ReactiveGrpcDiscoveryConfiguration {
         @Bean
         @ConditionalOnBean(ReactiveDiscoveryClient.class)
         public ReactiveGrpcServiceDiscovery kubernetesReactiveGrpcServiceDiscovery(
-                ReactiveDiscoveryClient reactiveDiscoveryClient,
-                ObservationRegistry observationRegistry,
-                Tracer tracer, Propagator propagator) {
+                ReactiveDiscoveryClient reactiveDiscoveryClient) {
             log.info("Creating Kubernetes reactive gRPC service discovery with: {}",
                     reactiveDiscoveryClient.getClass().getSimpleName());
-            return new ReactiveGrpcServiceDiscovery(observationRegistry, reactiveDiscoveryClient, tracer, propagator);
+            return new ReactiveGrpcServiceDiscovery(reactiveDiscoveryClient);
         }
     }
 
@@ -69,9 +67,9 @@ public class ReactiveGrpcDiscoveryConfiguration {
 
         @Bean
         @ConditionalOnMissingBean(ReactiveGrpcServiceDiscovery.class)
-        public ReactiveGrpcServiceDiscovery localReactiveGrpcServiceDiscovery(ObservationRegistry observationRegistry, LocalGrpcProperties localGrpcProperties, Tracer tracer, Propagator propagator) {
+        public ReactiveGrpcServiceDiscovery localReactiveGrpcServiceDiscovery(ReactiveDiscoveryClient client, LocalGrpcProperties localGrpcProperties) {
             log.info("Creating local reactive gRPC service discovery");
-            return new LocalReactiveGrpcServiceDiscovery(observationRegistry, localGrpcProperties, tracer, propagator);
+            return new LocalReactiveGrpcServiceDiscovery(client, localGrpcProperties);
         }
     }
 }

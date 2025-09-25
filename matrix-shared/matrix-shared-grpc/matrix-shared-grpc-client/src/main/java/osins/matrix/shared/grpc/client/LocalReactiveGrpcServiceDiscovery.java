@@ -2,12 +2,9 @@ package osins.matrix.shared.grpc.client;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
-import io.micrometer.core.instrument.binder.grpc.ObservationGrpcClientInterceptor;
-import io.micrometer.observation.ObservationRegistry;
-import io.micrometer.tracing.Tracer;
-import io.micrometer.tracing.propagation.Propagator;
 import jakarta.annotation.PreDestroy;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cloud.client.discovery.ReactiveDiscoveryClient;
 import reactor.core.publisher.Mono;
 
 import java.util.Map;
@@ -15,16 +12,13 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 public class LocalReactiveGrpcServiceDiscovery extends ReactiveGrpcServiceDiscovery {
-    private final ObservationRegistry observationRegistry;
-
     private final ConcurrentHashMap<String, ManagedChannel> localChannels = new ConcurrentHashMap<>();
 
     // 本地服务端口映射
     private final Map<String, String> localServicePorts;
 
-    public LocalReactiveGrpcServiceDiscovery(ObservationRegistry observationRegistry, LocalGrpcProperties properties, Tracer tracer, Propagator propagator) {
-        super(observationRegistry, null, tracer, propagator);
-        this.observationRegistry = observationRegistry;
+    public LocalReactiveGrpcServiceDiscovery(ReactiveDiscoveryClient client, LocalGrpcProperties properties) {
+        super(client);
         this.localServicePorts = properties.getServicePorts();
         log.info("Loaded local gRPC service ports: {}", this.localServicePorts);
     }
@@ -48,8 +42,6 @@ public class LocalReactiveGrpcServiceDiscovery extends ReactiveGrpcServiceDiscov
 
         return ManagedChannelBuilder.forTarget(target)
                 .usePlaintext()
-                .intercept(new LoggingClientInterceptor(super.getTracer(), super.getPropagator()))
-                .intercept(new ObservationGrpcClientInterceptor(observationRegistry))
                 .keepAliveWithoutCalls(true)
                 .maxInboundMessageSize(4 * 1024 * 1024)
                 .build();

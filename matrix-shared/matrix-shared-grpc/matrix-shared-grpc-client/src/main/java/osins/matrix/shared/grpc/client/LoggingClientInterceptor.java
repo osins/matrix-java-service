@@ -1,6 +1,5 @@
 package osins.matrix.shared.grpc.client;
 
-import osins.matrix.shared.tracing.utils.Tracing;
 import io.grpc.*;
 import io.micrometer.tracing.Tracer;
 import io.micrometer.tracing.propagation.Propagator;
@@ -29,8 +28,6 @@ public class LoggingClientInterceptor implements ClientInterceptor {
         return new ForwardingClientCall.SimpleForwardingClientCall<>(call) {
             @Override
             public void start(Listener<RespT> responseListener, Metadata headers) {
-                Tracing.tracing(tracer);
-
                 log.info("Request headers: {}", headers);
                 log.info("Calling method: {}", method.getFullMethodName());
                 super.start(responseListener, headers);

@@ -1,131 +1,194 @@
-# Matrix 项目配置信息
+# Matrix 分布式系统平台
 
-## 1. 核心环境配置
+Matrix 是一个基于 Spring Cloud 的现代化分布式系统平台，采用微服务架构设计，支持 gRPC 通信、OAuth2 认证、服务发现等企业级特性。
 
-### Java 环境
-- Java 版本: 21
-- Maven 编译器源版本: 21
-- Maven 编译器目标版本: 21
+## 目录
 
-### 编码配置
-- 项目构建源编码: UTF-8
-- 项目报告输出编码: UTF-8
+- [项目概述](#项目概述)
+- [技术栈](#技术栈)
+- [系统架构](#系统架构)
+- [模块结构](#模块结构)
+- [环境要求](#环境要求)
+- [快速开始](#快速开始)
+- [模块详解](#模块详解)
+- [开发指南](#开发指南)
+- [贡献指南](#贡献指南)
+- [许可证](#许可证)
 
-### 核心框架版本
-- Spring Boot 版本: 3.5.4
-- Spring Cloud 版本: 2025.0.0
-- Spring Framework 版本: 6.2.9
-- Spring Security 版本: 6.5.2
+## 项目概述
 
-### gRPC 和 Protobuf 版本
-- gRPC 版本: 1.74.0
-- Protobuf 版本: 4.31.1
-- Protobuf 编译器版本: 4.32.0
+Matrix 是一个遵循 Matrix 协议的分布式系统平台，旨在提供高性能、可扩展的微服务解决方案。项目采用模块化设计，每个模块都有明确的职责和接口，便于维护和扩展。
 
-## 2. 核心依赖及版本
+主要特性：
+- 基于 Spring Boot 3.5.4 和 Spring Cloud 2025.0.0
+- 支持 gRPC 高性能通信
+- 集成 OAuth2 认证和授权服务
+- 使用 R2DBC 实现响应式数据访问
+- 支持服务发现和负载均衡
+- 提供分布式 ID 生成器
+- 集成 Flyway 数据库迁移工具
 
-### Spring 生态依赖
-- spring-amqp.version: 3.2.6
-- spring-authorization-server.version: 1.5.1
-- spring-batch.version: 5.2.2
-- spring-data-bom.version: 2025.0.2
-- spring-framework.version: 6.2.9
-- spring-graphql.version: 1.4.1
-- spring-hateoas.version: 2.5.1
-- spring-integration.version: 6.5.1
-- spring-kafka.version: 3.3.8
-- spring-ldap.version: 3.3.2
-- spring-pulsar.version: 1.2.8
-- spring-restdocs.version: 3.0.4
-- spring-retry.version: 2.0.12
-- spring-security.version: 6.5.2
-- spring-session.version: 3.5.1
-- spring-ws.version: 4.1.1
+## 技术栈
 
-### 第三方依赖
-- Lombok 版本: 1.18.38
-- Mapstruct 版本: 1.6.3
-- Guava 版本: 33.4.8-jre
-- R2DBC PostgreSQL 版本: 1.0.7.RELEASE
-- Flyway 版本: 11.10.1 (matrix-flyway 模块中使用 11.11.0)
-- Mockito 版本: 5.17.0
-- Redisson 版本: 3.50.0
+### 核心框架
+- Java 21
+- Spring Boot 3.5.4
+- Spring Cloud 2025.0.0
+- Spring Security 6.5.2
+- Spring Authorization Server 1.5.1
 
-### 云原生相关
-- Spring Cloud Kubernetes 版本: 3.2.0
-- Fabric8 Kubernetes Client 版本: 7.0.1
+### 数据库
+- PostgreSQL (主数据库)
+- R2DBC PostgreSQL 1.0.7.RELEASE (响应式数据库驱动)
 
-## 3. 项目模块结构和父子关系
-```azure
-matrix (根模块)
-    ├── matrix-shared (共享模块)
-    │   ├── matrix-shared-common
-    │   ├── matrix-shared-data
-    │   ├── matrix-shared-test
-    │   ├── matrix-shared-grpc (gRPC共享模块)
-    │   │   ├── matrix-shared-grpc-base
-    │   │   ├── matrix-shared-grpc-client
-    │   │   └── matrix-shared-grpc-server
-    │   ├── matrix-shared-snowflake-id-generator
-    │   ├── matrix-shared-logging
-    │   ├── matrix-shared-cloud (云服务模块)
-    │   │   ├── matrix-shared-cloud-discovery-client
-    │   │   └── matrix-shared-cloud-discovery-server
-    │   └── matrix-shared-webflux
-    ├── matrix-gateway
-    ├── matrix-auth
-    ├── matrix-user (用户服务模块)
-    │   ├── matrix-user-api
-    │   ├── matrix-user-data
-    │   ├── matrix-user-grpc-proto
-    │   ├── matrix-user-grpc-provider
-    │   ├── matrix-user-consumer
-    │   └── matrix-user-grpc-consumer
-    ├── matrix-room
-    ├── matrix-message
-    ├── matrix-websocket
-    ├── matrix-federation
-    └── matrix-flyway
+### 通信协议
+- gRPC 1.74.0
+- Protocol Buffers 4.31.1
+- RESTful API
+
+### 其他技术
+- Maven 3.9+
+- Lombok 1.18.38
+- MapStruct 1.6.3
+- Guava 33.4.8-jre
+- Flyway 11.10.1
+- Mockito 5.17.0
+
+## 系统架构
+
+Matrix 采用微服务架构，各服务之间通过 gRPC 或 RESTful API 进行通信。系统包含以下核心组件：
+
+1. **网关服务 (matrix-gateway)** - 统一入口，处理路由、认证等
+2. **认证服务 (matrix-auth)** - 提供 OAuth2 认证和权限管理
+3. **用户服务 (matrix-user)** - 管理用户信息和相关业务
+4. **共享模块 (matrix-shared)** - 提供通用工具和服务
+5. **客户端服务 (matrix-client-server)** - 处理客户端相关业务
+6. **数据库迁移 (matrix-flyway)** - 管理数据库版本和迁移
+
+## 模块结构
+
 ```
-## 4. 模块依赖关系说明
+matrix (根模块)
+├── matrix-dependencies        # 依赖版本管理
+├── matrix-shared              # 共享模块
+│   ├── matrix-shared-common     # 通用工具类
+│   ├── matrix-shared-data       # 数据访问组件
+│   ├── matrix-shared-grpc       # gRPC 基础设施
+│   ├── matrix-shared-cache      # 缓存组件
+│   ├── matrix-shared-cloud      # 云服务组件
+│   ├── matrix-shared-webflux    # WebFlux 组件
+│   ├── matrix-shared-sms        # 短信服务
+│   ├── matrix-shared-socket     # Socket 通信
+│   └── ...                      # 其他共享组件
+├── matrix-auth                # 认证服务
+│   ├── matrix-auth-api          # 认证服务接口
+│   ├── matrix-auth-data         # 认证数据访问
+│   ├── matrix-auth-security     # 安全配置
+│   ├── matrix-auth-grpc-*       # gRPC 认证服务
+│   ├── matrix-auth-oauth2-server # OAuth2 服务端
+│   └── ...                      # 其他认证相关模块
+├── matrix-user                # 用户服务
+│   ├── matrix-user-api          # 用户服务接口
+│   ├── matrix-user-data         # 用户数据访问
+│   ├── matrix-user-grpc-*       # gRPC 用户服务
+│   └── ...                      # 其他用户相关模块
+├── matrix-client-server       # 客户端服务
+│   ├── matrix-client-server-api # 客户端服务接口
+│   └── ...                      # 其他客户端相关模块
+├── matrix-gateway             # 网关服务
+└── matrix-flyway              # 数据库迁移
+```
 
-### 根模块 (matrix)
-- 定义了所有子模块
-- 管理全局依赖版本
-- 配置统一的构建插件
+## 环境要求
+
+- Java 21 或更高版本
+- Maven 3.9 或更高版本
+- Docker (用于运行依赖服务)
+- PostgreSQL 数据库
+
+## 快速开始
+
+1. 克隆项目代码：
+   ```bash
+   git clone <项目地址>
+   cd matrix
+   ```
+
+2. 启动依赖服务（数据库等）：
+   ```bash
+   docker-compose up -d
+   ```
+
+3. 构建项目：
+   ```bash
+   mvn clean install
+   ```
+
+4. 启动各服务模块：
+   ```bash
+   mvn spring-boot:run -pl <模块名>
+   ```
+
+## 模块详解
+
+### 认证服务 (matrix-auth)
+提供完整的认证和授权功能，包括：
+- OAuth2 服务端实现
+- JWT Token 管理
+- 用户权限管理
+- 角色策略管理
+
+### 用户服务 (matrix-user)
+管理用户相关信息：
+- 用户基本信息管理
+- 用户数据持久化
+- gRPC 服务接口
 
 ### 共享模块 (matrix-shared)
-- **matrix-shared-data**: 提供数据库访问功能，依赖于 Spring WebFlux、Spring Data R2DBC 和 PostgreSQL R2DBC 驱动
-- **matrix-shared-grpc**: gRPC 基础设施模块
-    - **matrix-shared-grpc-base**: 包含 gRPC 核心依赖，如 grpc-netty-shaded、grpc-protobuf、grpc-stub 等
-    - **matrix-shared-grpc-client**: gRPC 客户端功能
-    - **matrix-shared-grpc-server**: gRPC 服务端功能
-- **matrix-shared-snowflake-id-generator**: 提供分布式 ID 生成服务
-- **matrix-shared-cloud**: 云服务相关功能
-    - **matrix-shared-cloud-discovery-server**: 服务发现服务端
-    - **matrix-shared-cloud-discovery-client**: 服务发现客户端
+提供通用组件和工具：
+- 数据访问封装
+- gRPC 基础设施
+- 缓存管理
+- 日志处理
+- 分布式 ID 生成器
 
-### 用户服务模块 (matrix-user)
-- **matrix-user-grpc-proto**: 定义 gRPC 接口和消息协议，依赖 matrix-shared-grpc-base
-- **matrix-user-data**: 用户数据访问模块，依赖 matrix-shared-data
-- **matrix-user-grpc-provider**: 提供 gRPC 服务实现
-- **matrix-user-consumer**: 用户服务消费者
-- **matrix-user-grpc-consumer**: gRPC 消费者实现
-- **matrix-user-api**: 用户服务 API 接口定义
+### 网关服务 (matrix-gateway)
+系统统一入口：
+- 请求路由
+- 负载均衡
+- 认证鉴权
+- 限流熔断
 
-### 网关模块 (matrix-gateway)
-- 依赖 Spring Cloud Gateway
-- 作为整个系统的入口
-- 依赖 matrix-shared-webflux 和 matrix-shared-cloud-discovery-server
+## 开发指南
 
-### 认证模块 (matrix-auth)
-- 提供认证服务功能
-- 依赖 Spring Security 和 JWT 库
-- 使用 R2DBC PostgreSQL 进行数据存储
+### 代码规范
+- 遵循 Google Java Style Guide
+- 使用 Lombok 简化代码
+- 使用 MapStruct 进行对象映射
+- 编写单元测试和集成测试
 
-### 数据库迁移模块 (matrix-flyway)
-- 管理数据库迁移脚本
-- 使用 Flyway 进行数据库版本控制
-- 依赖 PostgreSQL JDBC 驱动
+### 新增模块
+1. 在根 pom.xml 中添加模块引用
+2. 创建模块目录结构
+3. 编写模块 pom.xml 文件
+4. 实现业务逻辑
 
-所有模块都继承自根模块 matrix，共享统一的依赖版本管理和构建配置。这种结构有利于统一管理依赖版本，避免版本冲突，并提供良好的模块化架构。
+### 数据库迁移
+使用 Flyway 管理数据库变更：
+1. 在 matrix-flyway 模块中添加迁移脚本
+2. 脚本命名遵循 V<版本号>__<描述>.sql 格式
+3. 运行 mvn flyway:migrate 执行迁移
+
+## 贡献指南
+
+欢迎提交 Issue 和 Pull Request 来帮助改进项目。
+
+1. Fork 项目
+2. 创建功能分支 (`git checkout -b feature/AmazingFeature`)
+3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
+4. 推送到分支 (`git push origin feature/AmazingFeature`)
+5. 开启 Pull Request
+
+## 许可证
+
+本项目采用 Apache License 2.0 许可证。详情请见 [LICENSE](LICENSE) 文件。
