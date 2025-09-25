@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+    <parent>
+        <groupId>osins.matrix</groupId>
+        <artifactId>matrix</artifactId>
+        <version>0.0.1</version>
+    </parent>
+
+    <artifactId>matrix-shared</artifactId>
+    <version>0.0.1</version>
+
+    <modules>
+        <module>matrix-shared-data</module>
+        <module>matrix-shared-test</module>
+        <module>matrix-shared-common</module>
+        <module>matrix-shared-grpc</module>
+        <module>matrix-shared-snowflake-id-generator</module>
+        <module>matrix-shared-logging</module>
+        <module>matrix-shared-cloud</module>
+        <module>matrix-shared-webflux</module>
+        <module>matrix-shared-cache</module>
+        <module>matrix-shared-api</module>
+        <module>matrix-shared-tracing</module>
+        <module>matrix-shared-sms</module>
+        <module>matrix-shared-socket</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- 自研模块 -->
+            <dependency>
+                <groupId>osins.matrix</groupId>
+                <artifactId>matrix-dependencies</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>
