@@ -12,11 +12,11 @@ import reactor.core.publisher.Mono;
 @Configuration
 @RequiredArgsConstructor
 public class GrpcChannelConfig {
-    private final ReactiveGrpcServiceDiscovery reactiveGrpcServiceDiscovery;
+    private final ReactiveGrpcServiceDiscovery grpcServiceDiscovery;
 
     @Bean
     public Mono<ManagedChannel> reactorAuthGrpcChannel(){
-        return reactiveGrpcServiceDiscovery.getChannel("matrix-auth")
+        return grpcServiceDiscovery.getChannel("matrix-auth")
                                 .doOnNext(channel -> log.info("User service gRPC channel created successfully"))
                                 .doOnError(error -> log.error("Failed to create user service gRPC channel", error))
                                 .cache();

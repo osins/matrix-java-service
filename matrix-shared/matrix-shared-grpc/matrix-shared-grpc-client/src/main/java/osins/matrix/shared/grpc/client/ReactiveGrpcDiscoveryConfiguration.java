@@ -38,10 +38,10 @@ public class ReactiveGrpcDiscoveryConfiguration {
         @Bean
         @ConditionalOnBean(ReactiveDiscoveryClient.class)
         public ReactiveGrpcServiceDiscovery kubernetesReactiveGrpcServiceDiscovery(
-                ReactiveDiscoveryClient reactiveDiscoveryClient) {
+                ReactiveDiscoveryClient client) {
             log.info("Creating Kubernetes reactive gRPC service discovery with: {}",
-                    reactiveDiscoveryClient.getClass().getSimpleName());
-            return new ReactiveGrpcServiceDiscovery(reactiveDiscoveryClient);
+                    client.getClass().getSimpleName());
+            return new ReactiveGrpcServiceDiscovery(client);
         }
     }
 
