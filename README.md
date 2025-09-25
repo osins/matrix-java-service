@@ -69,34 +69,51 @@ Matrix 采用微服务架构，各服务之间通过 gRPC 或 RESTful API 进行
 
 ```
 matrix (根模块)
-├── matrix-dependencies        # 依赖版本管理
-├── matrix-shared              # 共享模块
-│   ├── matrix-shared-common     # 通用工具类
-│   ├── matrix-shared-data       # 数据访问组件
-│   ├── matrix-shared-grpc       # gRPC 基础设施
-│   ├── matrix-shared-cache      # 缓存组件
-│   ├── matrix-shared-cloud      # 云服务组件
-│   ├── matrix-shared-webflux    # WebFlux 组件
-│   ├── matrix-shared-sms        # 短信服务
-│   ├── matrix-shared-socket     # Socket 通信
-│   └── ...                      # 其他共享组件
-├── matrix-auth                # 认证服务
-│   ├── matrix-auth-api          # 认证服务接口
-│   ├── matrix-auth-data         # 认证数据访问
-│   ├── matrix-auth-security     # 安全配置
-│   ├── matrix-auth-grpc-*       # gRPC 认证服务
-│   ├── matrix-auth-oauth2-server # OAuth2 服务端
-│   └── ...                      # 其他认证相关模块
-├── matrix-user                # 用户服务
-│   ├── matrix-user-api          # 用户服务接口
-│   ├── matrix-user-data         # 用户数据访问
-│   ├── matrix-user-grpc-*       # gRPC 用户服务
-│   └── ...                      # 其他用户相关模块
-├── matrix-client-server       # 客户端服务
-│   ├── matrix-client-server-api # 客户端服务接口
-│   └── ...                      # 其他客户端相关模块
-├── matrix-gateway             # 网关服务
-└── matrix-flyway              # 数据库迁移
+├── matrix-dependencies              # 依赖版本管理
+├── matrix-shared                    # 共享模块
+│   ├── matrix-shared-api            # API 接口定义
+│   ├── matrix-shared-cache          # 缓存组件
+│   ├── matrix-shared-cloud          # 云服务组件
+│   │   ├── matrix-shared-cloud-discovery-client  # 服务发现客户端
+│   │   └── matrix-shared-cloud-discovery-server  # 服务发现服务端
+│   ├── matrix-shared-common         # 通用工具类
+│   ├── matrix-shared-data           # 数据访问组件
+│   ├── matrix-shared-grpc           # gRPC 基础设施
+│   │   ├── matrix-shared-grpc-base     # gRPC 基础依赖
+│   │   ├── matrix-shared-grpc-client   # gRPC 客户端
+│   │   └── matrix-shared-grpc-server   # gRPC 服务端
+│   ├── matrix-shared-logging        # 日志组件
+│   ├── matrix-shared-sms            # 短信服务
+│   ├── matrix-shared-snowflake-id-generator  # 分布式ID生成器
+│   ├── matrix-shared-socket         # Socket 通信
+│   ├── matrix-shared-test           # 测试组件
+│   ├── matrix-shared-tracing        # 链路追踪
+│   └── matrix-shared-webflux        # WebFlux 组件
+├── matrix-auth                      # 认证服务
+│   ├── matrix-auth-api              # 认证服务接口
+│   ├── matrix-auth-data             # 认证数据访问
+│   ├── matrix-auth-security         # 安全配置
+│   ├── matrix-auth-grpc-consumer    # gRPC 认证消费者
+│   ├── matrix-auth-grpc-provider    # gRPC 认证提供者
+│   ├── matrix-auth-grpc-proto       # gRPC 认证协议定义
+│   ├── matrix-auth-oauth2-server    # OAuth2 服务端
+│   ├── matrix-auth-role-strategy-manage  # 角色策略管理
+│   └── ...                          # 其他认证相关模块
+├── matrix-user                      # 用户服务
+│   ├── matrix-user-api              # 用户服务接口
+│   ├── matrix-user-data             # 用户数据访问
+│   ├── matrix-user-consumer         # 用户服务消费者
+│   ├── matrix-user-grpc-consumer    # gRPC 用户消费者
+│   ├── matrix-user-grpc-provider    # gRPC 用户提供者
+│   ├── matrix-user-grpc-proto       # gRPC 用户协议定义
+│   └── ...                          # 其他用户相关模块
+├── matrix-client-server             # 客户端服务
+│   ├── matrix-client-server-api     # 客户端服务接口
+│   ├── matrix-client-server-auth    # 客户端认证
+│   ├── matrix-client-server-common  # 客户端通用组件
+│   └── ...                          # 其他客户端相关模块
+├── matrix-gateway                   # 网关服务
+└── matrix-flyway                    # 数据库迁移
 ```
 
 ## 环境要求
