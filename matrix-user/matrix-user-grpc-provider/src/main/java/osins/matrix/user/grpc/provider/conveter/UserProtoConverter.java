@@ -1,11 +1,11 @@
 package osins.matrix.user.grpc.provider.conveter;
 
-import osins.matrix.user.grpc.proto.UserOuterClass;
 import osins.matrix.shared.common.uitls.Dates;
 import osins.matrix.shared.common.uitls.Objects;
 import osins.matrix.grpc.proto.converter.IProtoConverter;
 import osins.matrix.user.data.entity.User;
 import org.springframework.stereotype.Component;
+import osins.matrix.user.grpc.proto.UserOuterClass;
 
 import java.util.List;
 import java.util.Optional;
