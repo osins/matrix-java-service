@@ -25,16 +25,4 @@
         <module>matrix-user-grpc-proto</module>
         <module>matrix-user-grpc-consumer</module>
     </modules>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>osins.matrix</groupId>
-                <artifactId>matrix-dependencies</artifactId>
-                <version>${project.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 </project>

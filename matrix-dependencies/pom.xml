@@ -141,13 +141,19 @@
 
             <dependency>
                 <groupId>osins.matrix</groupId>
+                <artifactId>matrix-shared-cloud-config</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>osins.matrix</groupId>
                 <artifactId>matrix-shared-cloud-discovery-client</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>osins.matrix</groupId>
-                <artifactId>matrix-shared-cloud-discovery-server</artifactId>
+                <artifactId>matrix-shared-cloud-discovery</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

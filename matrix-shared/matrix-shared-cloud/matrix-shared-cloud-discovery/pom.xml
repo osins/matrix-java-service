@@ -9,7 +9,7 @@
         <version>0.0.1</version>
     </parent>
 
-    <artifactId>matrix-shared-cloud-discovery-server</artifactId>
+    <artifactId>matrix-shared-cloud-discovery</artifactId>
     <packaging>jar</packaging>
     <version>0.0.1</version>
 

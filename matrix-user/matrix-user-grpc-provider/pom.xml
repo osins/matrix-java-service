@@ -22,7 +22,7 @@
     <dependencies>
         <dependency>
             <groupId>osins.matrix</groupId>
-            <artifactId>matrix-shared-cloud-discovery-server</artifactId>
+            <artifactId>matrix-shared-cloud-discovery</artifactId>
         </dependency>
 
         <dependency>

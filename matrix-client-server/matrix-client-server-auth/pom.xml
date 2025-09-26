@@ -28,12 +28,12 @@
 
         <dependency>
             <groupId>osins.matrix</groupId>
-            <artifactId>matrix-shared-tracing</artifactId>
+            <artifactId>matrix-auth-security</artifactId>
         </dependency>
 
         <dependency>
             <groupId>osins.matrix</groupId>
-            <artifactId>matrix-auth-security</artifactId>
+            <artifactId>matrix-shared-cloud-discovery</artifactId>
         </dependency>
     </dependencies>
 </project>

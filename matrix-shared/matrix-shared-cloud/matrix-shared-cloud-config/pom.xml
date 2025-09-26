@@ -9,7 +9,7 @@
         <version>0.0.1</version>
     </parent>
 
-    <artifactId>matrix-shared-cloud-discovery-client</artifactId>
+    <artifactId>matrix-shared-cloud-config</artifactId>
     <version>0.0.1</version>
     <packaging>jar</packaging>
 
@@ -21,27 +21,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-
-        <!-- 响应式服务发现 -->
-        <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-kubernetes-discoveryclient</artifactId>
+            <artifactId>spring-cloud-kubernetes-fabric8-config</artifactId>
         </dependency>
-
-        <!-- Spring Cloud LoadBalancer (响应式支持) -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
     </dependencies>
 </project>
