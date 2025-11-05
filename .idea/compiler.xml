@@ -13,10 +13,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-configuration-processor/3.5.4/spring-boot-configuration-processor-3.5.4.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-configuration-processor/unknown/spring-boot-configuration-processor-unknown.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.6.3/mapstruct-processor-1.6.3.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.6.3/mapstruct-1.6.3.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
         </processorPath>
         <module name="matrix-user-consumer" />
         <module name="matrix-shared-cloud-discovery-client" />
@@ -40,8 +40,8 @@
         <module name="matrix-user-data" />
         <module name="matrix-auth-grpc-provider" />
         <module name="matrix-shared-logging" />
-        <module name="matrix-shared-api" />
         <module name="matrix-user-grpc-provider" />
+        <module name="matrix-shared-api" />
         <module name="matrix-shared-sms" />
         <module name="matrix-user-grpc-proto" />
         <module name="matrix-shared-socket" />
