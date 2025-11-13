@@ -27,6 +27,7 @@
         <module>matrix-shared-tracing</module>
         <module>matrix-shared-sms</module>
         <module>matrix-shared-socket</module>
+        <module>matrix-shared-dependencies</module>
     </modules>
 
     <dependencyManagement>
@@ -34,7 +35,7 @@
             <!-- 自研模块 -->
             <dependency>
                 <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-dependencies</artifactId>
+                <artifactId>matrix-shared-dependencies</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>
                 <scope>import</scope>

@@ -99,17 +99,6 @@
         <mockito.version>5.17.0</mockito.version>
     </properties>
 
-    <distributionManagement>
-        <repository>
-            <id>project-releases</id>
-            <url>http://s2.homemart.club:5200/repository/club.hm.martix/</url>
-        </repository>
-        <snapshotRepository>
-            <id>project-snapshots</id>
-            <url>http://s2.homemart.club:5200/repository/club.hm.martix/</url>
-        </snapshotRepository>
-    </distributionManagement>
-
     <!-- 依赖管理 -->
     <dependencyManagement>
         <dependencies>

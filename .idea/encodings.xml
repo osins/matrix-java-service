@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$USER_HOME$/src/main/java" charset="UTF-8" />
+    <file url="file://$USER_HOME$/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-auth/matrix-auth-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-auth/matrix-auth-api/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-auth/matrix-auth-data/src/main/java" charset="UTF-8" />
@@ -53,6 +55,8 @@
     <file url="file://$PROJECT_DIR$/matrix-shared/matrix-shared-common/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-shared/matrix-shared-data/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-shared/matrix-shared-data/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/matrix-shared/matrix-shared-dependencies/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/matrix-shared/matrix-shared-dependencies/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-shared/matrix-shared-grpc/matrix-shared-grpc-base/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-shared/matrix-shared-grpc/matrix-shared-grpc-base/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-shared/matrix-shared-grpc/matrix-shared-grpc-client/src/main/java" charset="UTF-8" />
@@ -97,7 +101,5 @@
     <file url="file://$PROJECT_DIR$/maven-osins-reactor-grpc-plugin/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
-    <file url="file://$USER_HOME$/src/main/java" charset="UTF-8" />
-    <file url="file://$USER_HOME$/src/main/resources" charset="UTF-8" />
   </component>
 </project>
