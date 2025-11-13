@@ -13,6 +13,14 @@
     <packaging>jar</packaging>
     <version>0.0.1</version>
 
+    <properties>
+        <grpc-spring-boot.version>3.1.0.RELEASE</grpc-spring-boot.version>
+        <grpc.version>1.76.0</grpc.version>
+        <protobuf.version>4.33.0</protobuf.version>
+        <protoc.version>4.33.0</protoc.version>
+        <protobuf-maven-plugin.version>0.6.1</protobuf-maven-plugin.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>club.hm.matrix</groupId>
@@ -40,7 +48,7 @@
         <dependency>
             <groupId>net.devh</groupId>
             <artifactId>grpc-spring-boot-starter</artifactId>
-            <version>3.1.0.RELEASE</version>
+            <version>${grpc-spring-boot.version}</version>
             <exclusions>
                 <exclusion>
                     <artifactId>error_prone_annotations</artifactId>

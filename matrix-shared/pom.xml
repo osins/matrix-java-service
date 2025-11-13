@@ -11,13 +11,11 @@
     </parent>
 
     <artifactId>matrix-shared</artifactId>
-    <version>0.0.1</version>
 
     <modules>
         <module>matrix-shared-data</module>
         <module>matrix-shared-test</module>
         <module>matrix-shared-common</module>
-        <module>matrix-shared-grpc</module>
         <module>matrix-shared-snowflake-id-generator</module>
         <module>matrix-shared-logging</module>
         <module>matrix-shared-cloud</module>
@@ -27,7 +25,6 @@
         <module>matrix-shared-tracing</module>
         <module>matrix-shared-sms</module>
         <module>matrix-shared-socket</module>
-        <module>matrix-shared-dependencies</module>
     </modules>
 
     <dependencyManagement>

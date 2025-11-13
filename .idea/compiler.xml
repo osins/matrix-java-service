@@ -21,15 +21,14 @@
         <module name="matrix-user-consumer" />
         <module name="matrix-shared-cloud-discovery-client" />
         <module name="matrix-auth-role-strategy-manage" />
-        <module name="matrix-shared-dependencies" />
-        <module name="matrix-shared-data" />
         <module name="matrix-shared-grpc-base" />
+        <module name="matrix-shared-data" />
         <module name="matrix-shared-grpc-client" />
         <module name="matrix-shared-tracing" />
         <module name="matrix-gateway" />
         <module name="matrix-flyway" />
-        <module name="matrix-shared-cache" />
         <module name="matrix-shared-grpc-server" />
+        <module name="matrix-shared-cache" />
         <module name="matrix-client-server-api" />
         <module name="matrix-user-api" />
         <module name="matrix-client-server-common" />
@@ -67,9 +66,11 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="matrix-00-dependencies" options="" />
       <module name="matrix-auth" options="" />
       <module name="matrix-auth-api" options="-parameters -parameters" />
       <module name="matrix-auth-data" options="-parameters -parameters" />
+      <module name="matrix-auth-dependencies" options="" />
       <module name="matrix-auth-grpc-consumer" options="-parameters -parameters" />
       <module name="matrix-auth-grpc-proto" options="-parameters -parameters" />
       <module name="matrix-auth-grpc-provider" options="-parameters -parameters" />
@@ -77,12 +78,12 @@
       <module name="matrix-auth-role-strategy-manage" options="-parameters -parameters" />
       <module name="matrix-auth-security" options="-parameters -parameters" />
       <module name="matrix-chat-protocol" options="-parameters -parameters" />
+      <module name="matrix-client-dependencies" options="" />
       <module name="matrix-client-server" options="" />
       <module name="matrix-client-server-api" options="-parameters -parameters" />
       <module name="matrix-client-server-auth" options="-parameters -parameters" />
       <module name="matrix-client-server-authentication" options="-parameters -parameters" />
       <module name="matrix-client-server-common" options="-parameters -parameters" />
-      <module name="matrix-dependencies" options="" />
       <module name="matrix-federation" options="-parameters -parameters" />
       <module name="matrix-flyway" options="-parameters -parameters" />
       <module name="matrix-gateway" options="-parameters -parameters" />
@@ -93,9 +94,10 @@
       <module name="matrix-shared-cloud-discovery-server" options="-parameters -parameters" />
       <module name="matrix-shared-common" options="-parameters -parameters" />
       <module name="matrix-shared-data" options="-parameters -parameters" />
-      <module name="matrix-shared-dependencies" options="-parameters -parameters" />
+      <module name="matrix-shared-dependencies" options="" />
       <module name="matrix-shared-grpc-base" options="-parameters -parameters" />
       <module name="matrix-shared-grpc-client" options="-parameters -parameters" />
+      <module name="matrix-shared-grpc-dependencies" options="" />
       <module name="matrix-shared-grpc-server" options="-parameters -parameters" />
       <module name="matrix-shared-logging" options="-parameters -parameters" />
       <module name="matrix-shared-sms" options="-parameters -parameters" />
@@ -109,6 +111,7 @@
       <module name="matrix-user-api" options="-parameters -parameters" />
       <module name="matrix-user-consumer" options="-parameters -parameters" />
       <module name="matrix-user-data" options="-parameters -parameters" />
+      <module name="matrix-user-dependencies" options="" />
       <module name="matrix-user-grpc-consumer" options="-parameters -parameters" />
       <module name="matrix-user-grpc-proto" options="-parameters -parameters" />
       <module name="matrix-user-grpc-provider" options="-parameters -parameters" />

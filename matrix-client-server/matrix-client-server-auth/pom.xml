@@ -12,9 +12,9 @@
     <artifactId>matrix-client-server-auth</artifactId>
     <name>matrix-client-server-auth</name>
     <packaging>jar</packaging>
-    <version>0.0.1</version>
 
     <properties>
+        <project.version>0.0.1</project.version>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

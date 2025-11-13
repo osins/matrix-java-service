@@ -10,7 +10,6 @@
     </parent>
 
     <artifactId>matrix-auth-grpc-provider</artifactId>
-    <version>0.0.1</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -33,23 +32,12 @@
         <dependency>
             <groupId>club.hm.matrix</groupId>
             <artifactId>matrix-auth-data</artifactId>
-            <version>0.0.1</version>
         </dependency>
 
         <dependency>
             <groupId>club.hm.matrix</groupId>
             <artifactId>matrix-auth-grpc-proto</artifactId>
-            <version>0.0.1</version>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.xolstice.maven.plugins</groupId>
-                <artifactId>protobuf-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

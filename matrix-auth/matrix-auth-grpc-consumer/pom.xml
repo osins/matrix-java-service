@@ -10,7 +10,6 @@
     </parent>
 
     <artifactId>matrix-auth-grpc-consumer</artifactId>
-    <version>0.0.1</version>
     <packaging>jar</packaging>
 
     <properties>

@@ -3,47 +3,34 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>club.hm.matrix</groupId>
-        <artifactId>matrix-shared</artifactId>
-        <version>0.0.1</version>
-    </parent>
-
-    <artifactId>matrix-shared-grpc</artifactId>
-    <version>0.0.1</version>
+    <groupId>club.hm.matrix</groupId>
+    <artifactId>matrix-client-dependencies</artifactId>
     <packaging>pom</packaging>
+    <version>0.0.1</version>
 
-    <modules>
-        <module>matrix-shared-grpc-client</module>
-        <module>matrix-shared-grpc-server</module>
-        <module>matrix-shared-grpc-base</module>
-    </modules>
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-cloud</artifactId>
-                <version>${project.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-grpc-base</artifactId>
+                <artifactId>matrix-client-server-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-grpc-client</artifactId>
+                <artifactId>matrix-client-server-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-grpc-server</artifactId>
+                <artifactId>matrix-client-server-auth</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

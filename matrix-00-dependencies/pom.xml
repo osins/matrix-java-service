@@ -5,8 +5,19 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>club.hm.matrix</groupId>
-    <artifactId>matrix-shared-dependencies</artifactId>
+    <artifactId>matrix-00-dependencies</artifactId>
+    <packaging>pom</packaging>
     <version>0.0.1</version>
+    <name>matrix dependencies</name>
+    <description>matrix Dependencies</description>
+
+    <modules>
+        <module>matrix-shared-dependencies</module>
+        <module>matrix-shared-grpc-dependencies</module>
+        <module>matrix-user-dependencies</module>
+        <module>matrix-auth-dependencies</module>
+        <module>matrix-client-dependencies</module>
+    </modules>
 
     <properties>
         <project.version>0.0.1</project.version>
@@ -40,15 +51,6 @@
         <spring-session.version>3.5.1</spring-session.version>
         <spring-ws.version>4.1.1</spring-ws.version>
 
-        <!-- 谷歌的 grpc -->
-        <grpc.version>1.74.0</grpc.version>
-        <grpc-spring-boot.version>2.15.0.RELEASE</grpc-spring-boot.version>
-        <protobuf.version>4.31.1</protobuf.version>
-        <protoc.version>4.32.0</protoc.version>
-        <protobuf-maven-plugin.version>0.6.1</protobuf-maven-plugin.version>
-        <os-maven-plugin.version>1.7.1</os-maven-plugin.version>
-        <build-helper-maven-plugin.version>3.4.0</build-helper-maven-plugin.version>
-
         <!-- 第三方依赖版本 -->
         <lombok.version>1.18.38</lombok.version>
         <mapstruct.version>1.6.3</mapstruct.version>
@@ -81,118 +83,164 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- Spring Boot BOM -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <!-- Spring Cloud BOM -->
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <!-- Spring Cloud Kubernetes BOM -->
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-kubernetes-dependencies</artifactId>
-                <version>${spring-cloud-kubernetes.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
             <!-- matrix 模块依赖管理 -->
-
+            <!-- matrix-shared 统一依赖管理模块 -->
             <dependency>
                 <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-api</artifactId>
+                <artifactId>matrix-shared-dependencies</artifactId>
                 <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
 
+            <!-- matrix-auth 模块 -->
             <dependency>
                 <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-cache</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-cloud</artifactId>
+                <artifactId>matrix-auth</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>
             </dependency>
 
             <dependency>
                 <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-cloud-discovery-client</artifactId>
+                <artifactId>matrix-auth-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-cloud-discovery-server</artifactId>
+                <artifactId>matrix-auth-client</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-grpc-server</artifactId>
+                <artifactId>matrix-auth-data</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-grpc-base</artifactId>
+                <artifactId>matrix-auth-grpc-consumer</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-grpc-client</artifactId>
+                <artifactId>matrix-auth-grpc-proto</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-webflux</artifactId>
+                <artifactId>matrix-auth-grpc-provider</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            
-            <!-- 添加缺失的依赖项 -->
+
             <dependency>
                 <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-data</artifactId>
+                <artifactId>matrix-auth-oauth2-server</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            
+
             <dependency>
                 <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-logging</artifactId>
+                <artifactId>matrix-auth-role-strategy-manage</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            
+
             <dependency>
                 <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-common</artifactId>
+                <artifactId>matrix-auth-security</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            
+
+            <!-- matrix-client-server 模块 -->
             <dependency>
                 <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-test</artifactId>
+                <artifactId>matrix-client-server</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-client-server-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            
+
+            <!-- matrix-user 模块 -->
             <dependency>
                 <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-shared-tracing</artifactId>
+                <artifactId>matrix-user</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-user-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-user-consumer</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-user-data</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-user-grpc-consumer</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-user-grpc-proto</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-user-grpc-provider</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- 其他模块 -->
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-room</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-federation</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-flyway</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-tio</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-gateway</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

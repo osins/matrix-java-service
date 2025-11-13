@@ -20,8 +20,8 @@
     </developers>
 
     <modules>
-        <module>matrix-dependencies</module>
         <module>matrix-shared</module>
+        <module>matrix-shared-grpc</module>
         <module>matrix-flyway</module>
         <module>matrix-auth</module>
         <module>matrix-user</module>
@@ -62,11 +62,6 @@
         <spring-ws.version>4.1.1</spring-ws.version>
 
         <!-- 谷歌的 grpc -->
-        <grpc.version>1.74.0</grpc.version>
-        <grpc-spring-boot.version>2.15.0.RELEASE</grpc-spring-boot.version>
-        <protobuf.version>4.31.1</protobuf.version>
-        <protoc.version>4.32.0</protoc.version>
-        <protobuf-maven-plugin.version>0.6.1</protobuf-maven-plugin.version>
         <os-maven-plugin.version>1.7.1</os-maven-plugin.version>
         <build-helper-maven-plugin.version>3.4.0</build-helper-maven-plugin.version>
 
@@ -179,6 +174,14 @@
                 <version>${guava.version}</version>
                 <scope>compile</scope>
             </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-shared-grpc-dependencies</artifactId>
+                <version>0.0.1</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -227,7 +230,7 @@
                     <configuration>
                         <protocArtifact>com.google.protobuf:protoc:3.25.5:exe:${os.detected.classifier}</protocArtifact>
                         <pluginId>grpc-java</pluginId>
-                        <pluginArtifact>io.grpc:protoc-gen-grpc-java:1.74.0:exe:${os.detected.classifier}</pluginArtifact>
+                        <pluginArtifact>io.grpc:protoc-gen-grpc-java:1.76.0:exe:${os.detected.classifier}</pluginArtifact>
                         <protoSourceRoot>${project.basedir}/src/main/resources/proto</protoSourceRoot>
                         <outputBaseDirectory>${project.build.directory}/generated-sources</outputBaseDirectory>
                     </configuration>

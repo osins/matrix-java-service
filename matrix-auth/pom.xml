@@ -11,7 +11,6 @@
     </parent>
 
     <artifactId>matrix-auth</artifactId>
-    <version>0.0.1</version>
     <packaging>pom</packaging>
 
     <name>matrix-auth</name>
@@ -34,10 +33,25 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- Spring Boot基础依赖 -->
             <dependency>
                 <groupId>club.hm.matrix</groupId>
-                <artifactId>matrix-dependencies</artifactId>
+                <artifactId>matrix-shared-dependencies</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-shared-grpc-dependencies</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>club.hm.matrix</groupId>
+                <artifactId>matrix-auth-dependencies</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
