@@ -1,0 +1,69 @@
+server:
+  port: 8009
+spring:
+  application:
+    name: club-hm-matrix-security
+    timezone: Asia/Shanghai
+  cloud:
+    kubernetes:
+      discovery:
+        enabled: false
+  data:
+    redis:
+      host: in-server.homemart.club
+      port: 30363
+      password: catadmin1 # 如果有密码
+local:
+  grpc:
+    service-ports:
+      matrix-auth: localhost:9091
+      matrix-user: localhost:9092
+      matrix-room: localhost:9093
+      matrix-message: localhost:9094
+      matrix-websocket: localhost:9095
+
+# Micrometer Tracing 配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, prometheus, metrics, tracing
+  endpoint:
+    health:
+      show-details: always
+  metrics:
+    tags:
+      application: ${spring.application.name}
+  tracing:
+    sampling:
+      probability: 1.0  # 10% 采样率，生产可调小
+    propagation:
+      type: W3C  # 使用OpenTelemetry的标准格式
+    baggage:
+      correlation:
+        fields:
+          - traceId
+          - spanId
+
+hm:
+  sms:
+    aliyun:
+      access-key-id: ${ACCESS_KEY_ID}
+      access-key-secret: ${ACCESS_KEY_SECRET}
+  security.jwt:
+    secret: 3LU9aBU0r3retRnrpU8DUfGiMtCarTKdLbWbZW7fV43WNVBD7dH8z4UrfMB8rHXofbsAAe2kc8iup68opzM8
+    expiration: 3600
+    zone-id: ${spring.application.timezone}
+    admin-id: 1
+    role-cache: false
+
+# 日志配置
+logging:
+  level:
+    root: INFO
+    club.hm.matrix: DEBUG
+    io.micrometer: DEBUG
+    org.springframework.web.reactive: DEBUG
+    org.springframework.web.reactive.result.method.annotation: TRACE
+    reactor.netty: DEBUG
+
