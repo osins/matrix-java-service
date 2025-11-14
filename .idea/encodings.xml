@@ -3,6 +3,10 @@
   <component name="Encoding">
     <file url="file://$USER_HOME$/src/main/java" charset="UTF-8" />
     <file url="file://$USER_HOME$/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/matrix-00-dependencies/matrix-auth-dependencies/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/matrix-00-dependencies/matrix-auth-dependencies/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/matrix-00-dependencies/matrix-client-dependencies/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/matrix-00-dependencies/matrix-client-dependencies/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-00-dependencies/matrix-shared-dependencies/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-00-dependencies/matrix-shared-dependencies/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/matrix-00-dependencies/matrix-shared-grpc-dependencies/src/main/java" charset="UTF-8" />
