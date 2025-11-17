@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>club.hm.matrix</groupId>
+        <groupId>io.osins.matrix</groupId>
         <artifactId>matrix-client-server</artifactId>
         <version>0.0.1</version>
     </parent>
@@ -18,17 +18,17 @@
 
     <dependencies>
         <dependency>
-            <groupId>club.hm.matrix</groupId>
+            <groupId>io.osins.matrix</groupId>
             <artifactId>matrix-shared-webflux</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>club.hm.matrix</groupId>
+            <groupId>io.osins.matrix</groupId>
             <artifactId>matrix-client-server-common</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>club.hm.matrix</groupId>
+            <groupId>io.osins.matrix</groupId>
             <artifactId>matrix-shared-test</artifactId>
         </dependency>
 

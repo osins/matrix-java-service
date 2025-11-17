@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>club.hm.matrix</groupId>
+    <groupId>io.osins.matrix</groupId>
     <artifactId>matrix-shared-dependencies</artifactId>
     <packaging>pom</packaging>
     <version>0.0.1</version>
@@ -26,7 +26,7 @@
         <spring-authorization-server.version>1.5.1</spring-authorization-server.version>
         <spring-batch.version>5.2.2</spring-batch.version>
         <spring-data-bom.version>2025.0.2</spring-data-bom.version>
-        <spring-framework.version>6.2.9</spring-framework.version>
+        <spring-framework.version>6.2.10</spring-framework.version>
         <spring-graphql.version>1.4.1</spring-graphql.version>
         <spring-hateoas.version>2.5.1</spring-hateoas.version>
         <spring-integration.version>6.5.1</spring-integration.version>
@@ -40,7 +40,7 @@
         <spring-ws.version>4.1.1</spring-ws.version>
 
         <!-- 第三方依赖版本 -->
-        <lombok.version>1.18.38</lombok.version>
+        <lombok.version>1.18.42</lombok.version>
         <mapstruct.version>1.6.3</mapstruct.version>
         <guava.version>33.4.8-jre</guava.version>
         <r2dbc-postgresql.version>1.0.7.RELEASE</r2dbc-postgresql.version>
@@ -101,75 +101,75 @@
             <!-- matrix 模块依赖管理 -->
 
             <dependency>
-                <groupId>club.hm.matrix</groupId>
+                <groupId>io.osins.matrix</groupId>
                 <artifactId>matrix-shared-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>club.hm.matrix</groupId>
+                <groupId>io.osins.matrix</groupId>
                 <artifactId>matrix-shared-sms</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>club.hm.matrix</groupId>
+                <groupId>io.osins.matrix</groupId>
                 <artifactId>matrix-shared-cache</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>club.hm.matrix</groupId>
+                <groupId>io.osins.matrix</groupId>
                 <artifactId>matrix-shared-cloud</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>
             </dependency>
 
             <dependency>
-                <groupId>club.hm.matrix</groupId>
+                <groupId>io.osins.matrix</groupId>
                 <artifactId>matrix-shared-cloud-discovery-client</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>club.hm.matrix</groupId>
+                <groupId>io.osins.matrix</groupId>
                 <artifactId>matrix-shared-cloud-discovery-server</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>club.hm.matrix</groupId>
+                <groupId>io.osins.matrix</groupId>
                 <artifactId>matrix-shared-webflux</artifactId>
                 <version>${project.version}</version>
             </dependency>
             
             <!-- 添加缺失的依赖项 -->
             <dependency>
-                <groupId>club.hm.matrix</groupId>
+                <groupId>io.osins.matrix</groupId>
                 <artifactId>matrix-shared-data</artifactId>
                 <version>${project.version}</version>
             </dependency>
             
             <dependency>
-                <groupId>club.hm.matrix</groupId>
+                <groupId>io.osins.matrix</groupId>
                 <artifactId>matrix-shared-logging</artifactId>
                 <version>${project.version}</version>
             </dependency>
             
             <dependency>
-                <groupId>club.hm.matrix</groupId>
+                <groupId>io.osins.matrix</groupId>
                 <artifactId>matrix-shared-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
             
             <dependency>
-                <groupId>club.hm.matrix</groupId>
+                <groupId>io.osins.matrix</groupId>
                 <artifactId>matrix-shared-test</artifactId>
                 <version>${project.version}</version>
             </dependency>
             
             <dependency>
-                <groupId>club.hm.matrix</groupId>
+                <groupId>io.osins.matrix</groupId>
                 <artifactId>matrix-shared-tracing</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -179,6 +179,7 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
+                <scope>provided</scope>
             </dependency>
 
             <dependency>
@@ -230,5 +231,15 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <dependencies>
+        <!-- 第三方依赖版本控制 -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 
 </project>

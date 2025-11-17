@@ -1,7 +1,0 @@
-package club.hm.matrix.client.server.auth.config;
-
-import org.springframework.context.annotation.Configuration;
-
-@Configuration
-public class BeanConfig {
-}

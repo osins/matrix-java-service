@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>club.hm.matrix</groupId>
+        <groupId>io.osins.matrix</groupId>
         <artifactId>matrix</artifactId>
         <version>0.0.1</version>
     </parent>
@@ -34,7 +34,7 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>club.hm.matrix</groupId>
+                <groupId>io.osins.matrix</groupId>
                 <artifactId>matrix-shared-dependencies</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>
@@ -42,7 +42,7 @@
             </dependency>
 
             <dependency>
-                <groupId>club.hm.matrix</groupId>
+                <groupId>io.osins.matrix</groupId>
                 <artifactId>matrix-shared-grpc-dependencies</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>
@@ -50,7 +50,7 @@
             </dependency>
 
             <dependency>
-                <groupId>club.hm.matrix</groupId>
+                <groupId>io.osins.matrix</groupId>
                 <artifactId>matrix-auth-dependencies</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>

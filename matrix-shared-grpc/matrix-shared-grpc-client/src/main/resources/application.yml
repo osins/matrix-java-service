@@ -18,7 +18,7 @@ spring:
 
 logging:
   level:
-    club.hm.matrix.shared.grpc: DEBUG
+    io.osins.matrix.shared.grpc: DEBUG
     reactor.netty: INFO
 
 ---
@@ -53,4 +53,4 @@ management:
 logging:
   level:
     org.springframework.cloud.kubernetes: DEBUG
-    club.hm.matrix: DEBUG
+    io.osins.matrix: DEBUG

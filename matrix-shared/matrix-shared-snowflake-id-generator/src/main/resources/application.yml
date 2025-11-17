@@ -6,7 +6,7 @@ snowflake-id:
 
 logging:
   level:
-    club.hm.matrix: DEBUG
+    io.osins.matrix: DEBUG
     io.grpc: DEBUG
     org.springframework.data.r2dbc: DEBUG
     root: INFO

@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>club.hm.matrix</groupId>
+        <groupId>io.osins.matrix</groupId>
         <artifactId>matrix-auth</artifactId>
         <version>0.0.1</version>
     </parent>
@@ -14,12 +14,18 @@
 
     <dependencies>
         <dependency>
-            <groupId>club.hm.matrix</groupId>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.osins.matrix</groupId>
             <artifactId>matrix-shared-common</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>club.hm.matrix</groupId>
+            <groupId>io.osins.matrix</groupId>
             <artifactId>matrix-shared-webflux</artifactId>
         </dependency>
         
@@ -55,17 +61,17 @@
         </dependency>
 
         <dependency>
-            <groupId>club.hm.matrix</groupId>
+            <groupId>io.osins.matrix</groupId>
             <artifactId>matrix-shared-test</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>club.hm.matrix</groupId>
+            <groupId>io.osins.matrix</groupId>
             <artifactId>matrix-auth-api</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>club.hm.matrix</groupId>
+            <groupId>io.osins.matrix</groupId>
             <artifactId>matrix-auth-grpc-consumer</artifactId>
         </dependency>
     </dependencies>

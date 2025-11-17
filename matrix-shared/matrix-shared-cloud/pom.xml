@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>club.hm.matrix</groupId>
+        <groupId>io.osins.matrix</groupId>
         <artifactId>matrix-shared</artifactId>
         <version>0.0.1</version>
     </parent>
@@ -39,13 +39,13 @@
             </dependency>
 
             <dependency>
-                <groupId>club.hm.matrix</groupId>
+                <groupId>io.osins.matrix</groupId>
                 <artifactId>matrix-shared-cloud-discovery-server</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>club.hm.matrix</groupId>
+                <groupId>io.osins.matrix</groupId>
                 <artifactId>matrix-shared-cloud-discovery-client</artifactId>
                 <version>${project.version}</version>
             </dependency>

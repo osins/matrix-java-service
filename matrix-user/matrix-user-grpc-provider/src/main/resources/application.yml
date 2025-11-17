@@ -8,9 +8,21 @@ spring:
   main:
     web-application-type: none
   r2dbc:
-    url: r2dbc:postgresql://in-server.homemart.club:30432/matrix_db
-    username: tooljet
-    password: tKqNd7bvDXXpZTC34rL6
+    url: r2dbc:postgresql://127.0.0.1:35432/matrix_db
+    username: testuser
+    password: testpass
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 36379
+      password: test
+      timeout: 2000ms
+      jedis:
+        pool:
+          max-active: 8
+          max-wait: -1ms
+          max-idle: 8
+          min-idle: 0
   cloud:
     kubernetes:
       discovery:

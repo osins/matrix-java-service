@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 option java_multiple_files = true;
-option java_package = "club.hm.matrix.auth.grpc";
+option java_package = "io.osins.matrix.auth.grpc";
 option java_outer_classname = "UserAuthorityProto";
 
 import "google/protobuf/timestamp.proto";
@@ -87,14 +87,20 @@ message RolesList { repeated Role roles = 1; }
 // Data Transfer Objects
 message User {
   int64 id = 1;
-  string username = 2;
-  string password = 3;  // 用于创建/更新
-  bool enabled = 5;
-  repeated Role roles = 6;
+  string userId = 2;          // Matrix用户ID，格式为@username:domain
+  string username = 3;
+  string password = 4;        // 用于创建/更新
+  string email = 5;
+  string displayName = 6;
+  string avatarUrl = 7;
+  bool isActive = 8;
+  bool enabled = 9;
+  repeated Role roles = 10;
 
-  // 新增时间字段
-  google.protobuf.Timestamp createdAt = 7;
-  google.protobuf.Timestamp updatedAt = 8;
+  // 时间字段
+  google.protobuf.Timestamp createdAt = 11;
+  google.protobuf.Timestamp updatedAt = 12;
+  google.protobuf.Timestamp lastLoginAt = 13;
 }
 
 message Role {

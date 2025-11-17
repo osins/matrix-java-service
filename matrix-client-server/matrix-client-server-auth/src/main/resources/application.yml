@@ -1,5 +1,5 @@
 server:
-  port: 8008
+  port: 38090
 spring:
   application:
     name: club-hm-matrix-security
@@ -10,9 +10,9 @@ spring:
         enabled: false
   data:
     redis:
-      host: in-server.homemart.club
-      port: 30363
-      password: catadmin1 # 如果有密码
+      host: localhost
+      port: 36379
+      password: test # 如果有密码
 local:
   grpc:
     service-ports:
@@ -57,8 +57,15 @@ hm.security.jwt:
 # 日志配置
 logging:
   level:
-    club.hm.matrix: DEBUG
+    io.osins.matrix: DEBUG
     io.micrometer: DEBUG
-    org.springframework.web.reactive: DEBUG
-    reactor.netty: DEBUG
+    io.netty:
+      resolver: warn
+    org.springframework: warn
+    org:
+      redisson: ERROR
+      springframework:
+        web: warn
+        boot: warn
+    reactor.netty: warn
 

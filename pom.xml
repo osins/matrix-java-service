@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>club.hm.matrix</groupId>
+    <groupId>io.osins.matrix</groupId>
     <artifactId>matrix</artifactId>
     <version>0.0.1</version>
     <packaging>pom</packaging>
@@ -48,7 +48,7 @@
         <spring-authorization-server.version>1.5.1</spring-authorization-server.version>
         <spring-batch.version>5.2.2</spring-batch.version>
         <spring-data-bom.version>2025.0.2</spring-data-bom.version>
-        <spring-framework.version>6.2.9</spring-framework.version>
+        <spring-framework.version>6.2.10</spring-framework.version>
         <spring-graphql.version>1.4.1</spring-graphql.version>
         <spring-hateoas.version>2.5.1</spring-hateoas.version>
         <spring-integration.version>6.5.1</spring-integration.version>
@@ -66,7 +66,7 @@
         <build-helper-maven-plugin.version>3.4.0</build-helper-maven-plugin.version>
 
         <!-- 第三方依赖版本 -->
-        <lombok.version>1.18.38</lombok.version>
+        <lombok.version>1.18.42</lombok.version>
         <mapstruct.version>1.6.3</mapstruct.version>
         <guava.version>33.4.8-jre</guava.version>
         <r2dbc-postgresql.version>1.0.7.RELEASE</r2dbc-postgresql.version>
@@ -156,12 +156,6 @@
             </dependency>
 
             <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>1.18.38</version>
-            </dependency>
-
-            <dependency>
                 <groupId>io.projectreactor.netty</groupId>
                 <artifactId>reactor-netty-http</artifactId>
                 <version>1.2.8</version>
@@ -176,7 +170,7 @@
             </dependency>
 
             <dependency>
-                <groupId>club.hm.matrix</groupId>
+                <groupId>io.osins.matrix</groupId>
                 <artifactId>matrix-shared-grpc-dependencies</artifactId>
                 <version>0.0.1</version>
                 <scope>import</scope>
@@ -184,6 +178,26 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <dependencies>
+        <!-- Lombok - 所有子模块自动继承 -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+    </dependencies>
 
     <!-- 插件管理 -->
     <build>
@@ -211,6 +225,7 @@
                             <exclude>
                                 <groupId>org.projectlombok</groupId>
                                 <artifactId>lombok</artifactId>
+                                <scope>provided</scope>
                             </exclude>
                         </excludes>
                     </configuration>

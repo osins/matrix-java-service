@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>club.hm.matrix</groupId>
+        <groupId>io.osins.matrix</groupId>
         <artifactId>matrix</artifactId>
         <version>0.0.1</version>
     </parent>
@@ -32,6 +32,18 @@
             <artifactId>postgresql</artifactId>
             <version>42.7.7</version> <!-- 请根据需要选择最新版本 -->
         </dependency>
+
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-database-postgresql</artifactId>
+            <version>11.11.0</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -41,9 +53,9 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>${flyway.version}</version>
                 <configuration>
-                    <url>r2dbc:postgresql://in-server.homemart.club:30432/matrix_db</url>
-                    <user>tooljet</user>
-                    <password>tKqNd7bvDXXpZTC34rL6</password>
+                    <url>jdbc:postgresql://localhost:35432/matrix_db</url>
+                    <user>testuser</user>
+                    <password>testpass</password>
                 </configuration>
             </plugin>
         </plugins>

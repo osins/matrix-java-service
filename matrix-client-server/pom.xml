@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>club.hm.matrix</groupId>
+        <groupId>io.osins.matrix</groupId>
         <artifactId>matrix</artifactId>
         <version>0.0.1</version>
     </parent>
@@ -16,6 +16,7 @@
         <module>matrix-client-server-common</module>
         <module>matrix-client-server-auth</module>
         <module>matrix-client-server-api</module>
+        <module>matrix-client-server-admin</module>
     </modules>
 
     <properties>
@@ -28,7 +29,7 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>club.hm.matrix</groupId>
+                <groupId>io.osins.matrix</groupId>
                 <artifactId>matrix-shared-dependencies</artifactId>
                 <version>0.0.1</version>
                 <type>pom</type>
@@ -36,7 +37,7 @@
             </dependency>
 
             <dependency>
-                <groupId>club.hm.matrix</groupId>
+                <groupId>io.osins.matrix</groupId>
                 <artifactId>matrix-shared-grpc-dependencies</artifactId>
                 <version>0.0.1</version>
                 <type>pom</type>
@@ -44,7 +45,7 @@
             </dependency>
 
             <dependency>
-                <groupId>club.hm.matrix</groupId>
+                <groupId>io.osins.matrix</groupId>
                 <artifactId>matrix-auth-dependencies</artifactId>
                 <version>0.0.1</version>
                 <type>pom</type>
@@ -52,13 +53,13 @@
             </dependency>
 
             <dependency>
-                <groupId>club.hm.matrix</groupId>
+                <groupId>io.osins.matrix</groupId>
                 <artifactId>matrix-00-dependencies</artifactId>
                 <version>0.0.1</version>
             </dependency>
 
             <dependency>
-                <groupId>club.hm.matrix</groupId>
+                <groupId>io.osins.matrix</groupId>
                 <artifactId>matrix-client-dependencies</artifactId>
                 <version>0.0.1</version>
                 <type>pom</type>

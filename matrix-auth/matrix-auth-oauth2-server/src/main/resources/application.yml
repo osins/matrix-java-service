@@ -61,7 +61,7 @@ hm:
 logging:
   level:
     root: INFO
-    club.hm.matrix: DEBUG
+    io.osins.matrix: DEBUG
     io.micrometer: DEBUG
     org.springframework.web.reactive: DEBUG
     org.springframework.web.reactive.result.method.annotation: TRACE

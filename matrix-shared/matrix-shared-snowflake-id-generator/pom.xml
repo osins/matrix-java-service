@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>club.hm.matrix</groupId>
+        <groupId>io.osins.matrix</groupId>
         <artifactId>matrix-shared</artifactId>
         <version>0.0.1</version>
     </parent>
@@ -19,6 +19,12 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- Spring Context - 核心依赖注入功能 -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -44,13 +50,13 @@
         </dependency>
 
         <dependency>
-            <groupId>club.hm.matrix</groupId>
+            <groupId>io.osins.matrix</groupId>
             <artifactId>matrix-shared-test</artifactId>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>club.hm.matrix</groupId>
+            <groupId>io.osins.matrix</groupId>
             <artifactId>matrix-shared-logging</artifactId>
         </dependency>
     </dependencies>

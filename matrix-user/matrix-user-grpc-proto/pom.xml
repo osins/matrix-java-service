@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>club.hm.matrix</groupId>
+        <groupId>io.osins.matrix</groupId>
         <artifactId>matrix-user</artifactId>
         <version>0.0.1</version>
     </parent>
@@ -15,8 +15,13 @@
 
     <dependencies>
         <dependency>
-            <groupId>club.hm.matrix</groupId>
+            <groupId>io.osins.matrix</groupId>
             <artifactId>matrix-shared-grpc-base</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -29,8 +34,27 @@
         </extensions>
         <plugins>
             <plugin>
-                <groupId>org.xolstice.maven.plugins</groupId>
-                <artifactId>protobuf-maven-plugin</artifactId>
+                <groupId>io.osins.grpc</groupId>
+                <artifactId>osins-reactor-grpc-maven-plugin</artifactId>
+                <version>1.76.0.0</version>
+                <configuration>
+                    <packageName>io.osins.matrix.user.grpc.consumer.generated</packageName>
+                    <channelName>authGrpcChannel</channelName>
+                    <resolve>io.grpc:protoc-gen-grpc-java:osx-aarch_64:exe:1.76.0</resolve>
+                    <utilPath>/Users/shaoyingwang/works/codes/TaskMate/matrix/matrix-shared-grpc/matrix-shared-grpc-base/src/main/java/io/osins/matrix/shared/grpc/base/utils</utilPath>
+                    <source>/src/main/resources/grpc/proto</source>
+                    <outDesc>/grpc/desc</outDesc>
+                    <outProtobuf>/grpc/sources</outProtobuf>
+                    <outClient>${project.parent.basedir}/matrix-auth-grpc-consumer/src/main/java</outClient>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate-grpc-spring-beans</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
             <!-- 确保生成的代码被编译 -->
@@ -42,6 +66,21 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.basedir}/target/generated-sources/grpc/sources/java</source>
+                                <source>${project.basedir}/target/generated-sources/grpc/sources/grpc-java</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

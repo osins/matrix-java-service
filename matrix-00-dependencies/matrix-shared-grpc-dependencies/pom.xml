@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>club.hm.matrix</groupId>
+    <groupId>io.osins.matrix</groupId>
     <artifactId>matrix-shared-grpc-dependencies</artifactId>
     <packaging>pom</packaging>
     <version>0.0.1</version>
@@ -18,12 +18,17 @@
         <protobuf.version>4.33.0</protobuf.version>
         <protoc.version>4.33.0</protoc.version>
         <protobuf-maven-plugin.version>0.6.1</protobuf-maven-plugin.version>
+
+        <!-- 添加缺失的版本变量 -->
+        <lombok.version>1.18.42</lombok.version>
+        <mapstruct.version>1.6.3</mapstruct.version>
+        <guava.version>33.4.8-jre</guava.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>club.hm.matrix</groupId>
+                <groupId>io.osins.matrix</groupId>
                 <artifactId>matrix-shared-dependencies</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>
@@ -31,22 +36,32 @@
             </dependency>
 
             <dependency>
-                <groupId>club.hm.matrix</groupId>
+                <groupId>io.osins.matrix</groupId>
                 <artifactId>matrix-shared-grpc-base</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>club.hm.matrix</groupId>
+                <groupId>io.osins.matrix</groupId>
                 <artifactId>matrix-shared-grpc-client</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>club.hm.matrix</groupId>
+                <groupId>io.osins.matrix</groupId>
                 <artifactId>matrix-shared-grpc-server</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <dependencies>
+        <!-- 第三方依赖版本控制 -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 </project>

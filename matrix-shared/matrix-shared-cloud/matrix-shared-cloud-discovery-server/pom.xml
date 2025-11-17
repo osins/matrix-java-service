@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>club.hm.matrix</groupId>
+        <groupId>io.osins.matrix</groupId>
         <artifactId>matrix-shared-cloud</artifactId>
         <version>0.0.1</version>
     </parent>
@@ -22,7 +22,7 @@
     <dependencies>
 
         <dependency>
-            <groupId>club.hm.matrix</groupId>
+            <groupId>io.osins.matrix</groupId>
             <artifactId>matrix-shared-webflux</artifactId>
         </dependency>
 
@@ -44,6 +44,11 @@
             <artifactId>spring-cloud-starter-kubernetes-fabric8-all</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
 </project>

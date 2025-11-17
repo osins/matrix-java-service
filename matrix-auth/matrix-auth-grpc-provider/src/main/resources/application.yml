@@ -15,18 +15,18 @@ spring:
           app.kubernetes.io/part-of: matrix
   data:
     redis:
-      host: in-server.homemart.club
-      port: 30363
-      password: catadmin1 # 如果有密码
+      host: 127.0.0.1
+      port: 36379
+      password: test # 如果有密码
   r2dbc:
-    url: r2dbc:postgresql://in-server.homemart.club:30432/matrix_db
-    username: tooljet
-    password: tKqNd7bvDXXpZTC34rL6
+    url: r2dbc:postgresql://127.0.0.1:35432/matrix_db
+    username: testuser
+    password: testpass
     properties:
       schema: matrix
 logging:
   level:
-    club.hm.matrix: DEBUG
+    io.osins.matrix: DEBUG
     io.grpc: DEBUG
     org.springframework.data.r2dbc: DEBUG
     root: INFO

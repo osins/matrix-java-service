@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>club.hm.matrix</groupId>
+        <groupId>io.osins.matrix</groupId>
         <artifactId>matrix-auth</artifactId>
         <version>0.0.1</version>
     </parent>
@@ -20,13 +20,19 @@
 
     <dependencies>
         <dependency>
-            <groupId>club.hm.matrix</groupId>
+            <groupId>io.osins.matrix</groupId>
             <artifactId>matrix-shared-grpc-base</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>club.hm.matrix</groupId>
+            <groupId>io.osins.matrix</groupId>
             <artifactId>matrix-shared-grpc-client</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -43,10 +49,10 @@
                 <artifactId>osins-reactor-grpc-maven-plugin</artifactId>
                 <version>1.76.0.0</version>
                 <configuration>
-                    <packageName>club.hm.matrix.auth.grpc.consumer.generated</packageName>
+                    <packageName>io.osins.matrix.auth.grpc.consumer.generated</packageName>
                     <channelName>authGrpcChannel</channelName>
                     <resolve>io.grpc:protoc-gen-grpc-java:osx-aarch_64:exe:1.76.0</resolve>
-                    <utilPath>/Users/shaoyingwang/works/codes/TaskMate/matrix/matrix-shared-grpc/matrix-shared-grpc-base/src/main/java/club/hm/matrix/shared/grpc/base/utils</utilPath>
+                    <utilPath>/Users/shaoyingwang/works/codes/TaskMate/matrix/matrix-shared-grpc/matrix-shared-grpc-base/src/main/java/io/osins/matrix/shared/grpc/base/utils</utilPath>
                     <source>/src/main/resources/grpc/proto</source>
                     <outDesc>/grpc/desc</outDesc>
                     <outProtobuf>/grpc/sources</outProtobuf>
