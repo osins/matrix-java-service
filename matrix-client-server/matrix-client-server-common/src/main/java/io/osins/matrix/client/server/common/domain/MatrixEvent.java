@@ -3,6 +3,7 @@ package io.osins.matrix.client.server.common.domain;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
@@ -43,9 +44,11 @@ public class MatrixEvent<T> {
     private T content;
 
     /** 非签名字段 */
+    @Builder.Default
     private Map<String, Object> unsigned = new HashMap<>();
 
     /** 其他未知字段 */
+    @Builder.Default
     private Map<String, Object> extra = new HashMap<>();
 
     @JsonAnySetter
