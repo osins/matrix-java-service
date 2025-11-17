@@ -18,16 +18,7 @@ import static io.osins.shared.common.log.MDCContext.REQUEST_ID_KEY;
 
 @Slf4j
 @Component
-@Order(Ordered.HIGHEST_PRECEDENCE)
-public class RequestIdWebFilter implements WebFilter {
-
-    @Override
-    public @NonNull Mono<Void> filter(@NonNull ServerWebExchange exchange, @NonNull WebFilterChain chain) {
-        log.debug("RequestIdWebFilter, request id: {}", RequestIdWebFilter.getRequestId(exchange));
-
-        return chain.filter(exchange);
-    }
-
+public class RequestIdWebFilter{
     public static String getRequestId(ServerWebExchange exchange) {
         return Optional.ofNullable(exchange.getAttributes().get(REQUEST_ID_KEY))
                 .map(Object::toString)
