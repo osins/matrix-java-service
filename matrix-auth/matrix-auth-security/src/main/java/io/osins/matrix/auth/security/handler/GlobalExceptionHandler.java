@@ -1,7 +1,7 @@
 package io.osins.matrix.auth.security.handler;
 
 import io.osins.shared.common.log.MDCContext;
-import io.osins.matrix.auth.security.filter.RequestIdWebFilter;
+import io.osins.matrix.auth.security.filter.RequestIdUtils;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
@@ -23,7 +23,7 @@ public class GlobalExceptionHandler implements WebExceptionHandler {
     public @NonNull Mono<Void> handle(@NonNull ServerWebExchange exchange, @NonNull Throwable ex) {
         return MDCContext.withMDC(Mono.deferContextual(ctx -> {
             // 直接从 exchange attributes 获取 requestId
-            var requestId = RequestIdWebFilter.getRequestId(exchange);
+            var requestId = RequestIdUtils.getRequestId(exchange);
             if (requestId == null) {
                 requestId = "N/A";
             }

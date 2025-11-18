@@ -39,6 +39,7 @@ message LoadUsersByIdsRequest { repeated int64 user_ids = 1; }
 message CreateUserRequest {
   string username = 1;
   string password = 2;  // 用于创建/更新
+  string userId = 3;
 }
 
 message UpdateUserRequest { int64 user_id = 1; User user = 2; }

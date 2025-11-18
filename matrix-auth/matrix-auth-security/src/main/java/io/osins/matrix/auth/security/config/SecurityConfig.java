@@ -5,7 +5,7 @@ import io.osins.matrix.auth.security.converter.CustomServerAuthenticationConvert
 import io.osins.matrix.auth.security.converter.JwtCustomizer;
 import io.osins.matrix.auth.security.filter.CustomAuthenticationWebFilter;
 import io.osins.matrix.auth.security.filter.CustomServerAuthenticationFailureHandler;
-import io.osins.matrix.auth.security.filter.RequestIdWebFilter;
+import io.osins.matrix.auth.security.filter.RequestIdUtils;
 import io.osins.matrix.auth.security.handler.CustomAuthenticationSuccessHandler;
 import io.osins.matrix.auth.security.handler.CustomServerAccessDeniedHandler;
 import io.osins.matrix.auth.security.handler.BearerTokenAuthenticationEntryPoint;
@@ -83,7 +83,6 @@ public class SecurityConfig {
                 .oauth2ResourceServer(oauth2-> oauth2
                         .authenticationEntryPoint(entryPoint)
                         .jwt(customizer))
-                .addFilterBefore(new RequestIdWebFilter(), SecurityWebFiltersOrder.FIRST)
                 // 添加JWT认证过滤器
                 .addFilterBefore(jwtAuthenticationWebFilter(authenticationManager, converter, successHandler, failureHandler), SecurityWebFiltersOrder.AUTHENTICATION)
                 .build();
@@ -100,11 +99,6 @@ public class SecurityConfig {
         authenticationWebFilter.setAuthenticationFailureHandler(failureHandler);
         return authenticationWebFilter;
     }
-
-//    @Bean
-//    public AuthorizationWebFilter authorizationWebFilter(CustomReactiveAuthorizationManager manager) {
-//        return new CustomAuthorizationWebFilter(manager);
-//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

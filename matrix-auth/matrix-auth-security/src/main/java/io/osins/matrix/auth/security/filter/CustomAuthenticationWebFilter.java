@@ -20,30 +20,9 @@ public class CustomAuthenticationWebFilter extends AuthenticationWebFilter imple
 
     @Override
     public @NonNull Mono<Void> filter(@NonNull ServerWebExchange exchange, @NonNull WebFilterChain chain) {
-        var requestId = RequestIdWebFilter.getRequestId(exchange);
+        var requestId = io.osins.matrix.auth.security.filter.RequestIdUtils.getRequestId(exchange);
 
         log.debug("CustomAuthenticationWebFilter, request id: {}", requestId);
-
-        // 可选：添加必要的 CORS 响应头
-        var headers = exchange.getResponse().getHeaders();
-        if (!headers.containsKey("Access-Control-Allow-Origin")) {
-            headers.add("Access-Control-Allow-Origin", "*");
-        }
-
-        if (!headers.containsKey("Access-Control-Allow-Methods")) {
-            headers.add("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-        }
-
-        if (!headers.containsKey("Access-Control-Allow-Headers")) {
-            headers.add("Access-Control-Allow-Headers", "*");
-        }
-
-        // 如果是 OPTIONS 请求，直接返回 200
-        if (HttpMethod.OPTIONS.equals(exchange.getRequest().getMethod())) {
-            exchange.getResponse().setStatusCode(org.springframework.http.HttpStatus.OK);
-
-            return exchange.getResponse().setComplete();
-        }
 
         return super.filter(exchange, chain)
                 .contextWrite(Context.of(

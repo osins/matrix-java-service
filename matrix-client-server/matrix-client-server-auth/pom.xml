@@ -36,5 +36,16 @@
             <groupId>io.osins.matrix</groupId>
             <artifactId>matrix-auth-security</artifactId>
         </dependency>
+
+        <!-- Spring Session Redis 支持 -->
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-data-redis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.osins.matrix</groupId>
+            <artifactId>matrix-client-server-data</artifactId>
+        </dependency>
     </dependencies>
 </project>

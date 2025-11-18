@@ -1,7 +1,7 @@
 package io.osins.matrix.client.server.auth.controller;
 
 import io.osins.matrix.auth.security.domain.CustomPrincipal;
-import io.osins.matrix.auth.security.filter.RequestIdWebFilter;
+import io.osins.matrix.auth.security.filter.RequestIdUtils;
 import io.osins.matrix.client.server.auth.service.SyncService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +33,7 @@ public class SyncV3Controller {
             @RequestParam(value = "set_presence", defaultValue = "online") String setPresence)
     {
         return principalMono.flatMap(principal->{
-            log.debug("getSync, request id: {}, user: {}", RequestIdWebFilter.getRequestId(exchange), principal.getUsername());
+            log.debug("getSync, request id: {}, user: {}", RequestIdUtils.getRequestId(exchange), principal.getUsername());
             log.debug("authorities: {}", principal.getAuthorities());
 
             return syncService.getSync(principal, since, timeout, fullState, filter);
