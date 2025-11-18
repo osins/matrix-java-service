@@ -20,6 +20,7 @@ public class UserAuthorityGrpcConverter {
 
         var builder = User.newBuilder()
                 .setId(userDTO.getId() != null ? userDTO.getId() : 0)
+                .setUserId(userDTO.getUserId() != null ? userDTO.getUserId() : "")
                 .setUsername(userDTO.getUsername() != null ? userDTO.getUsername() : "")
                 .setPassword(userDTO.getPassword() != null ? userDTO.getPassword() : "")
                 .setEnabled(userDTO.getEnabled() != null ? userDTO.getEnabled() : false);
@@ -59,6 +60,7 @@ public class UserAuthorityGrpcConverter {
         if (request == null) return null;
 
         return UserDTO.builder()
+                .userId(request.getUserId())
                 .username(request.getUsername())
                 .password(request.getPassword())
                 .build();
