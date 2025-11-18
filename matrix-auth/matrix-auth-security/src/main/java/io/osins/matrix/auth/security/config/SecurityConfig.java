@@ -68,9 +68,13 @@ public class SecurityConfig {
                 .authorizeExchange(exchanges -> exchanges
                         // 公开端点
                         .pathMatchers(HttpMethod.OPTIONS).permitAll()
-                        .pathMatchers("/actuator/health", "/actuator/info").permitAll()
-                        .pathMatchers("/_matrix/client/v3/register", "/auth/register").permitAll()
-                        .pathMatchers("/api/public/**").permitAll()
+                        .pathMatchers(
+                                "/actuator/health",
+                                "/actuator/info",
+                                "/_matrix/client/v3/register",
+                                "/auth/register",
+                                "/_matrix/client/v3/thirdparty/protocols",
+                                "/api/public/**").permitAll()
                         // API端点需要认证
                         .pathMatchers("/api/**").authenticated()
                         // 管理端点需要管理员权限

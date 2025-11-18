@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Matrix 第三方协议列表响应",
+  "description": "用于校验 GET /_matrix/client/v3/thirdparty/protocols 的响应结构",
+  "type": "object",
+
+  "additionalProperties": {
+    "type": "object",
+    "description": "单个第三方协议的定义（如 irc、telegram 等）",
+
+    "properties": {
+      "user_fields": {
+        "type": "object",
+        "description": "用于标识第三方协议中的用户所需的字段定义",
+        "additionalProperties": {
+          "type": "string",
+          "description": "字段的中文描述"
+        }
+      },
+
+      "location_fields": {
+        "type": "object",
+        "description": "用于标识第三方协议中的位置（如房间、频道）的字段定义",
+        "additionalProperties": {
+          "type": "string",
+          "description": "字段的中文描述"
+        }
+      },
+
+      "field_types": {
+        "type": "object",
+        "description": "可选字段类型声明，用于描述各字段的数据类型",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "description": "数据类型，例如 string、number、boolean 等"
+            }
+          },
+          "required": ["type"],
+          "additionalProperties": true
+        }
+      },
+
+      "instances": {
+        "type": "array",
+        "description": "该协议的实例列表，例如不同的网络、不同的服务器等",
+        "items": {
+          "type": "object",
+          "properties": {
+            "desc": {
+              "type": "string",
+              "description": "对该实例的人类可读描述"
+            },
+            "fields": {
+              "type": "object",
+              "description": "实例所包含的字段值，例如服务器地址、默认频道等",
+              "additionalProperties": {
+                "type": ["string", "number", "boolean"],
+                "description": "字段对应的具体值"
+              }
+            }
+          },
+          "required": ["fields"],
+          "additionalProperties": false
+        }
+      },
+
+      "icon": {
+        "type": "string",
+        "description": "可选字段，该协议的图标 URL，用于界面展示"
+      }
+    },
+
+    "required": [],
+    "additionalProperties": false
+  }
+}
